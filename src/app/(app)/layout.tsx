@@ -1,7 +1,6 @@
+import { MainSidebar } from "@/components/layouts/sidebar";
+import { SidebarMenuList } from "@/components/layouts/sidebar/list";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { SiteHeader } from "./_components/header";
-import { MainSidebar } from "./_components/sidebar";
-
 export default function AppLayout({
   children,
 }: Readonly<{
@@ -10,10 +9,9 @@ export default function AppLayout({
   return (
     <SidebarProvider>
       <div className="flex w-full gap-1">
-        <MainSidebar />
-        <div className="container relative flex min-h-dvh w-full flex-col">
-          <SiteHeader />
-          <main className="overflow-y-auto bg-muted/10 px-10 py-5">{children}</main>
+        <MainSidebar menu={SidebarMenuList} />
+        <div className="container flex min-h-dvh w-full flex-col">
+          <div className="relative overflow-y-auto bg-muted/10">{children}</div>
         </div>
       </div>
     </SidebarProvider>

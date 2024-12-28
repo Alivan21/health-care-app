@@ -1,40 +1,29 @@
 "use client";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { PageBreadcrumbProps, PageBreadcrumbs } from "@/components/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Bell, Settings } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export function SiteHeader() {
+interface PageHeaderProps {
+  breadcrumbs?: PageBreadcrumbProps[];
+}
+
+export function PageHeader({ breadcrumbs = [] }: PageHeaderProps) {
+  const router = useRouter();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
           <Button asChild size="icon" variant="ghost">
-            <Link href="/dashboard">
+            <Link href="#" onClick={() => router.back()}>
               <ArrowLeft className="size-4" />
-              <span className="sr-only">Back to dashboard</span>
+              <span className="sr-only">Go back</span>
             </Link>
           </Button>
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>All Queue</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <PageBreadcrumbs items={breadcrumbs} />
         </div>
         <div className="flex flex-1 items-center justify-end gap-4">
           <div className="w-64">
