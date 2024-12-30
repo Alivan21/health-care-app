@@ -1,10 +1,12 @@
 "use client";
+import MedicalCard from "@/components/cards/medical-card";
 import { PageHeader } from "@/components/layouts/header";
 import MainContainer from "@/components/layouts/main-container";
 import Title from "@/components/layouts/title";
 import { SegmentedControl } from "@/components/switch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -66,7 +68,7 @@ export default function ReferralsPage() {
     <>
       <PageHeader breadcrumbs={breadcrumbs} />
       <MainContainer className="flex flex-col !p-0">
-        <section className="flex flex-col gap-4 bg-white px-8 py-6">
+        <section className="flex !w-auto flex-col gap-4 bg-white px-8 py-6">
           <Title description="Lorem ipsum dolor sit amet consectetur" title="Referrals" />
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -115,9 +117,80 @@ export default function ReferralsPage() {
             </div>
           </div>
         </section>
-        <section className="px-8 py-6">
-          <h1>This is canban section</h1>
-        </section>
+        <ScrollArea className="w-full">
+          <section className="flex gap-4 px-8 py-6">
+            <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
+              <div className="sticky top-0 flex gap-2 bg-secondary p-2">
+                <span className="w-1.5 rounded-lg bg-gray-500" />
+                <div className="space-x-2">
+                  <span>New</span>
+                  <Badge className="rounded-lg px-1.5">3</Badge>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-2">
+                <MedicalCard />
+                <MedicalCard />
+                <MedicalCard />
+              </div>
+            </ScrollArea>
+            <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
+              <div className="sticky top-0 flex gap-2 bg-secondary p-2">
+                <span className="w-1.5 rounded-lg bg-yellow-300" />
+                <div className="space-x-2">
+                  <span>Pending</span>
+                  <Badge className="rounded-lg px-1.5">2</Badge>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-2">
+                <MedicalCard />
+                <MedicalCard />
+              </div>
+            </ScrollArea>
+            <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
+              <div className="sticky top-0 flex gap-2 bg-secondary p-2">
+                <span className="w-1.5 rounded-lg bg-primary" />
+                <div className="space-x-2">
+                  <span>Approve</span>
+                  <Badge className="rounded-lg px-1.5">3</Badge>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-2">
+                <MedicalCard />
+                <MedicalCard />
+                <MedicalCard />
+              </div>
+            </ScrollArea>
+            <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
+              <div className="sticky top-0 flex gap-2 bg-secondary p-2">
+                <span className="w-1.5 rounded-lg bg-green-500" />
+                <div className="space-x-2">
+                  <span>Complete</span>
+                  <Badge className="rounded-lg px-1.5">4</Badge>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-2">
+                <MedicalCard />
+                <MedicalCard />
+                <MedicalCard />
+                <MedicalCard />
+              </div>
+            </ScrollArea>
+            <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
+              <div className="sticky top-0 flex gap-2 bg-secondary p-2">
+                <span className="w-1.5 rounded-lg bg-destructive" />
+                <div className="space-x-2">
+                  <span>Denied</span>
+                  <Badge className="rounded-lg px-1.5">3</Badge>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-2">
+                <MedicalCard />
+                <MedicalCard />
+                <MedicalCard />
+              </div>
+            </ScrollArea>
+          </section>
+        </ScrollArea>
       </MainContainer>
     </>
   );

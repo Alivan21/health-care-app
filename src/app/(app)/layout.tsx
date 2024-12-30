@@ -1,5 +1,6 @@
 import { MainSidebar } from "@/components/layouts/sidebar";
 import { SidebarMenuList } from "@/components/layouts/sidebar/list";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarProvider } from "@/components/ui/sidebar";
 export default function AppLayout({
   children,
@@ -8,9 +9,12 @@ export default function AppLayout({
 }>) {
   return (
     <SidebarProvider>
-      <div className="flex w-full gap-1">
+      <div className="flex w-full">
         <MainSidebar menu={SidebarMenuList} />
-        <div className="flex min-h-dvh w-full flex-col">
+        <ScrollArea
+          className="flex max-h-dvh flex-col !overflow-x-auto"
+          viewportClassName="[&>div]:!block"
+        >
           <div
             className="relative grow overflow-auto"
             style={{
@@ -21,7 +25,7 @@ export default function AppLayout({
           >
             {children}
           </div>
-        </div>
+        </ScrollArea>
       </div>
     </SidebarProvider>
   );
