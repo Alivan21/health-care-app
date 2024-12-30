@@ -17,7 +17,7 @@ export const SidebarMenuList: MenuSection[] = [
       {
         title: "Dashboard",
         icon: <LayoutDashboard className="size-4" />,
-        href: "/dashboard",
+        href: "/",
       },
       {
         title: "Referrals",

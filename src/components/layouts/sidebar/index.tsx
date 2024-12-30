@@ -17,6 +17,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function CollapseButton() {
   const { toggleSidebar, state } = useSidebar();
@@ -48,6 +50,7 @@ export interface MenuSection {
 }
 
 export function MainSidebar({ menu }: { menu: MenuSection[] }) {
+  const pathname = usePathname();
   const { state } = useSidebar();
 
   return (
@@ -82,17 +85,31 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
               <SidebarMenu>
                 {section.items.map((item, itemIndex) => (
                   <SidebarMenuItem key={itemIndex}>
-                    <SidebarMenuButton tooltip={item.tooltip || item.title}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                      {item.badge ? (
-                        <Badge
-                          className="ml-auto size-5 justify-center rounded-md px-0"
-                          variant="destructive"
-                        >
-                          {item.badge}
-                        </Badge>
-                      ) : null}
+                    <SidebarMenuButton
+                      asChild
+                      className={
+                        pathname === item.href
+                          ? "pointer-events-none bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))]"
+                          : "hover:bg-accent hover:text-sidebar-accent-foreground"
+                      }
+                      disabled={pathname === item.href}
+                      tooltip={item.tooltip || item.title}
+                    >
+                      <Link
+                        className={pathname === item.href ? "cursor-default" : "cursor-pointer"}
+                        href={item.href || "#"}
+                      >
+                        {item.icon}
+                        <span>{item.title}</span>
+                        {item.badge ? (
+                          <Badge
+                            className="ml-auto size-5 justify-center rounded-md px-0"
+                            variant="destructive"
+                          >
+                            {item.badge}
+                          </Badge>
+                        ) : null}
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

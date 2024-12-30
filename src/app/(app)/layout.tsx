@@ -10,8 +10,17 @@ export default function AppLayout({
     <SidebarProvider>
       <div className="flex w-full gap-1">
         <MainSidebar menu={SidebarMenuList} />
-        <div className="container flex min-h-dvh w-full flex-col">
-          <div className="relative overflow-y-auto bg-muted/10">{children}</div>
+        <div className="flex min-h-dvh w-full flex-col">
+          <div
+            className="relative grow overflow-auto"
+            style={{
+              backgroundColor: "white",
+              backgroundImage: "radial-gradient(circle, #E5E7EB 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </SidebarProvider>
