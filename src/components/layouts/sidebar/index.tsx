@@ -59,7 +59,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
       <SidebarHeader className="border-b p-4">
         <div className="flex items-center gap-3 px-2">
           <Avatar className="size-8">
-            <AvatarImage src="/placeholder.svg" />
+            <AvatarImage src="/img/user-profile-1.svg" />
             <AvatarFallback>NB</AvatarFallback>
           </Avatar>
           {state === "expanded" ? (

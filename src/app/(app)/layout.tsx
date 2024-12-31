@@ -12,7 +12,7 @@ export default function AppLayout({
       <div className="flex w-full">
         <MainSidebar menu={SidebarMenuList} />
         <ScrollArea
-          className="flex max-h-dvh flex-col !overflow-x-auto"
+          className="flex max-h-dvh w-full flex-col !overflow-x-auto"
           viewportClassName="[&>div]:!block"
         >
           <div

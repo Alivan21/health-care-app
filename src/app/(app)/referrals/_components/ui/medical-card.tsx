@@ -1,12 +1,18 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import StatusBadge from "@/components/badge/status-badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { User2 } from "lucide-react";
-import StatusBadge from "../badge/status-badge";
-import { Button } from "../ui/button";
 
-export default function MedicalCard() {
+interface Props {
+  onCardClick?: () => void;
+  onUserClick?: () => void;
+  isAssigned?: boolean;
+}
+
+export default function MedicalCard({ onCardClick, onUserClick, isAssigned }: Props) {
   return (
-    <Card className="w-full min-w-64 max-w-64 p-4">
+    <Card className="w-full min-w-64 max-w-64 cursor-pointer p-4" onClick={onCardClick}>
       <div className="mb-4 flex items-start justify-between">
         <div>
           <StatusBadge status="STAT" />
@@ -35,9 +41,26 @@ export default function MedicalCard() {
         </div>
       </CardContent>
       <div className="mt-4">
-        <Button className="size-7 rounded-full" size="icon" variant="primaryOutline">
-          <User2 className="!size-5" />
-        </Button>
+        {isAssigned ? (
+          <Button size="icon" variant="link">
+            <Avatar className="size-8">
+              <AvatarImage src="/img/user-profile-1.svg" />
+              <AvatarFallback>NB</AvatarFallback>
+            </Avatar>
+          </Button>
+        ) : (
+          <Button
+            className="z-10 size-7 rounded-full"
+            onClick={e => {
+              e.stopPropagation();
+              onUserClick?.();
+            }}
+            size="icon"
+            variant="primaryOutline"
+          >
+            <User2 className="!size-5" />
+          </Button>
+        )}
       </div>
     </Card>
   );
