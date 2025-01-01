@@ -8,13 +8,30 @@ import MedicalCard from "../ui/medical-card";
 
 export default function KanbanReferral() {
   const [open, setOpen] = useState(false);
+  const [openComplete, setOpenComplete] = useState(false);
+  const [openDenied, setOpenDenied] = useState(false);
 
   const handleOpenDrawer = () => {
     setOpen(true);
   };
+
+  const handleOpenCompleteDrawer = () => {
+    setOpenComplete(true);
+  };
+
+  const handleOpenDeniedDrawer = () => {
+    setOpenDenied(true);
+  };
   return (
     <>
       <ReferralDrawer onClose={() => setOpen(false)} open={open} />
+      <ReferralDrawer
+        isApproved
+        isAssigned
+        onClose={() => setOpenComplete(false)}
+        open={openComplete}
+      />
+      <ReferralDrawer isAssigned isDenied onClose={() => setOpenDenied(false)} open={openDenied} />
       <ScrollArea className="w-full">
         <section className="flex gap-4 px-8 py-6">
           <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
@@ -53,9 +70,9 @@ export default function KanbanReferral() {
               </div>
             </div>
             <div className="flex flex-col gap-2 p-2">
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
             </div>
           </ScrollArea>
           <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
@@ -67,10 +84,10 @@ export default function KanbanReferral() {
               </div>
             </div>
             <div className="flex flex-col gap-2 p-2">
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenCompleteDrawer} />
             </div>
           </ScrollArea>
           <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">
@@ -82,9 +99,9 @@ export default function KanbanReferral() {
               </div>
             </div>
             <div className="flex flex-col gap-2 p-2">
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard isAssigned onCardClick={handleOpenDrawer} />
-              <MedicalCard onCardClick={handleOpenDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenDeniedDrawer} />
+              <MedicalCard isAssigned onCardClick={handleOpenDeniedDrawer} />
+              <MedicalCard onCardClick={handleOpenDeniedDrawer} />
             </div>
           </ScrollArea>
         </section>

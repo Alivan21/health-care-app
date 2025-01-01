@@ -14,8 +14,10 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import {
+  Ban,
   Building2,
   Calendar,
+  CheckCheck,
   ClipboardList,
   Link,
   Stethoscope,
@@ -26,14 +28,17 @@ import {
 } from "lucide-react";
 import StatusBadge from "../badge/status-badge";
 import { ScrollArea } from "../ui/scroll-area";
+import TabsSection from "./tabs";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   isAssigned?: boolean;
+  isApproved?: boolean;
+  isDenied?: boolean;
 }
 
-export default function ReferralDrawer({ open, onClose, isAssigned }: Props) {
+export default function ReferralDrawer({ open, onClose, isAssigned, isApproved, isDenied }: Props) {
   return (
     <Sheet onOpenChange={onClose} open={open}>
       <SheetContent className="flex w-full !max-w-lg flex-col rounded-l-lg p-0">
@@ -45,7 +50,10 @@ export default function ReferralDrawer({ open, onClose, isAssigned }: Props) {
           <div className="space-y-2">
             <div className="flex items-center gap-4">
               <StatusBadge status="ROUTINE" />
-              <StatusBadge status="URGENT" text="Pending" />
+              {(isApproved && <StatusBadge status="SUCCESS" text="Approved" />) ||
+                (isDenied && <StatusBadge status="STAT" text="Denied" />) || (
+                  <StatusBadge status="URGENT" text="Pending" />
+                )}
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Request ID: 20102351</span>
@@ -193,7 +201,7 @@ export default function ReferralDrawer({ open, onClose, isAssigned }: Props) {
                 </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem className="!border-b-0" value="service">
+            <AccordionItem value="service">
               <AccordionTrigger>
                 <span className="flex items-center gap-2">Service Information</span>
               </AccordionTrigger>
@@ -229,14 +237,29 @@ export default function ReferralDrawer({ open, onClose, isAssigned }: Props) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+          <TabsSection />
         </ScrollArea>
         <div className="border-t px-6 py-3">
-          <div className="flex gap-4">
-            <Button className="flex-1" variant="outline">
-              Schedule
-            </Button>
-            <Button className="flex-1">Request Approval</Button>
-          </div>
+          {isDenied ? (
+            <div className="mx-auto flex items-center justify-center gap-2 text-destructive">
+              <Ban />
+              <span>Denied 1 hour ago</span>
+            </div>
+          ) : (
+            <div className="flex gap-4">
+              <Button className="flex-1" variant="outline">
+                Schedule
+              </Button>
+              {isApproved ? (
+                <div className="flex items-center gap-2 text-green-500">
+                  <CheckCheck />
+                  <span>Submitted 1 hour ago</span>
+                </div>
+              ) : (
+                <Button className="flex-1">Request Approval</Button>
+              )}
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>
