@@ -33,12 +33,20 @@ import TabsSection from "./tabs";
 interface Props {
   open: boolean;
   onClose: () => void;
+  onClickApproval?: () => void;
   isAssigned?: boolean;
   isApproved?: boolean;
   isDenied?: boolean;
 }
 
-export default function ReferralDrawer({ open, onClose, isAssigned, isApproved, isDenied }: Props) {
+export default function ReferralDrawer({
+  open,
+  onClose,
+  onClickApproval,
+  isAssigned,
+  isApproved,
+  isDenied,
+}: Props) {
   return (
     <Sheet onOpenChange={onClose} open={open}>
       <SheetContent className="flex w-full !max-w-lg flex-col rounded-l-lg p-0">
@@ -256,7 +264,9 @@ export default function ReferralDrawer({ open, onClose, isAssigned, isApproved, 
                   <span>Submitted 1 hour ago</span>
                 </div>
               ) : (
-                <Button className="flex-1">Request Approval</Button>
+                <Button className="flex-1" onClick={onClickApproval}>
+                  Request Approval
+                </Button>
               )}
             </div>
           )}

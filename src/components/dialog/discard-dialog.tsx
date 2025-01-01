@@ -12,12 +12,12 @@ import { AlertCircle } from "lucide-react";
 
 interface Props {
   open: boolean;
-  onClose: () => void;
+  onClose: (confirmed?: boolean) => void;
 }
 
 export default function DiscardDialog({ open, onClose }: Props) {
   return (
-    <AlertDialog onOpenChange={onClose} open={open}>
+    <AlertDialog onOpenChange={() => onClose(false)} open={open}>
       <AlertDialogContent className="max-w-[400px]">
         <div className="mb-4 flex justify-center">
           <div className="flex size-12 items-center justify-center rounded-full bg-orange-50">
@@ -33,8 +33,13 @@ export default function DiscardDialog({ open, onClose }: Props) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="mt-2 flex gap-3">
-          <AlertDialogCancel className="m-0 flex-1">Cancel</AlertDialogCancel>
-          <AlertDialogAction className="m-0 flex-1 bg-blue-600 hover:bg-blue-700">
+          <AlertDialogCancel className="m-0 flex-1" onClick={() => onClose(false)}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="m-0 flex-1 bg-blue-600 hover:bg-blue-700"
+            onClick={() => onClose(true)}
+          >
             Yes
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -1,5 +1,6 @@
 "use client";
 
+import RequestApprovalDialog from "@/components/dialog/approval";
 import ReferralDrawer from "@/components/drawer/referral";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,6 +11,7 @@ export default function KanbanReferral() {
   const [open, setOpen] = useState(false);
   const [openComplete, setOpenComplete] = useState(false);
   const [openDenied, setOpenDenied] = useState(false);
+  const [openApprovalDialog, setOpenApprovalDialog] = useState(false);
 
   const handleOpenDrawer = () => {
     setOpen(true);
@@ -22,16 +24,36 @@ export default function KanbanReferral() {
   const handleOpenDeniedDrawer = () => {
     setOpenDenied(true);
   };
+
+  const handleOpenApproval = () => {
+    setOpenApprovalDialog(true);
+  };
+
   return (
     <>
-      <ReferralDrawer onClose={() => setOpen(false)} open={open} />
+      <ReferralDrawer
+        onClickApproval={handleOpenApproval}
+        onClose={() => setOpen(false)}
+        open={open}
+      />
       <ReferralDrawer
         isApproved
         isAssigned
+        onClickApproval={handleOpenApproval}
         onClose={() => setOpenComplete(false)}
         open={openComplete}
       />
-      <ReferralDrawer isAssigned isDenied onClose={() => setOpenDenied(false)} open={openDenied} />
+      <ReferralDrawer
+        isAssigned
+        isDenied
+        onClickApproval={handleOpenApproval}
+        onClose={() => setOpenDenied(false)}
+        open={openDenied}
+      />
+      <RequestApprovalDialog
+        onClose={() => setOpenApprovalDialog(false)}
+        open={openApprovalDialog}
+      />
       <ScrollArea className="w-full">
         <section className="flex gap-4 px-8 py-6">
           <ScrollArea className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary">

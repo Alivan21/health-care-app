@@ -30,7 +30,6 @@ export function FileList() {
     <div className="space-y-3">
       <FileItem name="Document1.pdf" size="500kb" />
       <FileItem name="Document1.pdf" size="500kb" />
-      <FileItem name="Document1.pdf" size="500kb" />
     </div>
   );
 }
