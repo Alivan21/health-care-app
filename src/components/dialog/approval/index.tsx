@@ -14,7 +14,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MoreVertical, X } from "lucide-react";
 import { useState } from "react";
 import DiscardDialog from "../discard-dialog";
+import { AttachmentDocument } from "./tabs/attachment-document";
 import ProcedureCodeSelector from "./tabs/prosedure-code";
+import RenderingProviderSelect from "./tabs/rendering-provider";
 
 interface Props {
   open?: boolean;
@@ -54,7 +56,7 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
   return (
     <>
       <Dialog onOpenChange={handleClose} open={open}>
-        <DialogContent className="max-w-3xl" showClose={false}>
+        <DialogContent className="max-w-3xl p-3" showClose={false}>
           <DialogHeader className="flex flex-row items-center justify-between space-y-0 px-2">
             <div className="flex items-center gap-2">
               <DialogClose asChild>
@@ -112,12 +114,12 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
                 <ProcedureCodeSelector />
               </TabsContent>
 
-              <TabsContent className="border-0 p-0" value="provider">
-                {/* Provider content will go here */}
+              <TabsContent className="border-0 p-0" value="rendering">
+                <RenderingProviderSelect />
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="attachment">
-                {/* Attachment content will go here */}
+                <AttachmentDocument />
               </TabsContent>
             </Tabs>
           </ScrollArea>
@@ -125,13 +127,17 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
             <Button disabled={activeTab === tabs[0]} onClick={handleBack} variant="outline">
               Back
             </Button>
-            <Button
-              disabled={activeTab === tabs[tabs.length - 1]}
-              onClick={handleNext}
-              variant="default"
-            >
-              Next
-            </Button>
+            {activeTab === tabs[tabs.length - 1] ? (
+              <Button variant="default">Review</Button>
+            ) : (
+              <Button
+                disabled={activeTab === tabs[tabs.length - 1]}
+                onClick={handleNext}
+                variant="default"
+              >
+                Next
+              </Button>
+            )}
           </div>
         </DialogContent>
       </Dialog>
