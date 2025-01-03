@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MoreVertical, X } from "lucide-react";
 import { useState } from "react";
 import DiscardDialog from "../discard-dialog";
+import SuccessDialog from "../success-dialog";
 import { AttachmentDocument } from "./tabs/attachment-document";
 import ProcedureCodeSelector from "./tabs/prosedure-code";
 import RenderingProviderSelect from "./tabs/rendering-provider";
@@ -27,6 +28,7 @@ interface Props {
 export default function RequestApprovalDialog({ open, onClose }: Props) {
   const [activeTab, setActiveTab] = useState("procedure");
   const [showDiscardDialog, setShowDiscardDialog] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const tabs = ["procedure", "rendering", "attachment", "review"];
 
@@ -58,6 +60,12 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
       onClose?.(false);
     }
   };
+
+  const handleSuccessDialog = () => {
+    setShowSuccessDialog(!showSuccessDialog);
+    onClose?.(false);
+  };
+
   return (
     <>
       <Dialog onOpenChange={handleClose} open={open}>
@@ -139,7 +147,9 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
               Back
             </Button>
             {activeTab === "review" ? (
-              <Button variant="default">Submit</Button>
+              <Button onClick={handleSuccessDialog} variant="default">
+                Submit
+              </Button>
             ) : activeTab === tabs[tabs.length - 2] ? (
               <Button onClick={handleReview} variant="default">
                 Review
@@ -160,6 +170,7 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
         onClose={(confirmed?: boolean) => handleDiscardDialogClose(confirmed!)}
         open={showDiscardDialog}
       />
+      <SuccessDialog onClose={handleSuccessDialog} open={showSuccessDialog} />
     </>
   );
 }
