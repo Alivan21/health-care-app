@@ -95,48 +95,7 @@ export default function ReferralDrawer({
                 <span className="flex items-center gap-2">Patient Information</span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <User2 className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Patient name</span>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="size-6">
-                          <div className="size-full rounded-full bg-primary" />
-                        </Avatar>
-                        <span>Emily Watkins</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <User2 className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Member ID</span>
-                      <span>H7A2274923714</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Date of birth</span>
-                      <span>10 December, 1946</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Users2 className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Gender</span>
-                      <span className="text-pink-500">Female</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Link className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Subscriber Relation</span>
-                      <span>Relation: Self</span>
-                    </div>
-                  </div>
-                </div>
+                <PatientInformationSection />
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="organization">
@@ -144,34 +103,7 @@ export default function ReferralDrawer({
                 <span className="flex items-center gap-2">Organization & Payer</span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <Building2 className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Organization</span>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="size-6">
-                          <div className="size-full rounded-full bg-blue-500" />
-                        </Avatar>
-                        <span>Lotus Clinic LLC</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Wallet className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Payer</span>
-                      <span>Humana</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <UserCog className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Provider Role</span>
-                      <span>Outpatient Authorization</span>
-                    </div>
-                  </div>
-                </div>
+                <OrganizationAndPayerSection />
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="provider">
@@ -179,34 +111,7 @@ export default function ReferralDrawer({
                 <span className="flex items-center gap-2">Requesting Provider</span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <User2 className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Provider name</span>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="size-6">
-                          <div className="size-full rounded-full bg-gray-200" />
-                        </Avatar>
-                        <span>Dr. Anne Williams</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Stethoscope className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Speciality</span>
-                      <span>207D0000X</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <UserCog className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Provider Role</span>
-                      <span>Service Provider</span>
-                    </div>
-                  </div>
-                </div>
+                <RequestingProviderSection />
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="service">
@@ -214,34 +119,7 @@ export default function ReferralDrawer({
                 <span className="flex items-center gap-2">Service Information</span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <Stethoscope className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="grow text-muted-foreground">Diagnosis Code</span>
-                      <ul className="max-w-52 space-y-1.5">
-                        <li className="text-right">
-                          5020 - Unspecified systolic (Congestive) heart failure
-                        </li>
-                        <li className="text-right">5021 - Acute systolic heart failure</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <ClipboardList className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <div className="text-muted-foreground">Service Type</div>
-                      <span>1 - Medical Care</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="size-5 text-muted-foreground" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <span className="text-muted-foreground">Date Range</span>
-                      <span className="text-primary">Select dates</span>
-                    </div>
-                  </div>
-                </div>
+                <ServiceInformationSection />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -273,5 +151,149 @@ export default function ReferralDrawer({
         </div>
       </SheetContent>
     </Sheet>
+  );
+}
+
+export function PatientInformationSection() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <User2 className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Patient name</span>
+          <div className="flex items-center gap-2">
+            <Avatar className="size-6">
+              <div className="size-full rounded-full bg-primary" />
+            </Avatar>
+            <span>Emily Watkins</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <User2 className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Member ID</span>
+          <span>H7A2274923714</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Calendar className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Date of birth</span>
+          <span>10 December, 1946</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Users2 className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Gender</span>
+          <span className="text-pink-500">Female</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Link className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Subscriber Relation</span>
+          <span>Relation: Self</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function OrganizationAndPayerSection() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <Building2 className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Organization</span>
+          <div className="flex items-center gap-2">
+            <Avatar className="size-6">
+              <div className="size-full rounded-full bg-blue-500" />
+            </Avatar>
+            <span>Lotus Clinic LLC</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Wallet className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Payer</span>
+          <span>Humana</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <UserCog className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Provider Role</span>
+          <span>Outpatient Authorization</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function RequestingProviderSection() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <User2 className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Provider name</span>
+          <div className="flex items-center gap-2">
+            <Avatar className="size-6">
+              <div className="size-full rounded-full bg-gray-200" />
+            </Avatar>
+            <span>Dr. Anne Williams</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Stethoscope className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Speciality</span>
+          <span>207D0000X</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <UserCog className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Provider Role</span>
+          <span>Service Provider</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ServiceInformationSection() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <Stethoscope className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="grow text-muted-foreground">Diagnosis Code</span>
+          <ul className="max-w-52 space-y-1.5">
+            <li className="text-right">5020 - Unspecified systolic (Congestive) heart failure</li>
+            <li className="text-right">5021 - Acute systolic heart failure</li>
+          </ul>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <ClipboardList className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <div className="text-muted-foreground">Service Type</div>
+          <span>1 - Medical Care</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Calendar className="size-5 text-muted-foreground" />
+        <div className="flex flex-1 items-center justify-between">
+          <span className="text-muted-foreground">Date Range</span>
+          <span className="text-primary">Select dates</span>
+        </div>
+      </div>
+    </div>
   );
 }

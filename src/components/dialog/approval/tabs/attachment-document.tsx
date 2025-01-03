@@ -14,7 +14,16 @@ export function AttachmentDocument() {
           Attachment Document {files.length > 0 && `(${files.length})`}
         </h2>
       </div>
-      <FileUploader maxFileCount={8} maxSize={8 * 1024 * 1024} onValueChange={setFiles} />
+      <FileUploader
+        accept={{
+          "application/pdf": [".pdf"],
+          "application/msword": [".doc"],
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+        }}
+        maxFileCount={8}
+        maxSize={8 * 1024 * 1024}
+        onValueChange={setFiles}
+      />
     </div>
   );
 }
