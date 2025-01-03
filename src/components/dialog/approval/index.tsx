@@ -62,6 +62,7 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
   };
 
   const handleSuccessDialog = () => {
+    setActiveTab("procedure");
     setShowSuccessDialog(!showSuccessDialog);
     onClose?.(false);
   };
