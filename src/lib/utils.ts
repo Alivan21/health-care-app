@@ -22,3 +22,10 @@ export function formatBytes(
     sizeType === "accurate" ? (accurateSizes[i] ?? "Bytes") : (sizes[i] ?? "Bytes")
   }`;
 }
+
+export function formatDate(date: Date) {
+  const currentDate = new Date();
+  const timeDifference = currentDate.getTime() - date.getTime();
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  return daysDifference;
+}
