@@ -3,10 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-} from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
 import {
   Sidebar,
@@ -48,7 +45,7 @@ interface MenuItem {
   href?: string;
   badge?: number;
   tooltip?: string;
-  child?: MenuItem[]
+  child?: MenuItem[];
 }
 
 export interface MenuSection {
@@ -60,31 +57,31 @@ function RecursiveMenuItem({
   item,
   level,
   isActive,
-  onClick
+  onClick,
 }: {
-  item: MenuItem
-  level: number
-  isActive: boolean
-  onClick: () => void
+  item: MenuItem;
+  level: number;
+  isActive: boolean;
+  onClick: () => void;
 }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const isReferrals = item.href === '/referrals'
+  const [isOpen, setIsOpen] = useState(false);
+  const isReferrals = item.href === "/referrals";
 
   const handleItemClick = () => {
     if (item.child && !isReferrals) {
-      setIsOpen(!isOpen)
+      setIsOpen(!isOpen);
     }
-    onClick()
-  }
+    onClick();
+  };
 
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         asChild={!item.child || isReferrals}
         className={cn(
-          "w-full justify-between pl-9 py-2 mb-2",
-          isActive && "bg-white border border-sidebar-border text-accent-foreground",
-          level > 0 && 'pl-14'
+          "mb-2 w-full justify-between py-2 pl-9",
+          isActive && "border border-sidebar-border bg-white text-accent-foreground",
+          level > 0 && "pl-14"
         )}
         onClick={handleItemClick}
       >
@@ -97,7 +94,10 @@ function RecursiveMenuItem({
             <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
           </div>
         ) : (
-          <Link className="mb-2 flex w-full items-center justify-between py-2" href={item.href || '#'}>
+          <Link
+            className="mb-2 flex w-full items-center justify-between py-2"
+            href={item.href || "#"}
+          >
             <span className="flex items-center gap-2">
               {item.icon}
               {item.title}
@@ -122,7 +122,7 @@ function RecursiveMenuItem({
         </Collapsible>
       )}
     </SidebarMenuItem>
-  )
+  );
 }
 
 export function MainSidebar({ menu }: { menu: MenuSection[] }) {
@@ -133,15 +133,15 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
 
   useEffect(() => {
     if (pathname === "/") {
-      setIsDashboardView(true)
+      setIsDashboardView(true);
     } else {
-      setIsDashboardView(false)
+      setIsDashboardView(false);
     }
-    console.log(pathname)
-  }, [pathname])
+    console.log(pathname);
+  }, [pathname]);
 
   const handleItemClick = (item: MenuItem) => {
-    if (item.href === '/referrals') {
+    if (item.href === "/referrals") {
       setIsDashboardView(false);
     } else if (item.child) {
     } else {
@@ -150,18 +150,21 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
   };
 
   const renderMenuItems = (items?: MenuItem[], level = 0) => {
-    return items && items.map((item, index) => (
-      <RecursiveMenuItem
-        isActive={pathname === item.href}
-        item={item}
-        key={index}
-        level={level}
-        onClick={() => handleItemClick(item)}
-      />
-    ));
+    return (
+      items &&
+      items.map((item, index) => (
+        <RecursiveMenuItem
+          isActive={pathname === item.href}
+          item={item}
+          key={index}
+          level={level}
+          onClick={() => handleItemClick(item)}
+        />
+      ))
+    );
   };
 
-  const referralsItem = menu[0].items.find(item => item.href === '/referrals');
+  const referralsItem = menu[0].items.find(item => item.href === "/referrals");
 
   return (
     <Sidebar className="border-r" collapsible="icon">
@@ -191,8 +194,8 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
                   <SidebarMenuButton
                     className="mt-5 w-full justify-start"
                     onClick={() => {
-                      router.replace("/")
-                      setIsDashboardView(true)
+                      router.replace("/");
+                      setIsDashboardView(true);
                     }}
                   >
                     <ArrowLeft className="mr-1 size-4" />
@@ -210,7 +213,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
               key={sectionIndex}
             >
               <SidebarGroupLabel className="text-xs font-normal text-muted-foreground">
-                {isDashboardView ? section.label : ''}
+                {isDashboardView ? section.label : ""}
               </SidebarGroupLabel>
               <SidebarGroupContent className="pl-2">
                 <SidebarMenu>
@@ -252,9 +255,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
         ) : (
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu>
-                {renderMenuItems(referralsItem?.child)}
-              </SidebarMenu>
+              <SidebarMenu>{renderMenuItems(referralsItem?.child)}</SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         )}

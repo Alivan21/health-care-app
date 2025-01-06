@@ -13,6 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { MedicalCardTypes } from "@/constant/types/referral";
 import {
   Ban,
   Building2,
@@ -29,7 +30,6 @@ import {
 import StatusBadge from "../badge/status-badge";
 import { ScrollArea } from "../ui/scroll-area";
 import TabsSection from "./tabs";
-import { MedicalCardTypes } from "@/constant/types/referral";
 
 interface Props {
   props: MedicalCardTypes;

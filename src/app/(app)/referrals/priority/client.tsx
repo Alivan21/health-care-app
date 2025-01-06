@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import MainContainer from "@/components/layouts/main-container";
 import { useState } from "react";
@@ -22,7 +22,7 @@ export default function PriorityReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral pathname={pathname}/>
+      <KanbanReferral pathname={pathname} />
     </MainContainer>
   );
 }
