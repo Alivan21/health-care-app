@@ -53,22 +53,22 @@ export default function MedicalCard({ onCardClick, onUserClick, isAssigned, card
       <div className="mt-4">
         {isAssigned ? (
           <Button size="icon" variant="link">
-            <Avatar className="h-8 w-8">
+            <Avatar className="size-8">
               <AvatarImage src="/img/user-profile-1.svg" />
               <AvatarFallback>NB</AvatarFallback>
             </Avatar>
           </Button>
         ) : (
           <Button
-            className="z-10 h-7 w-7 rounded-full"
-            onClick={(e) => {
+            className="z-10 size-7 rounded-full"
+            onClick={e => {
               e.stopPropagation();
               onUserClick?.();
             }}
             size="icon"
             variant="primaryOutline"
           >
-            <User2 className="h-5 w-5" />
+            <User2 className="size-5" />
           </Button>
         )}
       </div>

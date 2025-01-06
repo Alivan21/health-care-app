@@ -26,79 +26,79 @@ export const SidebarMenuList: MenuSection[] = [
         badge: 12,
         child: [
           {
-            title: 'Speciality Affiliation',
+            title: "Speciality Affiliation",
             child: [
               {
-                title: 'Partner Network',
-                href: '/referrals/speciality-affiliation',
+                title: "Partner Network",
+                href: "/referrals/speciality-affiliation",
               },
               {
-                title: 'Preferred Specialities',
-                href: '/referrals/preferred-specialities',
-              }
-            ]
+                title: "Preferred Specialities",
+                href: "/referrals/preferred-specialities",
+              },
+            ],
           },
           {
-            title: 'Type',
+            title: "Type",
             child: [
               {
-                title: 'Partner Network',
-                href: '/referrals/speciality-affiliation',
+                title: "Partner Network",
+                href: "/referrals/speciality-affiliation",
               },
               {
-                title: 'Preferred Specialities',
-                href: '/referrals/preferred-specialities',
-              }
-            ]
+                title: "Preferred Specialities",
+                href: "/referrals/preferred-specialities",
+              },
+            ],
           },
           {
-            title: 'Priority',
+            title: "Priority",
             child: [
               {
-                title: 'STAT',
-                href: '/referrals/priority/stat',
+                title: "STAT",
+                href: "/referrals/priority/stat",
               },
               {
-                title: 'Urgent',
-                href: '/referrals/priority/urgent',
+                title: "Urgent",
+                href: "/referrals/priority/urgent",
               },
               {
-                title: 'Routine',
-                href: '/referrals/priority/routine'
+                title: "Routine",
+                href: "/referrals/priority/routine",
               },
               {
-                title: 'SUCCESS',
-                href: '/referrals/priority/success'
-              }
-            ]
+                title: "SUCCESS",
+                href: "/referrals/priority/success",
+              },
+            ],
           },
           {
-            title: 'Categorization',
+            title: "Categorization",
             child: [
               {
-                title: 'Partner Network',
-                href: '/referrals/speciality-affiliation',
+                title: "Partner Network",
+                href: "/referrals/speciality-affiliation",
               },
               {
-                title: 'Preferred Specialities',
-                href: '/referrals/preferred-specialities',
-              }
-            ]
+                title: "Preferred Specialities",
+                href: "/referrals/preferred-specialities",
+              },
+            ],
           },
           {
-            title: 'Primary Care Provider',
+            title: "Primary Care Provider",
             child: [
               {
-                title: 'Partner Network',
-                href: '/referrals/speciality-affiliation',
+                title: "Partner Network",
+                href: "/referrals/speciality-affiliation",
               },
               {
-                title: 'Preferred Specialities',
-                href: '/referrals/preferred-specialities',
-              }
-            ]
-          }
-        ]
+                title: "Preferred Specialities",
+                href: "/referrals/preferred-specialities",
+              },
+            ],
+          },
+        ],
       },
       {
         title: "Patients",
