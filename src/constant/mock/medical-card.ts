@@ -1,0 +1,112 @@
+import { MedicalCardTypes } from "../types/referral";
+
+export const MedicalCardMockData: MedicalCardTypes[] = [
+  {
+    id: 'doctor1',
+    priority: 'STAT',
+    name: 'Marie Curie',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor2',
+    priority: 'Urgent',
+    name: 'Lucas Monroe',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-03')
+  },
+  {
+    id: 'doctor3',
+    priority: 'SUCCESS',
+    name: 'Ester Howard',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor4',
+    priority: 'STAT',
+    name: 'Hua Tou',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor5',
+    priority: 'Urgent',
+    name: 'Zahida Qureshi',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor6',
+    priority: 'STAT',
+    name: 'Ridho Rhoma',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor7',
+    priority: 'Urgent',
+    name: 'Nathaniel Brooks',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor8',
+    priority: 'Routine',
+    name: 'Ben Carson',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor9',
+    priority: 'SUCCESS',
+    name: 'Ricky Ross',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor10',
+    priority: 'SUCCESS',
+    name: 'Barry Allen',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor11',
+    priority: 'SUCCESS',
+    name: 'Hal Jordan',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: 'Samuel Blake',
+    created_at: new Date('2025-01-04')
+  },
+  {
+    id: 'doctor12',
+    priority: 'SUCCESS',
+    name: 'Clark Kent',
+    patient_name: 'Alexander Cole',
+    speciality: 'Gastroenterlogy',
+    assign_to: '',
+    created_at: new Date('2025-04-01')
+  }
+]

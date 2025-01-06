@@ -29,8 +29,10 @@ import {
 import StatusBadge from "../badge/status-badge";
 import { ScrollArea } from "../ui/scroll-area";
 import TabsSection from "./tabs";
+import { MedicalCardTypes } from "@/constant/types/referral";
 
 interface Props {
+  props: MedicalCardTypes;
   open: boolean;
   onClose: () => void;
   onClickApproval?: () => void;
@@ -40,6 +42,7 @@ interface Props {
 }
 
 export default function ReferralDrawer({
+  props,
   open,
   onClose,
   onClickApproval,
@@ -57,14 +60,14 @@ export default function ReferralDrawer({
         <div className="space-y-5 border-b px-6 pb-3">
           <div className="space-y-2">
             <div className="flex items-center gap-4">
-              <StatusBadge status="ROUTINE" />
+              <StatusBadge status={props.priority} />
               {(isApproved && <StatusBadge status="SUCCESS" text="Approved" />) ||
                 (isDenied && <StatusBadge status="STAT" text="Denied" />) || (
-                  <StatusBadge status="URGENT" text="Pending" />
+                  <StatusBadge status="Urgent" text="Pending" />
                 )}
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Request ID: 20102351</span>
+              <span className="text-sm text-muted-foreground">Request ID: {props.id}</span>
               <span className="text-sm text-muted-foreground">Due Date: 09/01/2024</span>
             </div>
           </div>
