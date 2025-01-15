@@ -4,6 +4,7 @@ import MainContainer from "@/components/layouts/main-container";
 import { useState } from "react";
 import ReferralHeader from "./header/title";
 import KanbanReferral from "./kanban";
+import ListReferral from "./list";
 
 export default function ReferralClient() {
   const [queue, setQueue] = useState("all");
@@ -20,7 +21,8 @@ export default function ReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral />
+      <KanbanReferral queueFilter={queue} view={view} />
+      <ListReferral queueFilter={queue} view={view} />
     </MainContainer>
   );
 }

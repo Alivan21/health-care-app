@@ -13,7 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { MedicalCardTypes } from "@/constant/types/referral";
+import { DoctorPriorityTypes, MedicalCardTypes } from "@/constant/types/referral";
 import {
   Ban,
   Building2,
@@ -37,8 +37,8 @@ interface Props {
   onClose: () => void;
   onClickApproval?: () => void;
   isAssigned?: boolean;
-  isApproved?: boolean;
   isDenied?: boolean;
+  isApproved?: boolean;
 }
 
 export default function ReferralDrawer({
@@ -47,9 +47,29 @@ export default function ReferralDrawer({
   onClose,
   onClickApproval,
   isAssigned,
-  isApproved,
   isDenied,
+  isApproved,
 }: Props) {
+  const statusBadge = (priority: DoctorPriorityTypes) => {
+    if (props.status === "approved") {
+      return <StatusBadge status="SUCCESS" text="Approved" />;
+    }
+
+    if (props.status === "new") {
+      return <StatusBadge status={priority} text="New" />;
+    }
+
+    if (props.status === "pending") {
+      return <StatusBadge status="Urgent" text="Pending" />;
+    }
+
+    if (props.status === "denied") {
+      return <StatusBadge status="STAT" text="Denied" />;
+    }
+
+    return <StatusBadge status="SUCCESS" text="Completed" />;
+  };
+
   return (
     <Sheet onOpenChange={onClose} open={open}>
       <SheetContent className="flex w-full !max-w-lg flex-col rounded-l-lg p-0">
@@ -61,10 +81,7 @@ export default function ReferralDrawer({
           <div className="space-y-2">
             <div className="flex items-center gap-4">
               <StatusBadge status={props.priority} />
-              {(isApproved && <StatusBadge status="SUCCESS" text="Approved" />) ||
-                (isDenied && <StatusBadge status="STAT" text="Denied" />) || (
-                  <StatusBadge status="Urgent" text="Pending" />
-                )}
+              {statusBadge(props.priority)}
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Request ID: {props.id}</span>

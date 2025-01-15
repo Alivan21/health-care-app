@@ -20,7 +20,7 @@ export default function SpecialityAffiliationReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral />
+      <KanbanReferral queueFilter={queue} view={view} />
     </MainContainer>
   );
 }

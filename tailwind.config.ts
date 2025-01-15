@@ -92,6 +92,10 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        "patient-card-gradient":
+          "linear-gradient(248.58deg, #004EE9 0%, #28E7FD 35.27%, #1BA0FC 74.24%, #0B2BFB 105.62%)",
+      },
     },
   },
   plugins: [tailwindAnimate],
