@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function CollapseButton() {
   const { toggleSidebar, state } = useSidebar();
@@ -128,26 +128,7 @@ function RecursiveMenuItem({
 export function MainSidebar({ menu }: { menu: MenuSection[] }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isDashboardView, setIsDashboardView] = useState(false);
   const { state } = useSidebar();
-
-  useEffect(() => {
-    if (pathname === "/") {
-      setIsDashboardView(true);
-    } else {
-      setIsDashboardView(false);
-    }
-    console.log(pathname);
-  }, [pathname]);
-
-  const handleItemClick = (item: MenuItem) => {
-    if (item.href === "/referrals") {
-      setIsDashboardView(false);
-    } else if (item.child) {
-    } else {
-      setIsDashboardView(true);
-    }
-  };
 
   const renderMenuItems = (items?: MenuItem[], level = 0) => {
     return (
@@ -158,7 +139,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
           item={item}
           key={index}
           level={level}
-          onClick={() => handleItemClick(item)}
+          onClick={() => {}}
         />
       ))
     );
@@ -186,7 +167,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
         </div>
       </SidebarHeader>
       <SidebarContent>
-        {!isDashboardView && (
+        {pathname.includes("/referrals") && (
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -195,7 +176,6 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
                     className="mt-5 w-full justify-start"
                     onClick={() => {
                       router.replace("/");
-                      setIsDashboardView(true);
                     }}
                   >
                     <ArrowLeft className="mr-1 size-4" />
@@ -206,14 +186,14 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
             </SidebarGroupContent>
           </SidebarGroup>
         )}
-        {isDashboardView ? (
+        {!pathname.includes("/referrals") ? (
           menu.map((section, sectionIndex) => (
             <SidebarGroup
               className={sectionIndex === menu.length - 1 ? "mt-auto" : ""}
               key={sectionIndex}
             >
               <SidebarGroupLabel className="text-xs font-normal text-muted-foreground">
-                {isDashboardView ? section.label : ""}
+                {pathname !== "/referrals" ? section.label : ""}
               </SidebarGroupLabel>
               <SidebarGroupContent className="pl-2">
                 <SidebarMenu>
@@ -227,7 +207,6 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
                             : "hover:bg-accent hover:text-sidebar-accent-foreground"
                         }
                         disabled={pathname === item.href}
-                        onClick={() => handleItemClick(item)}
                         tooltip={item.tooltip || item.title}
                       >
                         <Link

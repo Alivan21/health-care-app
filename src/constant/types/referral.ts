@@ -5,6 +5,9 @@ export interface MedicalCardTypes {
   patient_name: string;
   speciality: string;
   assign_to?: string;
+  status?: string;
+  practical_location: string;
+  experience: string;
   created_at: Date;
 }
 

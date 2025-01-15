@@ -22,7 +22,7 @@ export default function PriorityReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral pathname={pathname} />
+      <KanbanReferral pathname={pathname} queueFilter={queue} view={view} />
     </MainContainer>
   );
 }

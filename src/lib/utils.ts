@@ -29,3 +29,7 @@ export function formatDate(date: Date) {
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   return daysDifference;
 }
+
+export const convertToSlug = (str: string) => {
+  return str.trim().toLowerCase().replace(/\s+/g, "-");
+};

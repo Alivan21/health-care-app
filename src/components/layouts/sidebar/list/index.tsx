@@ -1,13 +1,15 @@
 import { MenuSection } from "@/components/layouts/sidebar";
+import { MedicalCardMockData } from "@/constant/mock/medical-card";
+import { convertToSlug } from "@/lib/utils";
 import {
   BarChart3,
   CircleHelp,
-  FileSpreadsheet,
   LayoutDashboard,
   MessageSquareMore,
   Network,
   Share2,
   Users,
+  BriefcaseMedical,
 } from "lucide-react";
 
 export const SidebarMenuList: MenuSection[] = [
@@ -42,12 +44,12 @@ export const SidebarMenuList: MenuSection[] = [
             title: "Type",
             child: [
               {
-                title: "Partner Network",
-                href: "/referrals/speciality-affiliation",
+                title: "Referral Requests",
+                href: "/referrals/type/referral-requests",
               },
               {
-                title: "Preferred Specialities",
-                href: "/referrals/preferred-specialities",
+                title: "Prior Authorization Requests",
+                href: "/referrals/type/par",
               },
             ],
           },
@@ -76,27 +78,33 @@ export const SidebarMenuList: MenuSection[] = [
             title: "Categorization",
             child: [
               {
-                title: "Partner Network",
-                href: "/referrals/speciality-affiliation",
+                title: "Cardiology",
+                href: "/referrals/categorization/cardiology",
               },
               {
-                title: "Preferred Specialities",
-                href: "/referrals/preferred-specialities",
+                title: "Orthopedics",
+                href: "/referrals/categorization/orthopedics",
+              },
+              {
+                title: "Pulomonolgy",
+                href: "/referrals/categorization/pulmonolgy",
+              },
+              {
+                title: "Endocrinology",
+                href: "/referrals/categorization/endocrinology",
+              },
+              {
+                title: "Others",
+                href: "/referrals/categorization/others",
               },
             ],
           },
           {
             title: "Primary Care Provider",
-            child: [
-              {
-                title: "Partner Network",
-                href: "/referrals/speciality-affiliation",
-              },
-              {
-                title: "Preferred Specialities",
-                href: "/referrals/preferred-specialities",
-              },
-            ],
+            child: MedicalCardMockData.map(data => ({
+              title: `Dr. ${data.name}`,
+              href: `/referrals/pcp/${convertToSlug(data.name)}`,
+            })),
           },
         ],
       },
@@ -106,19 +114,19 @@ export const SidebarMenuList: MenuSection[] = [
         href: "/patients",
       },
       {
+        title: "Provider Network",
+        icon: <BriefcaseMedical className="size-4" />,
+        href: "/provider-network",
+      },
+      {
+        title: "Workflow",
+        icon: <Network className="size-4" />,
+        href: "/workflow",
+      },
+      {
         title: "Analytics",
         icon: <BarChart3 className="size-4" />,
         href: "/analytics",
-      },
-      {
-        title: "Reports",
-        icon: <FileSpreadsheet className="size-4" />,
-        href: "/reports",
-      },
-      {
-        title: "Network",
-        icon: <Network className="size-4" />,
-        href: "/network",
       },
     ],
   },
