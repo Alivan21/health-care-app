@@ -6,7 +6,7 @@
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon, ChevronDown, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -14,17 +14,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { DateRange } from "react-day-picker";
+import type { ProcedureCode } from "@/constant/types/referral";
 
-interface ProcedureCode {
-  code: string;
-  description: string;
-  quantity: number;
-  dateRange: DateRange;
-  selected?: boolean;
-}
-
-export default function ProcedureCodeSelector() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean }) {
+  const [isOpen, setIsOpen] = useState(true);
   const [selectedCodes, setSelectedCodes] = useState<ProcedureCode[]>([]);
 
   const [availableCodes, setAvailableCodes] = useState<ProcedureCode[]>([
@@ -103,6 +96,12 @@ export default function ProcedureCodeSelector() {
     );
   };
 
+  useEffect(() => {
+    if (isDraft) {
+      setSelectedCodes(availableCodes.slice(0, 3))
+    }
+  }, [availableCodes, isDraft])
+
   return (
     <div className="space-y-1 p-4">
       <button
@@ -163,7 +162,7 @@ export default function ProcedureCodeSelector() {
                 min={1}
                 onChange={e => handleQuantityChange(code.code, parseInt(e.target.value))}
                 type="number"
-                value={code.quantity} // Changed from selectedCodes.find to using code directly
+                value={code.quantity}
               />
               <Popover>
                 <PopoverTrigger asChild>

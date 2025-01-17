@@ -1,40 +1,47 @@
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Bold, Italic, Link2, Underline } from "lucide-react";
+import { Bold, Italic, Link2, Underline, MessageCircleOff } from "lucide-react";
 
-export function DiscussionThread() {
+export function DiscussionThread({ status }: { status: string }) {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        <div className="flex items-start gap-3">
-          <Avatar className="size-8">
-            <div className="size-full rounded-full bg-primary" />
-          </Avatar>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="font-medium">Galang Andika</span>
-              <span className="text-sm text-muted-foreground">1 hour ago</span>
-            </div>
-            <p className="mt-1">
-              I have understood the brief given, but I have some questions that I want to ask again
-              because I want to equalize my perception with you.
-            </p>
-            <div className="mt-2 flex items-center gap-3">
-              <Button className="h-8" size="sm" variant="ghost">
-                👍 2
-              </Button>
-              <Button className="h-8" size="sm" variant="ghost">
-                💰 1
-              </Button>
-              <Button className="h-8" size="sm" variant="ghost">
-                🎯 1
-              </Button>
-              <Button className="h-8" size="sm" variant="ghost">
-                Reply
-              </Button>
+        {status !== 'new' ? (
+          <div className="flex items-start gap-3">
+            <Avatar className="size-8">
+              <div className="size-full rounded-full bg-primary" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Galang Andika</span>
+                <span className="text-sm text-muted-foreground">1 hour ago</span>
+              </div>
+              <p className="mt-1">
+                I have understood the brief given, but I have some questions that I want to ask again
+                because I want to equalize my perception with you.
+              </p>
+              <div className="mt-2 flex items-center gap-3">
+                <Button className="h-8" size="sm" variant="ghost">
+                  👍 2
+                </Button>
+                <Button className="h-8" size="sm" variant="ghost">
+                  💰 1
+                </Button>
+                <Button className="h-8" size="sm" variant="ghost">
+                  🎯 1
+                </Button>
+                <Button className="h-8" size="sm" variant="ghost">
+                  Reply
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center space-y-3 pb-8 pt-10">
+            <MessageCircleOff className="size-5 text-[#D6D6D6]" />
+            <p className="text-xl font-normal text-[#D6D6D6]">Discussion Empty</p>
+          </div>
+        )}
       </div>
       <div className="space-y-4">
         <div className="rounded-lg border bg-card">

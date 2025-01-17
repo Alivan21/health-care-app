@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Columns3, Kanban, User, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface ReferralHeaderProps {
   queue: string;
@@ -18,6 +19,8 @@ interface ReferralHeaderProps {
   setView: (value: string) => void;
   status: string;
   setStatus: (value: string) => void;
+  cardStatus: string;
+  setCardStatus: (value: string) => void;
 }
 
 export default function ReferralHeader({
@@ -27,7 +30,11 @@ export default function ReferralHeader({
   setView,
   status,
   setStatus,
+  cardStatus,
+  setCardStatus
 }: ReferralHeaderProps) {
+  const routes = useRouter()
+
   const ViewOptions = [
     {
       label: "Kanban View",
@@ -64,6 +71,34 @@ export default function ReferralHeader({
       value: "incoming",
     },
   ];
+
+  const CardStatusOptions = [
+    {
+      label: "All Status",
+      value: "all",
+    },
+    {
+      label: "New",
+      value: "new",
+    },
+    {
+      label: "Pending",
+      value: "pending",
+    },
+    {
+      label: "Approved",
+      value: "approved",
+    },
+    {
+      label: "Completed",
+      value: "completed",
+    },
+    {
+      label: "Denied",
+      value: "denied",
+    },
+  ]
+
   return (
     <section className="flex !w-auto flex-col gap-4 bg-white px-8 py-6">
       <Title description="Lorem ipsum dolor sit amet consectetur" title="Referrals" />
@@ -76,23 +111,20 @@ export default function ReferralHeader({
             value={queue}
             variant="both"
           />
-          <Button size="rounded" variant="secondary">
+          <Button onClick={() => routes.push("/referrals/draft")} size="rounded" variant="secondary">
             Draft{" "}
             <Badge className="ml-auto size-5 justify-center rounded-md px-0" variant="destructive">
               1
             </Badge>
           </Button>
-          <Select defaultValue="all">
+          <Select defaultValue="all" onValueChange={setCardStatus} value={cardStatus}>
             <SelectTrigger className="w-28" variant="default">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="new">New</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="approve">Approve</SelectItem>
-              <SelectItem value="complete">Completed</SelectItem>
-              <SelectItem value="denied">Denied</SelectItem>
+              {CardStatusOptions.map((data, index) => (
+                <SelectItem key={index} value={data.value}>{data.label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Provider {
   id: string;
@@ -58,7 +58,7 @@ const providers: Provider[] = [
   },
 ];
 
-export default function RenderingProviderSelect() {
+export default function RenderingProviderSelect({ isDraft }: { isDraft: boolean }) {
   const [search, setSearch] = useState("");
   const [selectedProvider, setSelectedProvider] = useState("");
 
@@ -67,6 +67,12 @@ export default function RenderingProviderSelect() {
       provider.name.toLowerCase().includes(search.toLowerCase()) ||
       provider.specialty.toLowerCase().includes(search.toLowerCase())
   );
+
+  useEffect(() => {
+    if (isDraft) {
+      setSelectedProvider(filteredProviders[0].id)
+    }
+  }, [filteredProviders, isDraft])
 
   return (
     <div className="mx-auto w-full max-w-3xl space-y-6 p-4">

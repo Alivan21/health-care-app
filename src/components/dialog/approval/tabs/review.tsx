@@ -3,6 +3,8 @@ import {
   PatientInformationSection,
   RequestingProviderSection,
   ServiceInformationSection,
+  ProcedureCodeSection,
+  RenderingProviderSection
 } from "@/components/drawer/referral";
 import TabsSection from "@/components/drawer/tabs";
 import {
@@ -19,7 +21,7 @@ export default function ReviewSection() {
       <ScrollArea className="mx-auto w-full max-w-3xl space-y-6 px-4">
         <Accordion
           className="w-full space-y-2"
-          defaultValue={["patient", "organization", "provider", "service"]}
+          defaultValue={["patient", "organization", "provider", "service", "procedure-code", "rendering-provider"]}
           type="multiple"
         >
           <AccordionItem value="patient">
@@ -52,6 +54,22 @@ export default function ReviewSection() {
             </AccordionTrigger>
             <AccordionContent>
               <ServiceInformationSection />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="procedure-code">
+            <AccordionTrigger>
+              <span className="flex items-center gap-2">Procedure Code</span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ProcedureCodeSection />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="rendering-provider">
+            <AccordionTrigger>
+              <span className="flex items-center gap-2">Rendering Provider</span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <RenderingProviderSection />
             </AccordionContent>
           </AccordionItem>
         </Accordion>

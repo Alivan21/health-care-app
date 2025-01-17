@@ -3,7 +3,7 @@ import ReferralClient from "./_components/client";
 
 const breadcrumbs = [
   { title: "Dashboard", link: "/" },
-  { title: "All Queue", link: "/referrals" },
+  { title: "Referrals", link: "/referrals" },
 ];
 
 export default function ReferralsPage() {

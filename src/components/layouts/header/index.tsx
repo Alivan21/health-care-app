@@ -1,9 +1,12 @@
 "use client";
 
 import { PageBreadcrumbProps, PageBreadcrumbs } from "@/components/breadcrumbs";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Bell, Settings } from "lucide-react";
+import { ArrowLeft, Bell, Settings, Check, Clock } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -33,12 +36,153 @@ export function PageHeader({ breadcrumbs = [] }: PageHeaderProps) {
             <Settings className="size-4" />
             <span className="sr-only">Settings</span>
           </Button>
-          <Button size="icon" variant="ghost">
-            <Bell className="size-4" />
-            <span className="sr-only">Notifications</span>
-          </Button>
+          <NotificationPopover />
         </div>
       </div>
     </header>
   );
+}
+
+interface Notification {
+  id: string
+  title: string
+  timestamp: string
+  category: string
+  action: {
+    label: string
+    href: string
+  }
+  status: "approved" | "pending" | "added"
+}
+
+const notifications: Notification[] = [
+  {
+    id: "13579",
+    title: "Referral #13579 Approved by Insurance",
+    timestamp: "14 mins ago",
+    category: "Insurance",
+    action: {
+      label: "Schedule Now",
+      href: "#"
+    },
+    status: "approved"
+  },
+  {
+    id: "11234",
+    title: "Referral #11234 is due for follow-up tomorrow. Please confirm patient status",
+    timestamp: "20 mins ago",
+    category: "Follow-up",
+    action: {
+      label: "Schedule Now",
+      href: "#"
+    },
+    status: "pending"
+  },
+  {
+    id: "67890-1",
+    title: "PCP added additional details to Referral #67890",
+    timestamp: "30 mins ago",
+    category: "Clinical Data",
+    action: {
+      label: "View Referral",
+      href: "#"
+    },
+    status: "added"
+  },
+  {
+    id: "67890-2",
+    title: "Patient feedback has been added to Referral #67890. Review the notes for insights",
+    timestamp: "36 mins ago",
+    category: "Clinical Data",
+    action: {
+      label: "View Referral",
+      href: "#"
+    },
+    status: "added"
+  },
+  {
+    id: "12345",
+    title: "Insurance verification for Referral #12345 is pending.",
+    timestamp: "45 mins ago",
+    category: "Insurance",
+    action: {
+      label: "View Referral",
+      href: "#"
+    },
+    status: "pending"
+  }
+]
+
+function NotificationPopover() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button size="icon" variant="ghost">
+          <Bell className="size-4" />
+          <span className="sr-only">Notifications</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-[380px] p-0">
+        <Card className="border-0">
+          <div className="flex items-center justify-between border-b p-4">
+            <h2 className="text-sm font-semibold">Notifications</h2>
+            <Button className="h-auto p-0 text-sm" variant="link">
+              Mark all as read
+            </Button>
+          </div>
+          <Tabs className="w-full" defaultValue="all">
+            <div className="border-b px-4">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="stat">STAT</TabsTrigger>
+                <TabsTrigger value="urgent">Urgent</TabsTrigger>
+                <TabsTrigger value="insurance">Insurance</TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent className="mt-0" value="all">
+              <div className="space-y-2 p-2">
+                {notifications.map((notification) => (
+                  <div
+                    className="flex gap-3 rounded-lg p-2 hover:bg-muted/50"
+                    key={notification.id}
+                  >
+                    <div className="mt-1">
+                      {notification.status === "approved" ? (
+                        <div className="rounded-full bg-green-500/20 p-1">
+                          <Check className="size-4 text-green-500" />
+                        </div>
+                      ) : (
+                        <div className="rounded-full bg-orange-500/20 p-1">
+                          <Clock className="size-4 text-orange-500" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-1 flex-col gap-1">
+                      <p className="text-sm">{notification.title}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span>{notification.timestamp}</span>
+                          <span>•</span>
+                          <span>{notification.category}</span>
+                        </div>
+                        <Button
+                          asChild
+                          className="h-7 bg-blue-600 text-xs hover:bg-blue-700"
+                          size="sm"
+                        >
+                          <a href={notification.action.href}>
+                            {notification.action.label}
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+        </Card>
+      </PopoverContent>
+    </Popover>
+  )
 }

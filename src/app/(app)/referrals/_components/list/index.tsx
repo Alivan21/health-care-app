@@ -6,36 +6,54 @@ import { convertToSlug } from "@/lib/utils";
 import { useState } from "react";
 import ReferralDrawer from "@/components/drawer/referral";
 import RequestApprovalDialog from "@/components/dialog/approval";
-import MedicalCardFake from "../ui/medical-card-fake";
+import { AppointmentsTable } from "./list-table";
 
 export default function ListReferral({
   pathname,
   queueFilter,
   view,
+  statusFilter
 }: {
   pathname?: string;
   queueFilter: string;
   view: string;
+  statusFilter?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [openApprovalDialog, setOpenApprovalDialog] = useState(false);
-  const [kanbanData, setKanbanData] = useState<MedicalCardTypes | null>(null);
+  const [listData, setlistData] = useState<MedicalCardTypes | null>(null);
+  const [isDraft, setIsDraft] = useState(false);
+  const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData)
+
+  const updateAssignTo = (id: string, newAssignTo: string) => {
+    setCardPropsArray(prev =>
+      prev.map((card) =>
+        card.id === id ? { ...card, assign_to: newAssignTo } : card
+      )
+    );
+  }
 
   const handleOpenDrawer = (data: MedicalCardTypes) => {
-    setKanbanData(data);
+    setlistData(data);
     setOpen(true);
   };
 
   const handleOpenApproval = () => {
-    setOpenApprovalDialog(true);
+    if (pathname?.includes("/referrals/draft")) {
+      setIsDraft(true)
+      setOpenApprovalDialog(true)
+    } else {
+      setIsDraft(false)
+      setOpenApprovalDialog(true)
+    }
   };
 
   const categorizedData = {
-    new: MedicalCardMockData.slice(0, 3),
-    pending: MedicalCardMockData.slice(3, 5),
-    approved: MedicalCardMockData.slice(5, 8),
-    completed: MedicalCardMockData.slice(8, 12),
-    denied: MedicalCardMockData.slice(12),
+    new: cardPropsArray.slice(0, 3),
+    pending: cardPropsArray.slice(3, 5),
+    approved: cardPropsArray.slice(5, 8),
+    completed: cardPropsArray.slice(8, 12),
+    denied: cardPropsArray.slice(12),
   };
 
   const statusStyles: Record<string, string> = {
@@ -48,18 +66,29 @@ export default function ListReferral({
 
   const filterCards = (cards: MedicalCardTypes[], path: string | undefined): MedicalCardTypes[] => {
     if (!path) return cards;
-
+  
     const pathSegment = path.split("/").filter(Boolean).pop()?.toLowerCase();
     if (!pathSegment) return cards;
-
-    if (path.includes("/priority")) {
+  
+    if (path === "/referrals/draft") {
+      return cards.filter(card => card.status === "new").slice(0, 1); 
+    }
+  
+    if (path.includes("/speciality-affiliation/partner-network")) {
+      const topCards = cards.filter(card => card.isTop);
+      return topCards;
+    } else if (path.includes("/priority")) {
       return cards.filter(card => card.priority.toLowerCase() === pathSegment);
-    } else if (path.includes("/categorization")) {
+    } else if (path.includes("/speciality")) {
+      if (path.includes("/speciality/others")) {
+        const excludedSpecialities = ["cardiology", "orthopedics", "pulmonology", "endocrinology"];
+        return cards.filter(card => !excludedSpecialities.includes(card.speciality.toLowerCase()));
+      }
       return cards.filter(card => card.speciality.toLowerCase() === pathSegment);
     } else if (path.includes("/pcp")) {
       return cards.filter(card => convertToSlug(card.name) === pathSegment);
     }
-
+  
     return cards;
   };
 
@@ -67,19 +96,20 @@ export default function ListReferral({
 
   return (
     <>
-      {!!kanbanData && (
+      {!!listData && (
         <ReferralDrawer
-          isApproved={kanbanData.priority === "SUCCESS"}
-          isAssigned={Boolean(kanbanData.assign_to)}
-          isDenied={kanbanData.priority === "STAT"}
+          isApproved={listData.status !== 'new'}
+          isAssigned={Boolean(listData.assign_to)}
+          isDenied={listData.status === 'denied'}
           onClickApproval={handleOpenApproval}
           onClose={() => setOpen(false)}
           open={open}
-          props={kanbanData}
+          props={listData}
         />
       )}
 
       <RequestApprovalDialog
+        isDraft={isDraft}
         onClose={() => setOpenApprovalDialog(false)}
         open={openApprovalDialog}
       />
@@ -87,33 +117,46 @@ export default function ListReferral({
       <ScrollArea className="w-full">
         <section className="flex flex-col gap-4 px-8 py-6">
           {Object.entries(categorizedData).map(([status, cards]) => {
-            const filteredCards = filterCards(cards, pathname).filter(card =>
+            const filteredCards = filterCards(cards, pathname).filter((card) =>
               queueFilter === "my" ? card.assign_to !== "" : true
             );
-
-            if (filteredCards.length === 0) return null;
+  
+            const statusFilteredCards = filteredCards.filter((card) => {
+              if (statusFilter === "all") {
+                return true;
+              } else if (statusFilter === "new") {
+                return card.status === "new";
+              } else if (statusFilter === "pending") {
+                return card.status === "pending";
+              } else if (statusFilter === "approved") {
+                return card.status === "approved";
+              } else if (statusFilter === "completed") {
+                return card.status === "completed";
+              } else if (statusFilter === "denied") {
+                return card.status === "denied";
+              }
+              return false;
+            });
+  
+            if (statusFilteredCards.length === 0) return null;
             return (
               <ScrollArea
-                className="relative flex max-h-screen w-full flex-col gap-4 overflow-auto rounded-lg bg-secondary"
+                className="relative border border-border !bg-white flex max-h-screen w-full flex-col overflow-auto rounded-lg bg-secondary"
                 key={status}
               >
-                <div className="sticky top-0 z-20 flex gap-2 bg-secondary p-2">
+                <div className="sticky top-0 z-20 flex gap-2 bg-[#F6F7FA] m-3 px-3 py-2 rounded-lg">
                   <span className={`w-1.5 rounded-lg ${statusStyles[status]}`} />
                   <div className="space-x-2">
                     <span className="capitalize">{status}</span>
-                    <Badge className="rounded-lg px-1.5">{filteredCards.length}</Badge>
+                    <Badge className="rounded-lg px-1.5">{statusFilteredCards.length}</Badge>
                   </div>
                 </div>
-
-                {filteredCards.map(cardData => (
-                  <div className="flex flex-col gap-2 p-2" key={cardData.id}>
-                    <MedicalCardFake
-                      cardProps={cardData}
-                      isAssigned={Boolean(cardData.assign_to)}
-                      onCardClick={() => handleOpenDrawer(cardData)}
-                    />
-                  </div>
-                ))}
+                
+                <AppointmentsTable 
+                  data={statusFilteredCards} 
+                  onCardClick={(cardData) => handleOpenDrawer(cardData)}
+                  onUserClick={(cardId, newAssign) => updateAssignTo(cardId, newAssign)}
+                />
               </ScrollArea>
             );
           })}

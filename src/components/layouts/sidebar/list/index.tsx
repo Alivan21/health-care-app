@@ -32,7 +32,7 @@ export const SidebarMenuList: MenuSection[] = [
             child: [
               {
                 title: "Partner Network",
-                href: "/referrals/speciality-affiliation",
+                href: "/referrals/speciality-affiliation/partner-network",
               },
               {
                 title: "Preferred Specialities",
@@ -68,34 +68,30 @@ export const SidebarMenuList: MenuSection[] = [
                 title: "Routine",
                 href: "/referrals/priority/routine",
               },
-              {
-                title: "SUCCESS",
-                href: "/referrals/priority/success",
-              },
             ],
           },
           {
-            title: "Categorization",
+            title: "Speciality",
             child: [
               {
                 title: "Cardiology",
-                href: "/referrals/categorization/cardiology",
+                href: "/referrals/speciality/cardiology",
               },
               {
                 title: "Orthopedics",
-                href: "/referrals/categorization/orthopedics",
+                href: "/referrals/speciality/orthopedics",
               },
               {
-                title: "Pulomonolgy",
-                href: "/referrals/categorization/pulmonolgy",
+                title: "Pulomonology",
+                href: "/referrals/speciality/pulmonology",
               },
               {
                 title: "Endocrinology",
-                href: "/referrals/categorization/endocrinology",
+                href: "/referrals/speciality/endocrinology",
               },
               {
                 title: "Others",
-                href: "/referrals/categorization/others",
+                href: "/referrals/speciality/others",
               },
             ],
           },
