@@ -10,7 +10,7 @@ export default function ReferralClient() {
   const [queue, setQueue] = useState("all");
   const [view, setView] = useState("kanban");
   const [status, setStatus] = useState("outgoing");
-  const [cardStatus, setCardStatus] = useState("all")
+  const [cardStatus, setCardStatus] = useState("all");
 
   return (
     <MainContainer className="flex flex-col !p-0">

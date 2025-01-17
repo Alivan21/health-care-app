@@ -44,15 +44,15 @@ export function PageHeader({ breadcrumbs = [] }: PageHeaderProps) {
 }
 
 interface Notification {
-  id: string
-  title: string
-  timestamp: string
-  category: string
+  id: string;
+  title: string;
+  timestamp: string;
+  category: string;
   action: {
-    label: string
-    href: string
-  }
-  status: "approved" | "pending" | "added"
+    label: string;
+    href: string;
+  };
+  status: "approved" | "pending" | "added";
 }
 
 const notifications: Notification[] = [
@@ -63,9 +63,9 @@ const notifications: Notification[] = [
     category: "Insurance",
     action: {
       label: "Schedule Now",
-      href: "#"
+      href: "#",
     },
-    status: "approved"
+    status: "approved",
   },
   {
     id: "11234",
@@ -74,9 +74,9 @@ const notifications: Notification[] = [
     category: "Follow-up",
     action: {
       label: "Schedule Now",
-      href: "#"
+      href: "#",
     },
-    status: "pending"
+    status: "pending",
   },
   {
     id: "67890-1",
@@ -85,9 +85,9 @@ const notifications: Notification[] = [
     category: "Clinical Data",
     action: {
       label: "View Referral",
-      href: "#"
+      href: "#",
     },
-    status: "added"
+    status: "added",
   },
   {
     id: "67890-2",
@@ -96,9 +96,9 @@ const notifications: Notification[] = [
     category: "Clinical Data",
     action: {
       label: "View Referral",
-      href: "#"
+      href: "#",
     },
-    status: "added"
+    status: "added",
   },
   {
     id: "12345",
@@ -107,11 +107,11 @@ const notifications: Notification[] = [
     category: "Insurance",
     action: {
       label: "View Referral",
-      href: "#"
+      href: "#",
     },
-    status: "pending"
-  }
-]
+    status: "pending",
+  },
+];
 
 function NotificationPopover() {
   return (
@@ -141,7 +141,7 @@ function NotificationPopover() {
             </div>
             <TabsContent className="mt-0" value="all">
               <div className="space-y-2 p-2">
-                {notifications.map((notification) => (
+                {notifications.map(notification => (
                   <div
                     className="flex gap-3 rounded-lg p-2 hover:bg-muted/50"
                     key={notification.id}
@@ -170,9 +170,7 @@ function NotificationPopover() {
                           className="h-7 bg-blue-600 text-xs hover:bg-blue-700"
                           size="sm"
                         >
-                          <a href={notification.action.href}>
-                            {notification.action.label}
-                          </a>
+                          <a href={notification.action.href}>{notification.action.label}</a>
                         </Button>
                       </div>
                     </div>
@@ -184,5 +182,5 @@ function NotificationPopover() {
         </Card>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

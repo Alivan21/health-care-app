@@ -19,21 +19,19 @@ export default function KanbanReferral({
   pathname?: string;
   queueFilter: string;
   view: string;
-  statusFilter?: string
+  statusFilter?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [openApprovalDialog, setOpenApprovalDialog] = useState(false);
   const [kanbanData, setKanbanData] = useState<MedicalCardTypes | null>(null);
   const [isDraft, setIsDraft] = useState(false);
-  const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData)
+  const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData);
 
   const updateAssignTo = (index: number, newAssignTo: string) => {
     setCardPropsArray(prev =>
-      prev.map((card, i) =>
-        i === index ? { ...card, assign_to: newAssignTo } : card
-      )
+      prev.map((card, i) => (i === index ? { ...card, assign_to: newAssignTo } : card))
     );
-  }
+  };
 
   const handleOpenDrawer = (data: MedicalCardTypes) => {
     setKanbanData(data);
@@ -42,11 +40,11 @@ export default function KanbanReferral({
 
   const handleOpenApproval = () => {
     if (pathname?.includes("/referrals/draft")) {
-      setIsDraft(true)
-      setOpenApprovalDialog(true)
+      setIsDraft(true);
+      setOpenApprovalDialog(true);
     } else {
-      setIsDraft(false)
-      setOpenApprovalDialog(true)
+      setIsDraft(false);
+      setOpenApprovalDialog(true);
     }
   };
 
@@ -68,14 +66,14 @@ export default function KanbanReferral({
 
   const filterCards = (cards: MedicalCardTypes[], path: string | undefined): MedicalCardTypes[] => {
     if (!path) return cards;
-  
+
     const pathSegment = path.split("/").filter(Boolean).pop()?.toLowerCase();
     if (!pathSegment) return cards;
-  
+
     if (path === "/referrals/draft") {
-      return cards.filter(card => card.status === "new").slice(0, 1); 
+      return cards.filter(card => card.status === "new").slice(0, 1);
     }
-  
+
     if (path.includes("/speciality-affiliation/partner-network")) {
       const topCards = cards.filter(card => card.isTop);
       return topCards;
@@ -90,9 +88,9 @@ export default function KanbanReferral({
     } else if (path.includes("/pcp")) {
       return cards.filter(card => convertToSlug(card.name) === pathSegment);
     }
-  
+
     return cards;
-  };   
+  };
 
   if (view !== "kanban") return null;
 
@@ -100,9 +98,9 @@ export default function KanbanReferral({
     <>
       {!!kanbanData && (
         <ReferralDrawer
-          isApproved={kanbanData.status !== 'new'}
+          isApproved={kanbanData.status !== "new"}
           isAssigned={Boolean(kanbanData.assign_to)}
-          isDenied={kanbanData.status === 'denied'}
+          isDenied={kanbanData.status === "denied"}
           onClickApproval={handleOpenApproval}
           onClose={() => setOpen(false)}
           open={open}
@@ -118,29 +116,29 @@ export default function KanbanReferral({
 
       <ScrollArea className="w-full">
         <section className="flex gap-4 px-8 py-6">
-        {Object.entries(categorizedData).map(([status, cards]) => {
-          const filteredCards = filterCards(cards, pathname).filter((card) =>
-            queueFilter === "my" ? card.assign_to !== "" : true
-          );
+          {Object.entries(categorizedData).map(([status, cards]) => {
+            const filteredCards = filterCards(cards, pathname).filter(card =>
+              queueFilter === "my" ? card.assign_to !== "" : true
+            );
 
-          const statusFilteredCards = filteredCards.filter((card) => {
-            if (statusFilter === "all") {
-              return true;
-            } else if (statusFilter === "new") {
-              return card.status === "new";
-            } else if (statusFilter === "pending") {
-              return card.status === "pending";
-            } else if (statusFilter === "approved") {
-              return card.status === "approved";
-            } else if (statusFilter === "completed") {
-              return card.status === "completed";
-            } else if (statusFilter === "denied") {
-              return card.status === "denied";
-            }
-            return false;
-          });
+            const statusFilteredCards = filteredCards.filter(card => {
+              if (statusFilter === "all") {
+                return true;
+              } else if (statusFilter === "new") {
+                return card.status === "new";
+              } else if (statusFilter === "pending") {
+                return card.status === "pending";
+              } else if (statusFilter === "approved") {
+                return card.status === "approved";
+              } else if (statusFilter === "completed") {
+                return card.status === "completed";
+              } else if (statusFilter === "denied") {
+                return card.status === "denied";
+              }
+              return false;
+            });
 
-          if (statusFilteredCards.length === 0) return null;
+            if (statusFilteredCards.length === 0) return null;
             return (
               <ScrollArea
                 className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary"
@@ -159,7 +157,7 @@ export default function KanbanReferral({
                     <MedicalCard
                       cardProps={cardData}
                       onCardClick={() => handleOpenDrawer(cardData)}
-                      onUserClick={(newAssignTo) => updateAssignTo(index, newAssignTo)}
+                      onUserClick={newAssignTo => updateAssignTo(index, newAssignTo)}
                     />
                   </div>
                 ))}

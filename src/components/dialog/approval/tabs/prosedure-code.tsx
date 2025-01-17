@@ -98,9 +98,9 @@ export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean })
 
   useEffect(() => {
     if (isDraft) {
-      setSelectedCodes(availableCodes.slice(0, 3))
+      setSelectedCodes(availableCodes.slice(0, 3));
     }
-  }, [availableCodes, isDraft])
+  }, [availableCodes, isDraft]);
 
   return (
     <div className="space-y-1 p-4">

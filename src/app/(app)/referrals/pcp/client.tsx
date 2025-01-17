@@ -12,7 +12,7 @@ export default function PcpReferralClient() {
   const [queue, setQueue] = useState("all");
   const [view, setView] = useState("kanban");
   const [status, setStatus] = useState("outgoing");
-  const [cardStatus, setCardStatus] = useState("all")
+  const [cardStatus, setCardStatus] = useState("all");
 
   return (
     <MainContainer className="flex flex-col !p-0">
@@ -26,7 +26,12 @@ export default function PcpReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
+      <KanbanReferral
+        pathname={pathname}
+        queueFilter={queue}
+        statusFilter={cardStatus}
+        view={view}
+      />
       <ListReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
     </MainContainer>
   );

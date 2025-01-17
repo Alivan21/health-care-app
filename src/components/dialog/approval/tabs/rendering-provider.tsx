@@ -70,9 +70,9 @@ export default function RenderingProviderSelect({ isDraft }: { isDraft: boolean 
 
   useEffect(() => {
     if (isDraft) {
-      setSelectedProvider(filteredProviders[0].id)
+      setSelectedProvider(filteredProviders[0].id);
     }
-  }, [filteredProviders, isDraft])
+  }, [filteredProviders, isDraft]);
 
   return (
     <div className="mx-auto w-full max-w-3xl space-y-6 p-4">

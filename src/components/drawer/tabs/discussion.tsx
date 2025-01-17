@@ -6,7 +6,7 @@ export function DiscussionThread({ status }: { status: string }) {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        {status !== 'new' ? (
+        {status !== "new" ? (
           <div className="flex items-start gap-3">
             <Avatar className="size-8">
               <div className="size-full rounded-full bg-primary" />
@@ -17,8 +17,8 @@ export function DiscussionThread({ status }: { status: string }) {
                 <span className="text-sm text-muted-foreground">1 hour ago</span>
               </div>
               <p className="mt-1">
-                I have understood the brief given, but I have some questions that I want to ask again
-                because I want to equalize my perception with you.
+                I have understood the brief given, but I have some questions that I want to ask
+                again because I want to equalize my perception with you.
               </p>
               <div className="mt-2 flex items-center gap-3">
                 <Button className="h-8" size="sm" variant="ghost">

@@ -165,23 +165,27 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
           ) : null}
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" size="icon" className="!bg-transparent !hover:bg-transparent !border-0">
-                <ChevronDown className="h-4 w-4" />
+              <Button
+                className="!hover:bg-transparent !border-0 !bg-transparent"
+                size="icon"
+                variant="outline"
+              >
+                <ChevronDown className="size-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-40 p-2">
               <div className="flex flex-col space-y-2">
                 <Button
-                  variant="ghost"
                   className="w-full justify-start"
-                  onClick={() => console.log('My Account clicked')}
+                  onClick={() => console.log("My Account clicked")}
+                  variant="ghost"
                 >
                   My Account
                 </Button>
                 <Button
+                  className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600"
+                  onClick={() => console.log("Logout clicked")}
                   variant="ghost"
-                  className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
-                  onClick={() => console.log('Logout clicked')}
                 >
                   Logout
                 </Button>

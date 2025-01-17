@@ -23,11 +23,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DoctorPriorityTypes, MedicalCardTypes } from "@/constant/types/referral";
+import { MedicalCardTypes } from "@/constant/types/referral";
 import { formatDate } from "@/lib/utils";
 import StatusBadge from "@/components/badge/status-badge";
 
-export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { data: MedicalCardTypes[]; onCardClick?: (cardData: MedicalCardTypes) => void; onUserClick?: (id: string, newAssignTo: string) => void}) {
+export function AppointmentsTable({
+  data = [],
+  onCardClick,
+  onUserClick,
+}: {
+  data: MedicalCardTypes[];
+  onCardClick?: (cardData: MedicalCardTypes) => void;
+  onUserClick?: (id: string, newAssignTo: string) => void;
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
 
@@ -38,7 +46,8 @@ export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { dat
         <Checkbox
           aria-label="Select all"
           checked={
-            table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
           }
           onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         />
@@ -76,16 +85,14 @@ export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { dat
     },
     {
       accessorKey: "patient_name",
-      header: "Patient Name"
+      header: "Patient Name",
     },
     {
       accessorKey: "priority",
       header: "Priority",
       cell: ({ row }) => {
-        const status = row.getValue("priority") as DoctorPriorityTypes
-        return (
-          <StatusBadge status={status}/>
-        );
+        const status = row.original.priority;
+        return <StatusBadge status={status} />;
       },
     },
     {
@@ -96,20 +103,20 @@ export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { dat
       accessorKey: "assign_to",
       header: "Assign to",
       cell: ({ row }) => {
-        const assign = row.getValue("assign_to")
-        if (assign === '') {
-          return 'None'
+        const assign = row.getValue("assign_to");
+        if (assign === "") {
+          return "None";
         }
 
-        return assign
-      }
+        return assign;
+      },
     },
     {
       accessorKey: "created_at",
       header: "Created",
       cell: ({ row }) => {
         const created = new Date(row.getValue("created_at"));
-        return `${formatDate(created)} Days Ago`
+        return `${formatDate(created)} Days Ago`;
       },
     },
     {
@@ -117,17 +124,20 @@ export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { dat
       header: "Action",
       enableHiding: false,
       cell: ({ row }) => {
-        const assign = row.getValue("assign_to")
-        const id = row.original.id
+        const assign = row.getValue("assign_to");
+        const id = row.original.id;
         return (
           <div className="flex gap-2">
-            <Button size="icon" className="drop-shadow !bg-white rounded-md" 
+            <Button
+              className="rounded-md !bg-white drop-shadow"
               onClick={() => {
-                onCardClick?.(row.original)
-              }}>
+                onCardClick?.(row.original);
+              }}
+              size="icon"
+            >
               <Eye className="size-4 text-[#4579F9]" />
             </Button>
-            {assign !== '' ? (
+            {assign !== "" ? (
               <Button size="icon" variant="link">
                 <Avatar className="size-8">
                   <AvatarImage src="/img/user-profile-1.svg" />
@@ -135,8 +145,12 @@ export function AppointmentsTable({ data = [], onCardClick, onUserClick }: { dat
                 </Avatar>
               </Button>
             ) : (
-              <Button size="icon" className="drop-shadow !bg-white rounded-md" onClick={() => onUserClick?.(id, 'Ronald Grover')}>
-                <CircleUserRound className="size-4 text-[#4579F9]"/>
+              <Button
+                className="rounded-md !bg-white drop-shadow"
+                onClick={() => onUserClick?.(id, "Ronald Grover")}
+                size="icon"
+              >
+                <CircleUserRound className="size-4 text-[#4579F9]" />
               </Button>
             )}
           </div>

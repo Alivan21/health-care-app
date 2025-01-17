@@ -31,9 +31,9 @@ export default function ReferralHeader({
   status,
   setStatus,
   cardStatus,
-  setCardStatus
+  setCardStatus,
 }: ReferralHeaderProps) {
-  const routes = useRouter()
+  const routes = useRouter();
 
   const ViewOptions = [
     {
@@ -97,7 +97,7 @@ export default function ReferralHeader({
       label: "Denied",
       value: "denied",
     },
-  ]
+  ];
 
   return (
     <section className="flex !w-auto flex-col gap-4 bg-white px-8 py-6">
@@ -111,7 +111,11 @@ export default function ReferralHeader({
             value={queue}
             variant="both"
           />
-          <Button onClick={() => routes.push("/referrals/draft")} size="rounded" variant="secondary">
+          <Button
+            onClick={() => routes.push("/referrals/draft")}
+            size="rounded"
+            variant="secondary"
+          >
             Draft{" "}
             <Badge className="ml-auto size-5 justify-center rounded-md px-0" variant="destructive">
               1
@@ -123,7 +127,9 @@ export default function ReferralHeader({
             </SelectTrigger>
             <SelectContent>
               {CardStatusOptions.map((data, index) => (
-                <SelectItem key={index} value={data.value}>{data.label}</SelectItem>
+                <SelectItem key={index} value={data.value}>
+                  {data.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>

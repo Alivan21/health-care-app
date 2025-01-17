@@ -6,7 +6,7 @@ import { DiscussionThread } from "./discussion";
 import { FileList } from "./file";
 import { HistoryTimeline } from "./history";
 
-export default function TabsSection({ status = '' }: { status?: string }) {
+export default function TabsSection({ status = "" }: { status?: string }) {
   return (
     <Tabs className="mt-5 flex flex-1 flex-col" defaultValue="discussion">
       <TabsList className="justify-start rounded-none border-b bg-white px-0 text-start">
@@ -26,7 +26,7 @@ export default function TabsSection({ status = '' }: { status?: string }) {
           Attachments
           <StatusBadge className="ms-1" status="STAT" text="2" />
         </TabsTrigger>
-        {status !== 'new' && (
+        {status !== "new" && (
           <TabsTrigger
             className="relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:scale-x-100"
             value="history"
@@ -38,7 +38,7 @@ export default function TabsSection({ status = '' }: { status?: string }) {
       </TabsList>
       <ScrollArea className="flex-1">
         <TabsContent className="m-0 p-6" value="discussion">
-          <DiscussionThread status={status}/>
+          <DiscussionThread status={status} />
         </TabsContent>
         <TabsContent className="m-0 p-6" value="attachments">
           <FileList />

@@ -23,7 +23,7 @@ import ReviewSection from "./tabs/review";
 interface Props {
   open?: boolean;
   onClose?: (open?: boolean) => void;
-  isDraft: boolean
+  isDraft: boolean;
 }
 
 export default function RequestApprovalDialog({ open, onClose, isDraft }: Props) {
@@ -136,7 +136,7 @@ export default function RequestApprovalDialog({ open, onClose, isDraft }: Props)
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="attachment">
-                <AttachmentDocument isDraft={isDraft}/>
+                <AttachmentDocument isDraft={isDraft} />
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="review">

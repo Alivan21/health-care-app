@@ -13,14 +13,16 @@ interface Props {
 }
 
 export default function MedicalCard({ onCardClick, onUserClick, cardProps }: Props) {
-  const isAssigned = cardProps.assign_to !== '' ? true : false
+  const isAssigned = cardProps.assign_to !== "" ? true : false;
 
   return (
     <Card
       className="relative w-full min-w-64 max-w-64 cursor-pointer p-4"
       onClick={() => onCardClick?.(cardProps)}
     >
-      <div className={`${cardProps.isTop ? 'block' : 'hidden'} absolute right-[-5px] top-4 z-10 flex flex-col items-end`}>
+      <div
+        className={`${cardProps.isTop ? "block" : "hidden"} absolute right-[-5px] top-4 z-10 flex flex-col items-end`}
+      >
         <div className="rounded-t-full rounded-bl-full rounded-br-none bg-[#FE4144] pb-[5px] pl-[5px] pr-2 pt-[3px] text-white">
           <p className="text-[9px] font-normal">Top</p>
         </div>
@@ -70,7 +72,7 @@ export default function MedicalCard({ onCardClick, onUserClick, cardProps }: Pro
             className="z-10 size-7 rounded-full"
             onClick={e => {
               e.stopPropagation();
-              onUserClick?.('Ronald Glover');
+              onUserClick?.("Ronald Glover");
             }}
             size="icon"
             variant="primaryOutline"

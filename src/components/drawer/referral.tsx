@@ -26,7 +26,7 @@ import {
   UserCog,
   Users2,
   Wallet,
-  X
+  X,
 } from "lucide-react";
 import StatusBadge from "../badge/status-badge";
 import { ScrollArea } from "../ui/scroll-area";
@@ -111,7 +111,14 @@ export default function ReferralDrawer({
         <ScrollArea className="h-full flex-1 px-6">
           <Accordion
             className="w-full space-y-2"
-            defaultValue={["patient", "organization", "provider", "service", "procedure-code", "rendering-provider"]}
+            defaultValue={[
+              "patient",
+              "organization",
+              "provider",
+              "service",
+              "procedure-code",
+              "rendering-provider",
+            ]}
             type="multiple"
           >
             <AccordionItem value="patient">
@@ -138,7 +145,7 @@ export default function ReferralDrawer({
                 <RequestingProviderSection />
               </AccordionContent>
             </AccordionItem>
-            {props.status !== 'new' && (
+            {props.status !== "new" && (
               <AccordionItem value="service">
                 <AccordionTrigger>
                   <span className="flex items-center gap-2">Service Information</span>
@@ -148,7 +155,7 @@ export default function ReferralDrawer({
                 </AccordionContent>
               </AccordionItem>
             )}
-            {props.status !== 'new' && props.status !== 'pending' && (
+            {props.status !== "new" && props.status !== "pending" && (
               <AccordionItem value="procedure-code">
                 <AccordionTrigger>
                   <span className="flex items-center gap-2">Procedure Code</span>
@@ -158,7 +165,7 @@ export default function ReferralDrawer({
                 </AccordionContent>
               </AccordionItem>
             )}
-            {props.status !== 'new' && props.status !== 'pending' && (
+            {props.status !== "new" && props.status !== "pending" && (
               <AccordionItem value="rendering-provider">
                 <AccordionTrigger>
                   <span className="flex items-center gap-2">Rendering Provider</span>
@@ -169,7 +176,7 @@ export default function ReferralDrawer({
               </AccordionItem>
             )}
           </Accordion>
-          <TabsSection status={props.status || ''}/>
+          <TabsSection status={props.status || ""} />
         </ScrollArea>
         <div className="border-t px-6 py-3">
           {isDenied ? (
@@ -185,7 +192,11 @@ export default function ReferralDrawer({
               {isApproved ? (
                 <div className="flex items-center gap-2 text-green-500">
                   <CheckCheck />
-                  {props.status === 'approved' ? (<span>Approved 1 hour ago</span>) : (<span>Submitted 1 hour ago</span>)}
+                  {props.status === "approved" ? (
+                    <span>Approved 1 hour ago</span>
+                  ) : (
+                    <span>Submitted 1 hour ago</span>
+                  )}
                 </div>
               ) : (
                 <Button className="flex-1" onClick={onClickApproval}>
@@ -373,73 +384,66 @@ export function ProcedureCodeSection() {
         to: new Date(2025, 2, 5),
       },
     },
-  ]
-
+  ];
 
   return (
     <div className="space-y-6">
-        <div className="flex w-full items-center justify-between">
-          <div className="flex flex-wrap gap-2">
-            {selectedCodes.length > 0 ? (
-              selectedCodes.map(code => (
-                <button
-                  className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1"
-                  key={code.code}
-                >
-                  <span className="text-sm">
-                    {code.code}: {code.description}
-                  </span>
-                  <Button
-                    className="size-5 p-0 hover:bg-gray-200"
-                    size="sm"
-                    variant="ghost"
-                  >
-                    <X className="size-3" />
-                  </Button>
-                </button>
-              ))
-            ) : (
-              <span>Select Procedure Code</span>
-            )}
-          </div>
-        </div>      
+      <div className="flex w-full items-center justify-between">
+        <div className="flex flex-wrap gap-2">
+          {selectedCodes.length > 0 ? (
+            selectedCodes.map(code => (
+              <button
+                className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1"
+                key={code.code}
+              >
+                <span className="text-sm">
+                  {code.code}: {code.description}
+                </span>
+                <Button className="size-5 p-0 hover:bg-gray-200" size="sm" variant="ghost">
+                  <X className="size-3" />
+                </Button>
+              </button>
+            ))
+          ) : (
+            <span>Select Procedure Code</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 export function RenderingProviderSection() {
   return (
-          <RadioGroup defaultValue="one">
-            <Label
-              className="flex cursor-pointer items-center space-x-4 rounded-lg border p-2 hover:bg-muted [&:has(:checked)]:bg-muted"
-            >
-              <RadioGroupItem value="one" />
-              <div className="grid flex-1 grid-cols-4 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Image
-                    alt="Rendering Pict"
-                    className="size-10 rounded-full bg-muted"
-                    height={24}
-                    src="/img/rendering_profile.svg"
-                    width={24}
-                  />
-                  <div>
-                    <div className="font-medium">Dr. James Harisson</div>
-                    <div className="text-sm text-muted-foreground">Cardiology</div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="text-sm">Dec 05, 2024</div>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-sm text-green-600">Insurance Accepted</span>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <div className="text-sm">123 Main.St Miami, Florida, 33101</div>
-                  <div className="text-sm text-muted-foreground">3.6 mi</div>
-                </div>
-              </div>
-            </Label>
-          </RadioGroup>
-  )
+    <RadioGroup defaultValue="one">
+      <Label className="flex cursor-pointer items-center space-x-4 rounded-lg border p-2 hover:bg-muted [&:has(:checked)]:bg-muted">
+        <RadioGroupItem value="one" />
+        <div className="grid flex-1 grid-cols-4 gap-4">
+          <div className="flex items-center space-x-3">
+            <Image
+              alt="Rendering Pict"
+              className="size-10 rounded-full bg-muted"
+              height={24}
+              src="/img/rendering_profile.svg"
+              width={24}
+            />
+            <div>
+              <div className="font-medium">Dr. James Harisson</div>
+              <div className="text-sm text-muted-foreground">Cardiology</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="text-sm">Dec 05, 2024</div>
+          </div>
+          <div className="flex items-center">
+            <span className="text-sm text-green-600">Insurance Accepted</span>
+          </div>
+          <div className="flex flex-col justify-center">
+            <div className="text-sm">123 Main.St Miami, Florida, 33101</div>
+            <div className="text-sm text-muted-foreground">3.6 mi</div>
+          </div>
+        </div>
+      </Label>
+    </RadioGroup>
+  );
 }

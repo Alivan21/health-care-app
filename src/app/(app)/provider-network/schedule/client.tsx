@@ -1,5 +1,5 @@
 "use client";
 
 export default function ProviderScheduleClient() {
-  return <></>;
+  return <>Hello World</>;
 }

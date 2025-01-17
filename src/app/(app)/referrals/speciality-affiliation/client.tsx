@@ -26,7 +26,12 @@ export default function SpecialityAffiliationReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
+      <KanbanReferral
+        pathname={pathname}
+        queueFilter={queue}
+        statusFilter={cardStatus}
+        view={view}
+      />
       <ListReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
     </MainContainer>
   );

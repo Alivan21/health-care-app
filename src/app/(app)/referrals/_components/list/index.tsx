@@ -12,7 +12,7 @@ export default function ListReferral({
   pathname,
   queueFilter,
   view,
-  statusFilter
+  statusFilter,
 }: {
   pathname?: string;
   queueFilter: string;
@@ -23,15 +23,13 @@ export default function ListReferral({
   const [openApprovalDialog, setOpenApprovalDialog] = useState(false);
   const [listData, setlistData] = useState<MedicalCardTypes | null>(null);
   const [isDraft, setIsDraft] = useState(false);
-  const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData)
+  const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData);
 
   const updateAssignTo = (id: string, newAssignTo: string) => {
     setCardPropsArray(prev =>
-      prev.map((card) =>
-        card.id === id ? { ...card, assign_to: newAssignTo } : card
-      )
+      prev.map(card => (card.id === id ? { ...card, assign_to: newAssignTo } : card))
     );
-  }
+  };
 
   const handleOpenDrawer = (data: MedicalCardTypes) => {
     setlistData(data);
@@ -40,11 +38,11 @@ export default function ListReferral({
 
   const handleOpenApproval = () => {
     if (pathname?.includes("/referrals/draft")) {
-      setIsDraft(true)
-      setOpenApprovalDialog(true)
+      setIsDraft(true);
+      setOpenApprovalDialog(true);
     } else {
-      setIsDraft(false)
-      setOpenApprovalDialog(true)
+      setIsDraft(false);
+      setOpenApprovalDialog(true);
     }
   };
 
@@ -66,14 +64,14 @@ export default function ListReferral({
 
   const filterCards = (cards: MedicalCardTypes[], path: string | undefined): MedicalCardTypes[] => {
     if (!path) return cards;
-  
+
     const pathSegment = path.split("/").filter(Boolean).pop()?.toLowerCase();
     if (!pathSegment) return cards;
-  
+
     if (path === "/referrals/draft") {
-      return cards.filter(card => card.status === "new").slice(0, 1); 
+      return cards.filter(card => card.status === "new").slice(0, 1);
     }
-  
+
     if (path.includes("/speciality-affiliation/partner-network")) {
       const topCards = cards.filter(card => card.isTop);
       return topCards;
@@ -88,7 +86,7 @@ export default function ListReferral({
     } else if (path.includes("/pcp")) {
       return cards.filter(card => convertToSlug(card.name) === pathSegment);
     }
-  
+
     return cards;
   };
 
@@ -98,9 +96,9 @@ export default function ListReferral({
     <>
       {!!listData && (
         <ReferralDrawer
-          isApproved={listData.status !== 'new'}
+          isApproved={listData.status !== "new"}
           isAssigned={Boolean(listData.assign_to)}
-          isDenied={listData.status === 'denied'}
+          isDenied={listData.status === "denied"}
           onClickApproval={handleOpenApproval}
           onClose={() => setOpen(false)}
           open={open}
@@ -117,11 +115,11 @@ export default function ListReferral({
       <ScrollArea className="w-full">
         <section className="flex flex-col gap-4 px-8 py-6">
           {Object.entries(categorizedData).map(([status, cards]) => {
-            const filteredCards = filterCards(cards, pathname).filter((card) =>
+            const filteredCards = filterCards(cards, pathname).filter(card =>
               queueFilter === "my" ? card.assign_to !== "" : true
             );
-  
-            const statusFilteredCards = filteredCards.filter((card) => {
+
+            const statusFilteredCards = filteredCards.filter(card => {
               if (statusFilter === "all") {
                 return true;
               } else if (statusFilter === "new") {
@@ -137,24 +135,24 @@ export default function ListReferral({
               }
               return false;
             });
-  
+
             if (statusFilteredCards.length === 0) return null;
             return (
               <ScrollArea
-                className="relative border border-border !bg-white flex max-h-screen w-full flex-col overflow-auto rounded-lg bg-secondary"
+                className="relative flex max-h-screen w-full flex-col overflow-auto rounded-lg border border-border !bg-white"
                 key={status}
               >
-                <div className="sticky top-0 z-20 flex gap-2 bg-[#F6F7FA] m-3 px-3 py-2 rounded-lg">
+                <div className="sticky top-0 z-20 m-3 flex gap-2 rounded-lg bg-[#F6F7FA] px-3 py-2">
                   <span className={`w-1.5 rounded-lg ${statusStyles[status]}`} />
                   <div className="space-x-2">
                     <span className="capitalize">{status}</span>
                     <Badge className="rounded-lg px-1.5">{statusFilteredCards.length}</Badge>
                   </div>
                 </div>
-                
-                <AppointmentsTable 
-                  data={statusFilteredCards} 
-                  onCardClick={(cardData) => handleOpenDrawer(cardData)}
+
+                <AppointmentsTable
+                  data={statusFilteredCards}
+                  onCardClick={cardData => handleOpenDrawer(cardData)}
                   onUserClick={(cardId, newAssign) => updateAssignTo(cardId, newAssign)}
                 />
               </ScrollArea>

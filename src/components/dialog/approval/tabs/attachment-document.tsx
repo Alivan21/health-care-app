@@ -18,9 +18,7 @@ export function AttachmentDocument({ isDraft }: { isDraft: boolean }) {
       </div>
       {isDraft ? (
         <div className="flex flex-col">
-          <div
-            className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2"
-          >
+          <div className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2">
             <div className="flex items-center space-x-2">
               <FileText className="text-[#4579F9]" />
               <div className="flex flex-col items-start text-start">
@@ -43,9 +41,7 @@ export function AttachmentDocument({ isDraft }: { isDraft: boolean }) {
               </Button>
             </div>
           </div>
-          <div
-            className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2"
-          >
+          <div className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2">
             <div className="flex items-center space-x-2">
               <FileText className="text-[#4579F9]" />
               <div className="flex flex-col items-start text-start">
@@ -68,9 +64,7 @@ export function AttachmentDocument({ isDraft }: { isDraft: boolean }) {
               </Button>
             </div>
           </div>
-          <div
-            className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2"
-          >
+          <div className="mb-2 flex w-full items-center justify-between rounded-md border border-[#B7CBFD] px-3 py-2">
             <div className="flex items-center space-x-2">
               <FileText className="text-[#4579F9]" />
               <div className="flex flex-col items-start text-start">

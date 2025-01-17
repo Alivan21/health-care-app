@@ -22,4 +22,4 @@ export type ProcedureCode = {
   quantity: number;
   dateRange: DateRange;
   selected?: boolean;
-}
+};
