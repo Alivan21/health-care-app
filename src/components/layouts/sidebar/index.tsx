@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +19,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -158,9 +159,39 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
           </Avatar>
           {state === "expanded" ? (
             <div className="flex flex-col">
+              <p className="text-sm font-semibold">Nathaniel Brooks</p>
               <span className="text-sm font-medium">nathaniel@healthcare.com</span>
             </div>
           ) : null}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                className="!hover:bg-transparent !border-0 !bg-transparent"
+                size="icon"
+                variant="outline"
+              >
+                <ChevronDown className="size-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-40 p-2">
+              <div className="flex flex-col space-y-2">
+                <Button
+                  className="w-full justify-start"
+                  onClick={() => console.log("My Account clicked")}
+                  variant="ghost"
+                >
+                  My Account
+                </Button>
+                <Button
+                  className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600"
+                  onClick={() => console.log("Logout clicked")}
+                  variant="ghost"
+                >
+                  Logout
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
         <div className="mt-4 flex gap-2">
           <Input className="h-8" placeholder="Search" type="search" />
@@ -179,7 +210,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
                     }}
                   >
                     <ArrowLeft className="mr-1 size-4" />
-                    Back to Home
+                    Back to Dashboard
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>

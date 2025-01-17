@@ -23,9 +23,10 @@ import ReviewSection from "./tabs/review";
 interface Props {
   open?: boolean;
   onClose?: (open?: boolean) => void;
+  isDraft: boolean;
 }
 
-export default function RequestApprovalDialog({ open, onClose }: Props) {
+export default function RequestApprovalDialog({ open, onClose, isDraft }: Props) {
   const [activeTab, setActiveTab] = useState("procedure");
   const [showDiscardDialog, setShowDiscardDialog] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -127,15 +128,15 @@ export default function RequestApprovalDialog({ open, onClose }: Props) {
               ) : null}
 
               <TabsContent className="mt-4 border-0 p-0" value="procedure">
-                <ProcedureCodeSelector />
+                <ProcedureCodeSelector isDraft={isDraft} />
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="rendering">
-                <RenderingProviderSelect />
+                <RenderingProviderSelect isDraft={isDraft} />
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="attachment">
-                <AttachmentDocument />
+                <AttachmentDocument isDraft={isDraft} />
               </TabsContent>
 
               <TabsContent className="border-0 p-0" value="review">
