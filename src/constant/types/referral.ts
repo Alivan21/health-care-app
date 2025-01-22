@@ -33,4 +33,4 @@ export type IncomingTableDataType = {
   speciality: string;
   assign_to?: string;
   created: Date;
-}
+};

@@ -6,7 +6,7 @@ import ReferralHeader from "./header/title";
 import KanbanReferral from "./kanban";
 import ListReferral from "./list";
 import IncomingSection from "./incoming/incoming-section";
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from "@/components/ui/toaster";
 
 export default function ReferralClient() {
   const [queue, setQueue] = useState("all");
@@ -27,9 +27,9 @@ export default function ReferralClient() {
         status={status}
         view={view}
       />
-      {status === 'outgoing' ? (
+      {status === "outgoing" ? (
         <KanbanReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
-      ): (
+      ) : (
         <IncomingSection />
       )}
       <ListReferral queueFilter={queue} statusFilter={cardStatus} view={view} />

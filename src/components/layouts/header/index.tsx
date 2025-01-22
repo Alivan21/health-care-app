@@ -31,8 +31,8 @@ export function PageHeader({ breadcrumbs = [] }: PageHeaderProps) {
         </div>
         <div className="flex flex-1 items-center justify-end gap-4">
           <div className="w-64">
-            <CustomInput 
-              icon={<Search className="size-4 text-gray-600"/>}
+            <CustomInput
+              icon={<Search className="size-4 text-gray-600" />}
               placeholder="Search"
               type="search"
             />
@@ -121,7 +121,9 @@ const notifications: Notification[] = [
 function NotificationPopover() {
   const [notificationTabs, setNotificationTabs] = useState("all");
 
-  const filterNotification = notifications.filter(notification => notification.status === notificationTabs || notificationTabs === "all");
+  const filterNotification = notifications.filter(
+    notification => notification.status === notificationTabs || notificationTabs === "all"
+  );
 
   return (
     <Popover>

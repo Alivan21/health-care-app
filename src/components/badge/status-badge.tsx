@@ -37,7 +37,7 @@ export function StatusIncomingBadge({ status, text, className }: StatusIncomingB
     pending: "bg-[#FFFAF5] text-orange-800 hover:bg-[#FFFAF5]",
     approved: "bg-red-100 text-green-800 hover:bg-red-100",
     completed: "bg-green-100 text-green-800 hover:bg-green-100",
-    denied: "bg-red-100 text-red-800 hover:bg-red-100"
+    denied: "bg-red-100 text-red-800 hover:bg-red-100",
   };
 
   return (

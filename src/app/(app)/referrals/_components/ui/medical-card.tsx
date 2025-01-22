@@ -10,7 +10,7 @@ interface Props {
   cardProps: MedicalCardTypes;
   onCardClick?: (cardData: MedicalCardTypes) => void;
   onUserClick?: (newAssignTo: string) => void;
-  onUnassign?: () => void; 
+  onUnassign?: () => void;
 }
 
 export default function MedicalCard({ onCardClick, onUserClick, onUnassign, cardProps }: Props) {
@@ -62,11 +62,11 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
       </CardContent>
       <div className="mt-4">
         {isAssigned ? (
-          <Button 
+          <Button
             onClick={e => {
               e.stopPropagation();
               onUnassign?.();
-            }} 
+            }}
             size="icon"
             variant="link"
           >

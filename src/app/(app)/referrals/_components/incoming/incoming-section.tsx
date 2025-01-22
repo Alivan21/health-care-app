@@ -1,45 +1,49 @@
-import React, { useState } from 'react'
-import { ReusableTable } from '../list/list-table'
-import { IncomingMockData } from '@/constant/mock/incoming-data'
-import { createIncomingTableData } from '@/constant/mock/table-data'
-import IncomingDocumentDialog from '@/components/dialog/incoming/document-dialog'
-import { useToast } from '@/hooks/use-toast'
-import { Check } from 'lucide-react'
-import SuccessDialog from '@/components/dialog/success-dialog'
-import RequestApprovalDialog from '@/components/dialog/approval'
-import { MedicalCardTypes } from '@/constant/types/referral'
-import { MedicalCardMockData } from '@/constant/mock/medical-card'
-import IncomingReferralDrawer from '@/components/drawer/incoming-referral'
+import React, { useState } from "react";
+import { ReusableTable } from "../list/list-table";
+import { IncomingMockData } from "@/constant/mock/incoming-data";
+import { createIncomingTableData } from "@/constant/mock/table-data";
+import IncomingDocumentDialog from "@/components/dialog/incoming/document-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { Check } from "lucide-react";
+import SuccessDialog from "@/components/dialog/success-dialog";
+import RequestApprovalDialog from "@/components/dialog/approval";
+import { MedicalCardTypes } from "@/constant/types/referral";
+import { MedicalCardMockData } from "@/constant/mock/medical-card";
+import IncomingReferralDrawer from "@/components/drawer/incoming-referral";
 
 export default function IncomingSection() {
-  const { toast } = useToast()
-  const [open, setOpen] = useState(false)
-  const [submitReferralOpen, setSubmitReferralOpen] = useState(false)
-  const [isParsed, setIsParsed] = useState(false)
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false)
-  const [referralData, setReferralData] = useState<MedicalCardTypes | null>(null)
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [submitReferralOpen, setSubmitReferralOpen] = useState(false);
+  const [isParsed, setIsParsed] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [referralData, setReferralData] = useState<MedicalCardTypes | null>(null);
   const [openApprovalDialog, setOpenApprovalDialog] = useState(false);
 
   const openDialog = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handlePendingOpenDrawer = () => {
-    setReferralData(MedicalCardMockData[4])
+    setReferralData(MedicalCardMockData[4]);
     setSubmitReferralOpen(true);
   };
 
   const handleCompletedOpenDrawer = () => {
-    setReferralData(MedicalCardMockData[8])
+    setReferralData(MedicalCardMockData[8]);
     setSubmitReferralOpen(true);
-  }
+  };
 
-  const tableCol = createIncomingTableData(handlePendingOpenDrawer, handleCompletedOpenDrawer,  openDialog)
+  const tableCol = createIncomingTableData(
+    handlePendingOpenDrawer,
+    handleCompletedOpenDrawer,
+    openDialog
+  );
 
   const handleClose = () => {
-    setOpen(false)
-    setIsParsed(false)
-  }
+    setOpen(false);
+    setIsParsed(false);
+  };
 
   return (
     <>
@@ -60,13 +64,13 @@ export default function IncomingSection() {
         onClose={() => setOpenApprovalDialog(false)}
         open={openApprovalDialog}
       />
-    
-      <IncomingDocumentDialog 
+
+      <IncomingDocumentDialog
         isParsed={isParsed}
         onClose={handleClose}
         open={open}
         setIsParsed={() => {
-          setIsParsed(true)
+          setIsParsed(true);
           setTimeout(() => {
             toast({
               color: "#E9F7EF",
@@ -78,23 +82,17 @@ export default function IncomingSection() {
                   <span className="font-medium">Parsing Completed!</span>
                 </div>
               ),
-            })
-          }, 500)
+            });
+          }, 500);
         }}
         setReferral={setShowSuccessDialog}
       />
 
-      <SuccessDialog 
-        onClose={() => setShowSuccessDialog(false)}
-        open={showSuccessDialog}
-      />
+      <SuccessDialog onClose={() => setShowSuccessDialog(false)} open={showSuccessDialog} />
 
-      <div className='px-6 py-5'>
-        <ReusableTable 
-          columns={tableCol}
-          data={IncomingMockData}
-        />
+      <div className="px-6 py-5">
+        <ReusableTable columns={tableCol} data={IncomingMockData} />
       </div>
     </>
-  )
+  );
 }

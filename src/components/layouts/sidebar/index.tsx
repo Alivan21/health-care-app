@@ -194,7 +194,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
           </Popover>
         </div>
         <div className="mt-4 flex gap-2">
-          <CustomInput 
+          <CustomInput
             icon={<Search className="size-4 text-gray-600" />}
             placeholder="Search"
             type="search"

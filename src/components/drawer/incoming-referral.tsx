@@ -14,16 +14,18 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { DoctorPriorityTypes, MedicalCardTypes } from "@/constant/types/referral";
-import {
-  Ban,
-  CheckCheck,
-  User2,
-
-} from "lucide-react";
+import { Ban, CheckCheck, User2 } from "lucide-react";
 import StatusBadge from "../badge/status-badge";
 import { ScrollArea } from "../ui/scroll-area";
 import TabsSection from "./tabs";
-import { OrganizationAndPayerSection, PatientInformationSection, ProcedureCodeSection, RenderingProviderSection, RequestingProviderSection, ServiceInformationSection } from "./referral";
+import {
+  OrganizationAndPayerSection,
+  PatientInformationSection,
+  ProcedureCodeSection,
+  RenderingProviderSection,
+  RequestingProviderSection,
+  ServiceInformationSection,
+} from "./referral";
 
 interface Props {
   props: MedicalCardTypes;
@@ -73,9 +75,7 @@ export default function IncomingReferralDrawer({
         </SheetHeader>
         <div className="space-y-5 border-b px-6 pb-3">
           <div className="space-y-2">
-            <div className="flex items-center gap-4">
-              {statusBadge(props.priority)}
-            </div>
+            <div className="flex items-center gap-4">{statusBadge(props.priority)}</div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Request ID: {props.id}</span>
               <span className="text-sm text-muted-foreground">Due Date: 09/01/2024</span>

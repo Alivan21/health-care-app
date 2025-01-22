@@ -6,7 +6,7 @@ type CustomInputProps = {
   type?: string;
   inputWrapperClassName?: string;
   inputClassName?: string;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>; 
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
 export default function CustomInput({
@@ -15,11 +15,11 @@ export default function CustomInput({
   type,
   inputWrapperClassName,
   inputClassName,
-  inputProps
+  inputProps,
 }: CustomInputProps) {
   return (
     <div
-      className={`flex w-full items-center space-x-1 rounded-lg border border-[#E8EEF3] bg-white ${icon ? 'pl-3' : 'pl-0'} ${inputWrapperClassName}`}
+      className={`flex w-full items-center space-x-1 rounded-lg border border-[#E8EEF3] bg-white ${icon ? "pl-3" : "pl-0"} ${inputWrapperClassName}`}
     >
       {icon}
       <Input

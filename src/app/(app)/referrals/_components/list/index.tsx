@@ -34,7 +34,7 @@ export default function ListReferral({
 
   const unassignCard = (id: string) => {
     setCardPropsArray(prev =>
-      prev.map((card) => (id === card.id ? { ...card, assign_to: "" } : card))
+      prev.map(card => (id === card.id ? { ...card, assign_to: "" } : card))
     );
   };
 
@@ -43,7 +43,7 @@ export default function ListReferral({
     setOpen(true);
   };
 
-  const tableColumn = createMedicalColumns(handleOpenDrawer, updateAssignTo, unassignCard)
+  const tableColumn = createMedicalColumns(handleOpenDrawer, updateAssignTo, unassignCard);
 
   const handleOpenApproval = () => {
     if (pathname?.includes("/referrals/draft")) {
@@ -159,10 +159,7 @@ export default function ListReferral({
                   </div>
                 </div>
 
-                <ReusableTable 
-                  columns={tableColumn}
-                  data={statusFilteredCards}
-                />
+                <ReusableTable columns={tableColumn} data={statusFilteredCards} />
               </ScrollArea>
             );
           })}

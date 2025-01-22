@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import StatusBadge, { StatusIncomingBadge } from "@/components/badge/status-badge";
 import { formatDate } from "@/lib/utils";
-import { Eye, CircleUserRound } from 'lucide-react';
+import { Eye, CircleUserRound } from "lucide-react";
 import type { IncomingTableDataType, MedicalCardTypes } from "@/constant/types/referral";
 import HospitalIcon from "@/app/(app)/referrals/_components/incoming/hospital-icon";
 
@@ -24,7 +24,7 @@ export const createMedicalColumns = (
             <AvatarFallback>
               {doctor.name
                 .split(" ")
-                .map((n) => n[0])
+                .map(n => n[0])
                 .join("")}
             </AvatarFallback>
           </Avatar>
@@ -82,11 +82,7 @@ export const createMedicalColumns = (
             <Eye className="size-4 text-[#4579F9]" />
           </Button>
           {assign !== "" ? (
-            <Button 
-              onClick={() => onUnassign?.(id)} 
-              size="icon"
-              variant="link"
-            >
+            <Button onClick={() => onUnassign?.(id)} size="icon" variant="link">
               <Avatar className="size-8">
                 <AvatarImage src="/img/user-profile-1.svg" />
                 <AvatarFallback>NB</AvatarFallback>
@@ -95,7 +91,7 @@ export const createMedicalColumns = (
           ) : (
             <Button
               className="rounded-md !bg-white drop-shadow"
-              onClick={() => onUserClick?.(id, 'Nathaniel Brooks')}
+              onClick={() => onUserClick?.(id, "Nathaniel Brooks")}
               size="icon"
             >
               <CircleUserRound className="size-4 text-[#4579F9]" />
@@ -113,11 +109,11 @@ export const createIncomingTableData = (
   onOpen?: () => void
 ): ColumnDef<IncomingTableDataType>[] => [
   {
-    accessorKey: 'referral_from',
-    header: 'Referral From',
+    accessorKey: "referral_from",
+    header: "Referral From",
     cell: ({ row }) => {
-      const fromAddress = row.original.referral_from_address
-      const referral = row.original.referral_from
+      const fromAddress = row.original.referral_from_address;
+      const referral = row.original.referral_from;
 
       return (
         <div className="flex items-center space-x-2">
@@ -127,15 +123,15 @@ export const createIncomingTableData = (
             <p className="truncate text-[10px] font-normal">{fromAddress}</p>
           </div>
         </div>
-      )
-    }
+      );
+    },
   },
   {
-    accessorKey: 'referral_to',
-    header: 'Referral To',
+    accessorKey: "referral_to",
+    header: "Referral To",
     cell: ({ row }) => {
-      const toAddress = row.original.referral_to_address
-      const referral = row.original.referral_to
+      const toAddress = row.original.referral_to_address;
+      const referral = row.original.referral_to;
 
       return (
         <div className="flex items-center space-x-2">
@@ -145,19 +141,19 @@ export const createIncomingTableData = (
             <p className="truncate text-[10px] font-normal">{toAddress}</p>
           </div>
         </div>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      return <StatusIncomingBadge status={row.original.status}/>;
-    }
+      return <StatusIncomingBadge status={row.original.status} />;
+    },
   },
   {
     accessorKey: "speciality",
-    header: "Speciality"
+    header: "Speciality",
   },
   {
     accessorKey: "assign_to",
@@ -180,18 +176,18 @@ export const createIncomingTableData = (
     header: "Action",
     enableHiding: false,
     cell: ({ row }) => {
-      const status = row.original.status
+      const status = row.original.status;
       return (
         <div className="flex gap-2">
           <Button
             className="rounded-md !bg-white drop-shadow"
             onClick={() => {
-              if (status === 'new') {
-                onOpen?.()
-              } else if (status === 'pending') {
-                onPendingRowClick?.()
-              } else if (status === 'approved') {
-                onApprovedRowClick?.()
+              if (status === "new") {
+                onOpen?.();
+              } else if (status === "pending") {
+                onPendingRowClick?.();
+              } else if (status === "approved") {
+                onApprovedRowClick?.();
               }
             }}
             size="icon"
@@ -202,4 +198,4 @@ export const createIncomingTableData = (
       );
     },
   },
-]
+];

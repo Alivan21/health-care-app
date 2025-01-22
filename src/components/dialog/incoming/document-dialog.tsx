@@ -1,24 +1,51 @@
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { WandSparkles, X, AlignVerticalSpaceBetween, CopySlash, PencilLine } from "lucide-react"
-import type React from "react"
-import { useState } from "react"
-import CustomInput from "@/components/input/custom-input"
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { WandSparkles, X, AlignVerticalSpaceBetween, CopySlash, PencilLine } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+import CustomInput from "@/components/input/custom-input";
 import type { ProcedureCode } from "@/constant/types/referral";
-import { ProcedureCodeSection } from "@/components/drawer/referral"
+import { ProcedureCodeSection } from "@/components/drawer/referral";
 
 interface Props {
-  open?: boolean
-  onClose?: (open?: boolean) => void
-  buttonDialog?: React.ReactNode
-  isParsed?: boolean
-  setIsParsed?: (isParsed: boolean) => void
-  setReferral?: (value: boolean) => void
+  open?: boolean;
+  onClose?: (open?: boolean) => void;
+  buttonDialog?: React.ReactNode;
+  isParsed?: boolean;
+  setIsParsed?: (isParsed: boolean) => void;
+  setReferral?: (value: boolean) => void;
 }
 
-export default function IncomingDocumentDialog({ open, onClose, buttonDialog, isParsed, setIsParsed, setReferral }: Props) {
+export default function IncomingDocumentDialog({
+  open,
+  onClose,
+  buttonDialog,
+  isParsed,
+  setIsParsed,
+  setReferral,
+}: Props) {
   return (
     <Dialog onOpenChange={onClose} open={open}>
       {!!buttonDialog && <DialogTrigger asChild>buttonDialog</DialogTrigger>}
@@ -74,19 +101,21 @@ export default function IncomingDocumentDialog({ open, onClose, buttonDialog, is
               <Button className="!hover:bg-white !border border-border !bg-white !text-muted-foreground">
                 Auto Match <CopySlash />
               </Button>
-              <Button onClick={e => {
-                e.stopPropagation()
-                setReferral?.(true)
-                onClose?.(false)
-              }}>
-                Add Referral <PencilLine /> 
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  setReferral?.(true);
+                  onClose?.(false);
+                }}
+              >
+                Add Referral <PencilLine />
               </Button>
             </div>
           </div>
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 export function PatientInformationSection() {
@@ -94,10 +123,10 @@ export function PatientInformationSection() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className='!pr-0 !font-normal'>Patient Name</TableHead>
-          <TableHead className='!pr-0 !font-normal'>Member ID</TableHead>
-          <TableHead className='!pr-0 !font-normal'>Date of Birth</TableHead>
-          <TableHead className='!pr-0 !font-normal'>Gender</TableHead>
+          <TableHead className="!pr-0 !font-normal">Patient Name</TableHead>
+          <TableHead className="!pr-0 !font-normal">Member ID</TableHead>
+          <TableHead className="!pr-0 !font-normal">Date of Birth</TableHead>
+          <TableHead className="!pr-0 !font-normal">Gender</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -116,23 +145,23 @@ export function PatientInformationSection() {
         </TableRow>
       </TableBody>
     </Table>
-  )
+  );
 }
 
 export function OrganizationPayerSection() {
-  const [provider, setProvider] = useState("provider1")
+  const [provider, setProvider] = useState("provider1");
 
   const providerOptions = [
     { label: "Outpatient Authorization", value: "provider1" },
     { label: "Outpatient Authorization", value: "provider2" },
-  ]
+  ];
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className='!pr-0 !font-normal'>Payer</TableHead>
-          <TableHead className='!pr-0 !font-normal'>Provider Role</TableHead>
+          <TableHead className="!pr-0 !font-normal">Payer</TableHead>
+          <TableHead className="!pr-0 !font-normal">Provider Role</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -163,29 +192,29 @@ export function OrganizationPayerSection() {
         </TableRow>
       </TableBody>
     </Table>
-  )
+  );
 }
 
 export function RequestingProviderSection() {
-  const [provider, setProvider] = useState("provider1")
-  const [specialityCode, setSpecialityCode] = useState("value1")
+  const [provider, setProvider] = useState("provider1");
+  const [specialityCode, setSpecialityCode] = useState("value1");
 
   const providerOptions = [
     { label: "Outpatient Authorization", value: "provider1" },
     { label: "Outpatient Authorization", value: "provider2" },
-  ]
+  ];
 
   const specialityCodeOptions = [
     { label: "20700000X0", value: "value1" },
     { label: "20700000X0", value: "value2" },
-  ]
+  ];
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className='!pr-0 !font-normal'>Speciality</TableHead>
-          <TableHead className='!pr-0 !font-normal'>Provider Role</TableHead>
+          <TableHead className="!pr-0 !font-normal">Speciality</TableHead>
+          <TableHead className="!pr-0 !font-normal">Provider Role</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -225,86 +254,83 @@ export function RequestingProviderSection() {
         </TableRow>
       </TableBody>
     </Table>
-  )
+  );
 }
 
 export function ProcedureCode() {
-
   const availableCodes: ProcedureCode[] = [
-      {
-        code: "99204",
-        description: "New Patient, Moderate Complexity Visit",
-        quantity: 1,
-        dateRange: {
-          from: new Date(2024, 11, 5),
-          to: new Date(2025, 2, 5),
-        },
+    {
+      code: "99204",
+      description: "New Patient, Moderate Complexity Visit",
+      quantity: 1,
+      dateRange: {
+        from: new Date(2024, 11, 5),
+        to: new Date(2025, 2, 5),
       },
-      {
-        code: "99214",
-        description: "Established Patient, Moderate Complexity Visit",
-        quantity: 1,
-        dateRange: {
-          from: new Date(2024, 11, 5),
-          to: new Date(2025, 2, 5),
-        },
+    },
+    {
+      code: "99214",
+      description: "Established Patient, Moderate Complexity Visit",
+      quantity: 1,
+      dateRange: {
+        from: new Date(2024, 11, 5),
+        to: new Date(2025, 2, 5),
       },
-      {
-        code: "99202",
-        description: "New Patient, Straightforward Visit",
-        quantity: 1,
-        dateRange: {
-          from: new Date(2024, 11, 5),
-          to: new Date(2025, 2, 5),
-        },
+    },
+    {
+      code: "99202",
+      description: "New Patient, Straightforward Visit",
+      quantity: 1,
+      dateRange: {
+        from: new Date(2024, 11, 5),
+        to: new Date(2025, 2, 5),
       },
-      {
-        code: "99205",
-        description: "New Patient, High Complexity Visit",
-        quantity: 1,
-        dateRange: {
-          from: new Date(2024, 11, 5),
-          to: new Date(2025, 2, 5),
-        },
+    },
+    {
+      code: "99205",
+      description: "New Patient, High Complexity Visit",
+      quantity: 1,
+      dateRange: {
+        from: new Date(2024, 11, 5),
+        to: new Date(2025, 2, 5),
       },
-      {
-        code: "99211",
-        description: "Established Patient, Minimal Visit",
-        quantity: 1,
-        dateRange: {
-          from: new Date(2024, 11, 5),
-          to: new Date(2025, 2, 5),
-        },
+    },
+    {
+      code: "99211",
+      description: "Established Patient, Minimal Visit",
+      quantity: 1,
+      dateRange: {
+        from: new Date(2024, 11, 5),
+        to: new Date(2025, 2, 5),
       },
-    ]
+    },
+  ];
 
-  return (
-    availableCodes.length > 0 ? (
-      availableCodes.map(code => (
-        <button
-          className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1"
-          key={code.code}
+  return availableCodes.length > 0 ? (
+    availableCodes.map(code => (
+      <button
+        className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1"
+        key={code.code}
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
+        <span className="text-sm">
+          {code.code}: {code.description}
+        </span>
+        <Button
+          className="size-5 p-0 hover:bg-gray-200"
           onClick={e => {
             e.stopPropagation();
           }}
+          size="sm"
+          variant="ghost"
         >
-          <span className="text-sm">
-            {code.code}: {code.description}
-          </span>
-          <Button
-            className="size-5 p-0 hover:bg-gray-200"
-            onClick={e => {
-              e.stopPropagation();
-            }}
-            size="sm"
-            variant="ghost"
-          >
-            <X className="size-3" />
-          </Button>
-        </button>
-      ))
-    ) : (
-      <span>Select Procedure Code</span>
-    )
-  )
+          <X className="size-3" />
+        </Button>
+      </button>
+    ))
+  ) : (
+    <span>Select Procedure Code</span>
+  );
 }

@@ -29,13 +29,13 @@ export default function KanbanReferral({
 
   const updateAssignTo = (id: string, newAssignTo: string) => {
     setCardPropsArray(prev =>
-      prev.map((card) => (id === card.id ? { ...card, assign_to: newAssignTo } : card))
+      prev.map(card => (id === card.id ? { ...card, assign_to: newAssignTo } : card))
     );
   };
 
   const unassignCard = (id: string) => {
     setCardPropsArray(prev =>
-      prev.map((card) => (id === card.id ? { ...card, assign_to: "" } : card))
+      prev.map(card => (id === card.id ? { ...card, assign_to: "" } : card))
     );
   };
 
@@ -96,7 +96,9 @@ export default function KanbanReferral({
       }
       return cards.filter(card => card.speciality.toLowerCase() === pathSegment);
     } else if (path.includes("/pcp")) {
-      return cards.filter(card => convertToSlug(card.name) === pathSegment && card.assign_to !== '');
+      return cards.filter(
+        card => convertToSlug(card.name) === pathSegment && card.assign_to !== ""
+      );
     }
 
     return cards;
@@ -163,7 +165,7 @@ export default function KanbanReferral({
                   </div>
                 </div>
 
-                {statusFilteredCards.map((cardData) => (
+                {statusFilteredCards.map(cardData => (
                   <div className="flex flex-col gap-2 p-2" key={cardData.id}>
                     <MedicalCard
                       cardProps={cardData}

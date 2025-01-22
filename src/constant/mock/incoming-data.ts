@@ -90,5 +90,5 @@ export const IncomingMockData: IncomingTableDataType[] = [
     speciality: "Cardiology",
     assign_to: "Nurse Anna Lee",
     created: new Date("2025-01-15"),
-  }
-]
+  },
+];
