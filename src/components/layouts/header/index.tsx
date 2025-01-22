@@ -5,10 +5,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowLeft, Bell, Settings, Check, Clock } from "lucide-react";
+import { ArrowLeft, Bell, Settings, Check, Clock, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import CustomInput from "@/components/input/custom-input";
+import { useState } from "react";
 
 interface PageHeaderProps {
   breadcrumbs?: PageBreadcrumbProps[];
@@ -30,7 +31,11 @@ export function PageHeader({ breadcrumbs = [] }: PageHeaderProps) {
         </div>
         <div className="flex flex-1 items-center justify-end gap-4">
           <div className="w-64">
-            <Input className="h-8 w-full" placeholder="Search..." type="search" />
+            <CustomInput
+              icon={<Search className="size-4 text-gray-600" />}
+              placeholder="Search"
+              type="search"
+            />
           </div>
           <Button size="icon" variant="ghost">
             <Settings className="size-4" />
@@ -52,7 +57,7 @@ interface Notification {
     label: string;
     href: string;
   };
-  status: "approved" | "pending" | "added";
+  status: "approved" | "urgent" | "stat";
 }
 
 const notifications: Notification[] = [
@@ -76,7 +81,7 @@ const notifications: Notification[] = [
       label: "Schedule Now",
       href: "#",
     },
-    status: "pending",
+    status: "urgent",
   },
   {
     id: "67890-1",
@@ -87,7 +92,7 @@ const notifications: Notification[] = [
       label: "View Referral",
       href: "#",
     },
-    status: "added",
+    status: "urgent",
   },
   {
     id: "67890-2",
@@ -98,7 +103,7 @@ const notifications: Notification[] = [
       label: "View Referral",
       href: "#",
     },
-    status: "added",
+    status: "stat",
   },
   {
     id: "12345",
@@ -109,11 +114,17 @@ const notifications: Notification[] = [
       label: "View Referral",
       href: "#",
     },
-    status: "pending",
+    status: "urgent",
   },
 ];
 
 function NotificationPopover() {
+  const [notificationTabs, setNotificationTabs] = useState("all");
+
+  const filterNotification = notifications.filter(
+    notification => notification.status === notificationTabs || notificationTabs === "all"
+  );
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -130,7 +141,7 @@ function NotificationPopover() {
               Mark all as read
             </Button>
           </div>
-          <Tabs className="w-full" defaultValue="all">
+          <Tabs className="w-full" onValueChange={setNotificationTabs} value={notificationTabs}>
             <div className="border-b px-4">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="all">All</TabsTrigger>
@@ -139,9 +150,9 @@ function NotificationPopover() {
                 <TabsTrigger value="insurance">Insurance</TabsTrigger>
               </TabsList>
             </div>
-            <TabsContent className="mt-0" value="all">
+            <TabsContent className="mt-0" value={notificationTabs}>
               <div className="space-y-2 p-2">
-                {notifications.map(notification => (
+                {filterNotification.map(notification => (
                   <div
                     className="flex gap-3 rounded-lg p-2 hover:bg-muted/50"
                     key={notification.id}

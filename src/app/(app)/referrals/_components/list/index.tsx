@@ -6,7 +6,8 @@ import { convertToSlug } from "@/lib/utils";
 import { useState } from "react";
 import ReferralDrawer from "@/components/drawer/referral";
 import RequestApprovalDialog from "@/components/dialog/approval";
-import { AppointmentsTable } from "./list-table";
+import { ReusableTable } from "./list-table";
+import { createMedicalColumns } from "@/constant/mock/table-data";
 
 export default function ListReferral({
   pathname,
@@ -31,10 +32,18 @@ export default function ListReferral({
     );
   };
 
+  const unassignCard = (id: string) => {
+    setCardPropsArray(prev =>
+      prev.map(card => (id === card.id ? { ...card, assign_to: "" } : card))
+    );
+  };
+
   const handleOpenDrawer = (data: MedicalCardTypes) => {
     setlistData(data);
     setOpen(true);
   };
+
+  const tableColumn = createMedicalColumns(handleOpenDrawer, updateAssignTo, unassignCard);
 
   const handleOpenApproval = () => {
     if (pathname?.includes("/referrals/draft")) {
@@ -150,11 +159,7 @@ export default function ListReferral({
                   </div>
                 </div>
 
-                <AppointmentsTable
-                  data={statusFilteredCards}
-                  onCardClick={cardData => handleOpenDrawer(cardData)}
-                  onUserClick={(cardId, newAssign) => updateAssignTo(cardId, newAssign)}
-                />
+                <ReusableTable columns={tableColumn} data={statusFilteredCards} />
               </ScrollArea>
             );
           })}

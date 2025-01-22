@@ -1,10 +1,10 @@
 "use client";
 
+import CustomInput from "@/components/input/custom-input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
-import { Input } from "@/components/ui/input";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
   Sidebar,
@@ -19,7 +19,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -194,7 +194,11 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
           </Popover>
         </div>
         <div className="mt-4 flex gap-2">
-          <Input className="h-8" placeholder="Search" type="search" />
+          <CustomInput
+            icon={<Search className="size-4 text-gray-600" />}
+            placeholder="Search"
+            type="search"
+          />
         </div>
       </SidebarHeader>
       <SidebarContent>

@@ -23,3 +23,14 @@ export type ProcedureCode = {
   dateRange: DateRange;
   selected?: boolean;
 };
+
+export type IncomingTableDataType = {
+  referral_from: string;
+  referral_from_address: string;
+  referral_to: string;
+  referral_to_address: string;
+  status: "new" | "pending" | "approved" | "completed" | "denied";
+  speciality: string;
+  assign_to?: string;
+  created: Date;
+};

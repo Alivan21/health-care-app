@@ -10,9 +10,10 @@ interface Props {
   cardProps: MedicalCardTypes;
   onCardClick?: (cardData: MedicalCardTypes) => void;
   onUserClick?: (newAssignTo: string) => void;
+  onUnassign?: () => void;
 }
 
-export default function MedicalCard({ onCardClick, onUserClick, cardProps }: Props) {
+export default function MedicalCard({ onCardClick, onUserClick, onUnassign, cardProps }: Props) {
   const isAssigned = cardProps.assign_to !== "" ? true : false;
 
   return (
@@ -61,7 +62,14 @@ export default function MedicalCard({ onCardClick, onUserClick, cardProps }: Pro
       </CardContent>
       <div className="mt-4">
         {isAssigned ? (
-          <Button size="icon" variant="link">
+          <Button
+            onClick={e => {
+              e.stopPropagation();
+              onUnassign?.();
+            }}
+            size="icon"
+            variant="link"
+          >
             <Avatar className="size-8">
               <AvatarImage src="/img/user-profile-1.svg" />
               <AvatarFallback>NB</AvatarFallback>
@@ -72,7 +80,7 @@ export default function MedicalCard({ onCardClick, onUserClick, cardProps }: Pro
             className="z-10 size-7 rounded-full"
             onClick={e => {
               e.stopPropagation();
-              onUserClick?.("Ronald Glover");
+              onUserClick?.("Nathaniel Brooks");
             }}
             size="icon"
             variant="primaryOutline"

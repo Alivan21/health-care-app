@@ -27,13 +27,23 @@ export default function KanbanReferral({
   const [isDraft, setIsDraft] = useState(false);
   const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData);
 
-  const updateAssignTo = (index: number, newAssignTo: string) => {
+  const updateAssignTo = (id: string, newAssignTo: string) => {
     setCardPropsArray(prev =>
-      prev.map((card, i) => (i === index ? { ...card, assign_to: newAssignTo } : card))
+      prev.map(card => (id === card.id ? { ...card, assign_to: newAssignTo } : card))
+    );
+  };
+
+  const unassignCard = (id: string) => {
+    setCardPropsArray(prev =>
+      prev.map(card => (id === card.id ? { ...card, assign_to: "" } : card))
     );
   };
 
   const handleOpenDrawer = (data: MedicalCardTypes) => {
+    if (pathname?.includes("/referrals/draft")) {
+      setIsDraft(true);
+    }
+
     setKanbanData(data);
     setOpen(true);
   };
@@ -86,7 +96,9 @@ export default function KanbanReferral({
       }
       return cards.filter(card => card.speciality.toLowerCase() === pathSegment);
     } else if (path.includes("/pcp")) {
-      return cards.filter(card => convertToSlug(card.name) === pathSegment);
+      return cards.filter(
+        card => convertToSlug(card.name) === pathSegment && card.assign_to !== ""
+      );
     }
 
     return cards;
@@ -101,6 +113,7 @@ export default function KanbanReferral({
           isApproved={kanbanData.status !== "new"}
           isAssigned={Boolean(kanbanData.assign_to)}
           isDenied={kanbanData.status === "denied"}
+          isDraft={isDraft}
           onClickApproval={handleOpenApproval}
           onClose={() => setOpen(false)}
           open={open}
@@ -152,12 +165,13 @@ export default function KanbanReferral({
                   </div>
                 </div>
 
-                {statusFilteredCards.map((cardData, index) => (
+                {statusFilteredCards.map(cardData => (
                   <div className="flex flex-col gap-2 p-2" key={cardData.id}>
                     <MedicalCard
                       cardProps={cardData}
                       onCardClick={() => handleOpenDrawer(cardData)}
-                      onUserClick={newAssignTo => updateAssignTo(index, newAssignTo)}
+                      onUnassign={() => unassignCard(cardData.id)}
+                      onUserClick={newAssignTo => updateAssignTo(cardData.id, newAssignTo)}
                     />
                   </div>
                 ))}

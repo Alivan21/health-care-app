@@ -43,6 +43,7 @@ interface Props {
   isAssigned?: boolean;
   isDenied?: boolean;
   isApproved?: boolean;
+  isDraft?: boolean;
 }
 
 export default function ReferralDrawer({
@@ -53,6 +54,7 @@ export default function ReferralDrawer({
   isAssigned,
   isDenied,
   isApproved,
+  isDraft,
 }: Props) {
   const statusBadge = (priority: DoctorPriorityTypes) => {
     if (props.status === "approved") {
@@ -199,8 +201,11 @@ export default function ReferralDrawer({
                   )}
                 </div>
               ) : (
-                <Button className="flex-1" onClick={onClickApproval}>
-                  Request Approval
+                <Button
+                  className="flex-1 border border-[#4579F9] !bg-gradient-to-b from-[#3F76FF] to-[#1757F7]"
+                  onClick={onClickApproval}
+                >
+                  {isDraft ? "Continue Approval Request" : "Request Approval"}
                 </Button>
               )}
             </div>
