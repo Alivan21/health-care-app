@@ -97,7 +97,7 @@ export const SidebarMenuList: MenuSection[] = [
           },
           {
             title: "Primary Care Provider",
-            child: MedicalCardMockData.map(data => ({
+            child: MedicalCardMockData.slice(4, 8).map(data => ({
               title: `Dr. ${data.name}`,
               href: `/referrals/pcp/${convertToSlug(data.name)}`,
             })),
