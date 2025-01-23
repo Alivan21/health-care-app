@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Sidebar,
   SidebarContent,
@@ -149,7 +149,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
   const referralsItem = menu[0].items.find(item => item.href === "/referrals");
 
   return (
-    <Sidebar className="border-r" collapsible="icon">
+    <Sidebar className="z-20 border-r" collapsible="icon">
       <CollapseButton />
       <SidebarHeader className="border-b p-4">
         <div className="flex items-center gap-3 px-2">
