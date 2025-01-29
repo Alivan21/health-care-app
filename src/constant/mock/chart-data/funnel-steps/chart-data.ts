@@ -1,0 +1,17 @@
+export const FunnelStepsChartData = [
+  { date: "2024-04-01", Review: 50, Received: 80, Submitted: 120, Completed: 30 },
+  { date: "2024-04-02", Review: 60, Received: 90, Submitted: 110, Completed: 40 },
+  { date: "2024-04-03", Review: 70, Received: 85, Submitted: 130, Completed: 35 },
+  { date: "2024-04-04", Review: 55, Received: 95, Submitted: 125, Completed: 45 },
+  { date: "2024-04-05", Review: 65, Received: 100, Submitted: 115, Completed: 50 },
+  { date: "2024-04-06", Review: 75, Received: 88, Submitted: 135, Completed: 38 },
+  { date: "2024-04-07", Review: 58, Received: 92, Submitted: 128, Completed: 42 },
+  { date: "2024-04-08", Review: 68, Received: 98, Submitted: 118, Completed: 48 },
+  { date: "2024-04-09", Review: 72, Received: 86, Submitted: 132, Completed: 36 },
+  { date: "2024-04-10", Review: 62, Received: 94, Submitted: 122, Completed: 44 },
+  { date: "2024-04-11", Review: 52, Received: 82, Submitted: 126, Completed: 32 },
+  { date: "2024-04-12", Review: 66, Received: 96, Submitted: 116, Completed: 46 },
+  { date: "2024-04-13", Review: 76, Received: 84, Submitted: 134, Completed: 34 },
+  { date: "2024-04-14", Review: 56, Received: 93, Submitted: 124, Completed: 43 },
+  { date: "2024-04-15", Review: 64, Received: 99, Submitted: 114, Completed: 49 },
+];
