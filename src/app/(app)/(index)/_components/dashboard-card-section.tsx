@@ -11,11 +11,11 @@ export type DashboardCardProps = {
 
 type DashboardCardSectionProps = {
   data: DashboardCardProps[];
-  onClick: (title: string) => void;
+  onClick?: (title: string) => void;
 };
 
 export default function DashboardCardSection({ onClick, data }: DashboardCardSectionProps) {
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+  const [activeCard, setActiveCard] = useState<string>("");
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const handleScrollDown = () => {
@@ -27,29 +27,26 @@ export default function DashboardCardSection({ onClick, data }: DashboardCardSec
 
   return (
     <ScrollArea className="relative z-10 w-full bg-white">
-      <div
-        className="no-scrollbar grid h-full max-h-[450px] grid-cols-2 gap-3 overflow-y-auto p-1"
-        ref={scrollRef}
-      >
-        {data.map((data, index) => (
+      <div className="no-scrollbar grid h-full max-h-[450px] grid-cols-2 gap-3 overflow-y-auto p-1" ref={scrollRef}>
+        {data.map((item, index) => (
           <Card
             className={`cursor-pointer rounded-xl border border-[#F5F6F8] !p-0 ${
-              activeCard === data.title ? "!bg-[#F8FBFF] !ring-1 !ring-[#4579F9]" : ""
+              activeCard === item.title ? "!bg-[#F8FBFF] !ring-1 !ring-[#4579F9]" : ""
             }`}
-            id={data.title}
             key={index}
             onClick={() => {
-              setActiveCard(data.title);
-              onClick(data.title);
+              const newActiveCard = activeCard === item.title ? "" : item.title;
+              setActiveCard(newActiveCard);
+              onClick?.(newActiveCard);
             }}
             style={{ boxShadow: "0px 4px 0px #EEEEEE40" }}
           >
             <CardContent className="!flex !flex-col space-y-12 !p-2">
               <div className="flex items-start space-x-1">
-                <span className="size-5 rounded-sm bg-[#1757F7]/5 p-1">{data.icon}</span>
-                <p className="text-sm font-medium">{data.title}</p>
+                <span className="size-5 rounded-sm bg-[#1757F7]/5 p-1">{item.icon}</span>
+                <p className="text-sm font-medium">{item.title}</p>
               </div>
-              <p className="self-end text-3xl font-semibold text-[#383838]">{data.amount}</p>
+              <p className="self-end text-3xl font-semibold text-[#383838]">{item.amount}</p>
             </CardContent>
           </Card>
         ))}
