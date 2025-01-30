@@ -24,17 +24,17 @@ export default function ChartLayout({
           <span className="size-5 rounded-sm bg-[#1757F7]/5 p-1">{icon}</span>
           <p className="text-base font-medium">{title}</p>
         </div>
-        {isSelectFilter && (
+        {!!isSelectFilter && (
           <Select
-            value={selectProps?.selectedOption}
             onValueChange={selectProps?.setSelectedOption}
+            value={selectProps?.selectedOption}
           >
-            <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
+            <SelectTrigger aria-label="Select a value" className="w-[160px] rounded-lg sm:ml-auto">
               <SelectValue placeholder={selectProps?.selectTriggerPlaceholder} />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               {selectProps?.options.map(option => (
-                <SelectItem value={option.value} className="rounded-lg">
+                <SelectItem className="rounded-lg" key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
               ))}

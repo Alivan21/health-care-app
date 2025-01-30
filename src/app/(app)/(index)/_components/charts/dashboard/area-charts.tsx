@@ -48,7 +48,6 @@ export default function AreaCharts() {
 
   return (
     <ChartLayout
-      title="Funnel Steps"
       icon={<ChartSpline className="size-3 text-[#1757F7]" />}
       isSelectFilter
       selectProps={{
@@ -57,43 +56,44 @@ export default function AreaCharts() {
         setSelectedOption: setTimeRange,
         selectTriggerPlaceholder: "Last 3 Days",
       }}
+      title="Funnel Steps"
     >
-      <ChartContainer config={chartConfig} className="h-max w-full max-w-[380px]">
+      <ChartContainer className="h-max w-full max-w-[380px]" config={chartConfig}>
         <AreaChart accessibilityLayer data={filteredData}>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="date"
-            tickLine={false}
             axisLine={false}
-            tickMargin={8}
+            dataKey="date"
             minTickGap={20}
             tickFormatter={value => {
-              const date = new Date(value);
+              const date = new Date(value as string | number | Date);
               return date.toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
               });
             }}
+            tickLine={false}
+            tickMargin={8}
           />
-          <YAxis tickLine={false} axisLine={false} tickMargin={8} tickCount={5} />
+          <YAxis axisLine={false} tickCount={5} tickLine={false} tickMargin={8} />
           <ChartTooltip
-            cursor={false}
             content={
               <ChartTooltipContent
-                labelFormatter={value => {
+                indicator="dot"
+                labelFormatter={(value: string | number | Date) => {
                   return new Date(value).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   });
                 }}
-                indicator="dot"
               />
             }
+            cursor={false}
           />
-          <Area dataKey="Review" type="natural" fill="#6893FF" stroke="#6893FF" stackId="a" />
-          <Area dataKey="Received" type="natural" fill="#9CBEFF" stroke="#9CBEFF" stackId="a" />
-          <Area dataKey="Submitted" type="natural" fill="#C5D9FF" stroke="#C5D9FF" stackId="a" />
-          <Area dataKey="Completed" type="natural" fill="#E5EEFF" stroke="#E5EEFF" stackId="a" />
+          <Area dataKey="Review" fill="#6893FF" stackId="a" stroke="#6893FF" type="natural" />
+          <Area dataKey="Received" fill="#9CBEFF" stackId="a" stroke="#9CBEFF" type="natural" />
+          <Area dataKey="Submitted" fill="#C5D9FF" stackId="a" stroke="#C5D9FF" type="natural" />
+          <Area dataKey="Completed" fill="#E5EEFF" stackId="a" stroke="#E5EEFF" type="natural" />
           <ChartLegend content={<ChartLegendContent />} />
         </AreaChart>
       </ChartContainer>

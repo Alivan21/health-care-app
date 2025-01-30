@@ -26,11 +26,7 @@
     // React
     {
       "files": ["**/*.{jsx,tsx}"],
-      "extends": [
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended"
-      ],
+      "extends": ["plugin:react/recommended", "plugin:jsx-a11y/recommended"],
       "rules": {
         "react/jsx-no-leaked-render": ["error", { "validStrategies": ["coerce", "ternary"] }],
         "react/jsx-no-useless-fragment": "warn",
