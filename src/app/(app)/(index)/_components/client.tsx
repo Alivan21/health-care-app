@@ -17,7 +17,7 @@ import { CircleCheck } from "lucide-react";
 export default function DashboardClient() {
   const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData);
   const [cardSection, setCardSection] = useState<DashboardCardProps[]>(DashboardCardData);
-  const [tableTitle, setTableTitle] = useState("");
+  const [tableTitle, setTableTitle] = useState<string>("");
   const [tableContent, setTableContent] = useState<JSX.Element | null>(null);
 
   const updateAssignTo = (id: string, newAssignTo: string) => {
@@ -47,6 +47,8 @@ export default function DashboardClient() {
     let content: JSX.Element;
     if (title === "Incoming Order") {
       content = <IncomingSection />;
+    } else if (title === "") {
+      content = <div />
     } else {
       content = <ReusableTable columns={tableColumn} data={cardPropsArray} />;
     }
