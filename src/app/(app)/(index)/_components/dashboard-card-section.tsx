@@ -28,21 +28,21 @@ export default function DashboardCardSection({ onClick, data }: DashboardCardSec
   return (
     <ScrollArea className="relative z-10 w-full bg-white">
       <div
-        ref={scrollRef}
         className="no-scrollbar grid h-full max-h-[450px] grid-cols-2 gap-3 overflow-y-auto p-1"
+        ref={scrollRef}
       >
         {data.map((data, index) => (
           <Card
-            id={data.title}
-            key={index}
             className={`cursor-pointer rounded-xl border border-[#F5F6F8] !p-0 ${
               activeCard === data.title ? "!bg-[#F8FBFF] !ring-1 !ring-[#4579F9]" : ""
             }`}
-            style={{ boxShadow: "0px 4px 0px #EEEEEE40" }}
+            id={data.title}
+            key={index}
             onClick={() => {
               setActiveCard(data.title);
               onClick(data.title);
             }}
+            style={{ boxShadow: "0px 4px 0px #EEEEEE40" }}
           >
             <CardContent className="!flex !flex-col space-y-12 !p-2">
               <div className="flex items-start space-x-1">
@@ -55,7 +55,7 @@ export default function DashboardCardSection({ onClick, data }: DashboardCardSec
         ))}
       </div>
       <ScrollBar orientation="vertical" />
-      <button onClick={handleScrollDown} className="absolute -bottom-1 left-[138px] z-20">
+      <button className="absolute -bottom-1 left-[138px] z-20" onClick={handleScrollDown}>
         <SquareChevronDown className="size-6 rounded bg-white p-1 text-[#1757F7] shadow-[0px_1px_2px_rgba(109,109,109,0.25)]" />
       </button>
     </ScrollArea>

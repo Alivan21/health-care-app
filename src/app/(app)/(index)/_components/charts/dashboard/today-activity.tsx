@@ -26,16 +26,17 @@ export default function TodayActivity() {
 
   return (
     <ChartLayout
-      title="Today Activity"
       icon={<ChartSpline className="size-3 text-[#1757F7]" />}
       isSelectFilter={false}
+      title="Today Activity"
     >
-      {cardData.map(data => (
+      {cardData.map((data, index) => (
         <TodayActivityCard
-          title={data.title}
-          status={data.status}
           duration={data.duration}
+          key={index}
           rate={data.rate}
+          status={data.status}
+          title={data.title}
         />
       ))}
     </ChartLayout>
@@ -53,7 +54,7 @@ function TodayActivityCard({ title, status, duration, rate }: CardProps) {
   return (
     <div className="mb-2 flex items-center space-x-4 rounded-lg border border-border p-3">
       <p className="w-full max-w-[90px] text-sm font-semibold">{title}</p>
-      <div className="h-[42px] w-[2px] bg-gradient-to-t from-[#1757F700] to-[#1757F7]"></div>
+      <div className="h-[42px] w-[2px] bg-gradient-to-t from-[#1757F700] to-[#1757F7]" />
       <div className="flex flex-col space-y-1">
         <p className="text-sm font-medium">{status}</p>
         <div className="flex items-center space-x-1">

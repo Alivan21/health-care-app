@@ -37,7 +37,6 @@ export default function OrdersChart() {
 
   return (
     <ChartLayout
-      title="Orders"
       icon={<ShoppingBasket className="size-3 text-[#1757F7]" />}
       isSelectFilter
       selectProps={{
@@ -46,38 +45,39 @@ export default function OrdersChart() {
         setSelectedOption: setMonths,
         selectTriggerPlaceholder: "Last 3 Months",
       }}
+      title="Orders"
     >
-      <ChartContainer config={ordersChartConfig} className="h-max w-full max-w-[380px]">
+      <ChartContainer className="h-max w-full max-w-[380px]" config={ordersChartConfig}>
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="category"
-            tickLine={false}
-            tickMargin={16}
             axisLine={false}
+            dataKey="category"
             interval={0}
             tick={{ fontSize: 12, width: 100 }}
+            tickLine={false}
+            tickMargin={16}
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar
+            barSize={60}
             dataKey="value"
             fill={ordersChartConfig.overdue.color}
             radius={[4, 4, 0, 0]}
-            barSize={60}
           >
             {chartData.map((entry, index) => {
               const category = entry.category
                 .toLowerCase()
                 .replace(" ", "") as keyof typeof ordersChartConfig;
               const color = ordersChartConfig[category]?.color || ordersChartConfig.overdue.color;
-              return <Cell key={`cell-${index}`} fill={color} />;
+              return <Cell fill={color} key={`cell-${index}`} />;
             })}
             <LabelList
-              dataKey="value"
-              position="top"
-              offset={10}
               className="fill-foreground"
+              dataKey="value"
               fontSize={12}
+              offset={10}
+              position="top"
             />
           </Bar>
         </BarChart>
