@@ -1,5 +1,5 @@
 import { PageHeader } from "@/components/layouts/header";
-import MainContainer from "@/components/layouts/main-container";
+import DashboardClient from "./_components/client";
 
 const breadcrumbs = [{ title: "Dashboard", link: "/dashboard" }];
 
@@ -7,9 +7,7 @@ export default function Home() {
   return (
     <>
       <PageHeader breadcrumbs={breadcrumbs} />
-      <MainContainer>
-        <h1>Hello World</h1>
-      </MainContainer>
+      <DashboardClient />
     </>
   );
 }
