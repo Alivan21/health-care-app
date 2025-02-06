@@ -27,10 +27,7 @@ export default function DashboardCardSection({ onClick, data }: DashboardCardSec
 
   return (
     <ScrollArea className="relative z-10 w-full bg-white">
-      <div
-        className="no-scrollbar grid h-full max-h-[450px] grid-cols-2 gap-3 overflow-y-auto p-1"
-        ref={scrollRef}
-      >
+      <div className="no-scrollbar grid h-full max-h-[450px] grid-cols-2 gap-3 overflow-y-auto p-1" ref={scrollRef}>
         {data.map((item, index) => (
           <Card
             className={`cursor-pointer rounded-xl border border-[#F5F6F8] !p-0 ${
