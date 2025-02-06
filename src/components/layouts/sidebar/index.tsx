@@ -59,14 +59,25 @@ function RecursiveMenuItem({
   level,
   isActive,
   onClick,
+  isExpanded
 }: {
   item: MenuItem;
   level: number;
   isActive: boolean;
   onClick: () => void;
+  isExpanded: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const isReferrals = item.href === "/referrals";
+
+  const getInitials = (title: string) => {
+    const words = title.split(" ")
+    if (words.length === 1) {
+      return words[0].charAt(0).toUpperCase()
+    } else {
+      return words.map((word) => word.charAt(0).toUpperCase()).join("")
+    }
+  }
 
   const handleItemClick = () => {
     if (item.child && !isReferrals) {
@@ -88,11 +99,21 @@ function RecursiveMenuItem({
       >
         {item.child && !isReferrals ? (
           <div className="flex w-full items-center justify-between py-2">
-            <span className="flex items-center gap-2">
-              {item.icon}
-              {item.title}
-            </span>
-            <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
+            {isExpanded ? (
+              <>
+                <span className="flex items-center gap-2">
+                  {item.icon}
+                  {item.title}
+                </span>
+                <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
+              </>
+            ) : (
+              <span className="flex items-center gap-2">
+                <Avatar className="size-8">
+                  <AvatarFallback>{getInitials(item.title)}</AvatarFallback>
+                </Avatar>
+              </span>
+            )}
           </div>
         ) : (
           <Link
@@ -113,6 +134,7 @@ function RecursiveMenuItem({
             {item.child.map((childItem, index) => (
               <RecursiveMenuItem
                 isActive={false}
+                isExpanded={isExpanded}
                 item={childItem}
                 key={index}
                 level={level + 1}
@@ -137,6 +159,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
       items.map((item, index) => (
         <RecursiveMenuItem
           isActive={pathname === item.href}
+          isExpanded={state === "expanded"}
           item={item}
           key={index}
           level={level}
