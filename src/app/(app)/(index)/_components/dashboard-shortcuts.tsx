@@ -1,12 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CirclePlus, CircleMinus, FlagTriangleRight } from "lucide-react";
+import { CirclePlus, FlagTriangleRight } from "lucide-react";
 import React, { useState } from "react";
 
 type ShortcutItemProps = {
   label: string;
   onAddShortcut?: (title: string) => void;
-  onDeleteShortcut?: (title: string) => void;
 };
 
 const ShorcutItems = [
@@ -16,39 +15,29 @@ const ShorcutItems = [
   { label: "Orders to Re-submit or Cancel" },
 ];
 
-export function ShortcutItem({ label, onAddShortcut, onDeleteShortcut }: ShortcutItemProps) {
+export function ShortcutItem({ label, onAddShortcut }: ShortcutItemProps) {
   const [hideButton, setHideButton] = useState(false);
 
   return (
-    <div className="mb-[6px] flex items-center justify-between rounded-md border border-[#F5F6F8] px-2 py-[6px]">
+    <div
+      className={`${hideButton ? "hidden" : "flex"} mb-[6px] items-center justify-between rounded-md border border-[#F5F6F8] px-2 py-[6px]`}
+    >
       <p className="text-xs font-normal text-[#606060]">{label}</p>
-      {hideButton ? (
-        <CircleMinus
-          className="size-3 cursor-pointer text-[#1757F7]"
-          onClick={() => {
-            setHideButton(false);
-            onDeleteShortcut?.(label);
-          }}
-        />
-      ) : (
-        <CirclePlus
-          className="size-3 cursor-pointer text-[#1757F7]"
-          onClick={() => {
-            setHideButton(true);
-            onAddShortcut?.(label);
-          }}
-        />
-      )}
+      <CirclePlus
+        className="size-3 cursor-pointer text-[#1757F7]"
+        onClick={() => {
+          setHideButton(true);
+          onAddShortcut?.(label);
+        }}
+      />
     </div>
   );
 }
 
 export default function DashboardShortcuts({
   onAddShortcut,
-  onDeleteShortcut,
 }: {
   onAddShortcut?: (title: string) => void;
-  onDeleteShortcut?: (title: string) => void;
 }) {
   return (
     <Card className="!min-h-[225px] rounded-xl border border-[#F5F6F8] !p-5">
@@ -64,7 +53,6 @@ export default function DashboardShortcuts({
             key={index}
             label={item.label}
             onAddShortcut={title => onAddShortcut?.(title)}
-            onDeleteShortcut={title => onDeleteShortcut?.(title)}
           />
         ))}
       </ScrollArea>
