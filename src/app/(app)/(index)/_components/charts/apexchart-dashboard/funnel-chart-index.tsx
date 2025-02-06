@@ -1,6 +1,8 @@
 // pages/funnel-chart.tsx
 "use client"; // This ensures it runs on the client side
 
+// Funnel Chart Page
+
 import { useEffect, useRef } from "react";
 import { createFunnelChart } from "./funnel-chart";
 import ChartLayout from "../chart-layout";

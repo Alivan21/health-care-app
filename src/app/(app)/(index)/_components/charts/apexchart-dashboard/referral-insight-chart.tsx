@@ -1,5 +1,7 @@
 "use client";
 
+// Referral CHart Insight
+
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import ChartLayout from "../chart-layout";
