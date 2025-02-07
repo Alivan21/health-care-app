@@ -48,7 +48,7 @@ export default function DashboardClient() {
     if (title === "Incoming Order") {
       content = <IncomingSection />;
     } else if (title === "") {
-      content = <div />
+      content = <div />;
     } else {
       content = <ReusableTable columns={tableColumn} data={cardPropsArray} />;
     }
