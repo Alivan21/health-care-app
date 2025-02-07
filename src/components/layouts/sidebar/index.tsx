@@ -59,7 +59,7 @@ function RecursiveMenuItem({
   level,
   isActive,
   onClick,
-  isExpanded
+  isExpanded,
 }: {
   item: MenuItem;
   level: number;
@@ -71,13 +71,13 @@ function RecursiveMenuItem({
   const isReferrals = item.href === "/referrals";
 
   const getInitials = (title: string) => {
-    const words = title.split(" ")
+    const words = title.split(" ");
     if (words.length === 1) {
-      return words[0].charAt(0).toUpperCase()
+      return words[0].charAt(0).toUpperCase();
     } else {
-      return words.map((word) => word.charAt(0).toUpperCase()).join("")
+      return words.map(word => word.charAt(0).toUpperCase()).join("");
     }
-  }
+  };
 
   const handleItemClick = () => {
     if (item.child && !isReferrals) {
@@ -105,7 +105,9 @@ function RecursiveMenuItem({
                   {item.icon}
                   {item.title}
                 </span>
-                <ChevronRight className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")} />
+                <ChevronRight
+                  className={cn("h-4 w-4 transition-transform", isOpen && "rotate-90")}
+                />
               </>
             ) : (
               <span className="flex items-center gap-2">
