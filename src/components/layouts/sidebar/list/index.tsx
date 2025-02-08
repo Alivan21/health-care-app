@@ -25,7 +25,7 @@ export const SidebarMenuList: MenuSection[] = [
         title: "Referrals",
         icon: <Share2 className="size-4" />,
         href: "/referrals",
-        badge: 12,
+        badge: 3,
         child: [
           {
             title: "Speciality Affiliation",
