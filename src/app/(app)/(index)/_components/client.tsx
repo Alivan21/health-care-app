@@ -70,7 +70,7 @@ export default function DashboardClient() {
           <span className="w-1.5 rounded-lg bg-[#FF5B5B]" />
           <div className="flex items-center space-x-2">
             <span className="capitalize">
-              {tableTitle === "" ? "No Section Selected" : tableTitle}
+              {tableTitle === "" ? "No Section Made" : tableTitle}
             </span>
             <Badge className={`${tableTitle === "" ? "hidden" : "flex"} rounded-lg px-1.5`}>
               {MedicalCardMockData.length}
