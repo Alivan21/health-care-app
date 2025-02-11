@@ -2,7 +2,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { SelectOptionsProps } from "@/constant/types/general";
 import { ChartSpline } from "lucide-react";
 import { useState } from "react";
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart, Legend } from "recharts";
 import ChartLayout from "../chart-layout";
 import { ReferralInsightChartData } from "@/constant/mock/chart-data/referral-insight/chart-data";
 import { referralInsightChartConfig } from "@/constant/mock/chart-data/referral-insight/chart-config";
@@ -45,6 +45,21 @@ export default function ReferralInsight() {
     ReferralInsightChartData.find(data => data.month === monthRange) || ReferralInsightChartData[0];
   const total = monthData.Routine + monthData.STAT + monthData.Urgent;
 
+  const CustomLegend = ({ data }: { data: typeof monthData }) => {
+    return (
+      <div className="flex justify-center gap-6">
+        {Object.entries(referralInsightChartConfig).map(([key, config]) => (
+          <div className="flex items-center gap-2" key={`legend-${key}`}>
+            <div className="size-2 rounded-full" style={{ backgroundColor: config.color }} />
+            <span className="text-sm text-gray-600">
+              {data[key as keyof typeof data]} {config.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <ChartLayout
       icon={<ChartSpline className="size-3 text-[#1757F7]" />}
@@ -59,11 +74,10 @@ export default function ReferralInsight() {
     >
       <ChartContainer className="h-max w-full max-w-[380px]" config={referralInsightChartConfig}>
         <RadialBarChart
-          barSize={60}
           data={[monthData]}
           endAngle={360}
           innerRadius={60}
-          outerRadius={125}
+          outerRadius={120}
           startAngle={0}
         >
           <ChartTooltip content={<ChartTooltipContent />} cursor={false} />
@@ -105,24 +119,26 @@ export default function ReferralInsight() {
           </PolarRadiusAxis>
           <RadialBar
             className="stroke-transparent stroke-2"
-            cornerRadius={6}
             dataKey="STAT"
             fill="#7FABFF"
             stackId="a"
           />
           <RadialBar
             className="stroke-transparent stroke-2"
-            cornerRadius={6}
             dataKey="Urgent"
             fill="#C5D9FF"
             stackId="a"
           />
           <RadialBar
             className="stroke-transparent stroke-2"
-            cornerRadius={6}
             dataKey="Routine"
             fill="#E5EEFF"
             stackId="a"
+          />
+          <Legend
+            content={<CustomLegend data={monthData} />}
+            margin={{ top: 100 }}
+            verticalAlign="bottom"
           />
         </RadialBarChart>
       </ChartContainer>

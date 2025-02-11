@@ -1,8 +1,8 @@
 import type { ChartConfig } from "@/components/ui/chart";
 
 export const chartConfig = {
-  Review: {
-    label: "Review",
+  Reviewed: {
+    label: "Reviewed",
     color: "#6893FF",
   },
   Received: {
