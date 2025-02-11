@@ -166,7 +166,7 @@ export default function KanbanReferral({
                 </div>
 
                 {statusFilteredCards.map(cardData => (
-                  <div className="flex flex-col gap-2 p-2" key={cardData.id}>
+                  <div className="flex flex-col gap-2 px-2 py-1" key={cardData.id}>
                     <MedicalCard
                       cardProps={cardData}
                       onCardClick={() => handleOpenDrawer(cardData)}
