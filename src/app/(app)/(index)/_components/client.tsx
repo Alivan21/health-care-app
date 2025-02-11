@@ -59,7 +59,7 @@ export default function DashboardClient() {
   return (
     <MainContainer>
       <div className="mb-4 flex size-full space-x-2">
-        <div className="flex size-full max-w-[300px] flex-col space-y-5">
+        <div className="flex min-h-max max-w-[300px] flex-col space-y-5">
           <DashboardCardSection data={cardSection} onClick={title => handleTableChange(title)} />
           <DashboardShortcuts onAddShortcut={label => addShortcut(label)} />
         </div>
@@ -69,9 +69,7 @@ export default function DashboardClient() {
         <div className="sticky top-0 z-20 m-3 flex gap-2 rounded-lg bg-[#F6F7FA] px-3 py-2">
           <span className="w-1.5 rounded-lg bg-[#FF5B5B]" />
           <div className="flex items-center space-x-2">
-            <span className="capitalize">
-              {tableTitle === "" ? "No Section Made" : tableTitle}
-            </span>
+            <span className="capitalize">{tableTitle === "" ? "No Section Made" : tableTitle}</span>
             <Badge className={`${tableTitle === "" ? "hidden" : "flex"} rounded-lg px-1.5`}>
               {MedicalCardMockData.length}
             </Badge>

@@ -40,7 +40,7 @@ export default function DashboardShortcuts({
   onAddShortcut?: (title: string) => void;
 }) {
   return (
-    <Card className="!min-h-[225px] rounded-xl border border-[#F5F6F8] !p-5">
+    <Card className="!min-h-[225px] grow rounded-xl border border-[#F5F6F8] !p-5">
       <div className="mb-6 flex items-center space-x-2">
         <span className="size-5 rounded-sm bg-[#1757F7]/5 p-1">
           <FlagTriangleRight className="size-3 text-[#1757F7]" />

@@ -18,7 +18,7 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
 
   return (
     <Card
-      className="relative w-full min-w-64 max-w-64 cursor-pointer p-4"
+      className="relative w-full min-w-64 max-w-64 cursor-pointer !px-3 !py-2"
       onClick={() => onCardClick?.(cardProps)}
     >
       <div
@@ -29,66 +29,62 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
         </div>
         <div className="relative size-0 border-r-[5px] border-t-[3.66px] border-r-transparent border-t-[#B4492E]" />
       </div>
-      <div className="mb-4 flex items-start justify-between">
-        <div>
+      <div className="mb-2 flex justify-between">
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center space-x-[6px]">
+            <Avatar className="!h-fit !w-fit">
+              <AvatarImage className="size-5" src="/img/doctor_profile.svg" />
+            </Avatar>
+            <h2 className="text-xs font-semibold">Dr. {cardProps.name}</h2>
+          </div>
           <StatusBadge status={cardProps.priority} />
-          <h2 className="mt-2 text-lg font-semibold">Dr. {cardProps.name}</h2>
         </div>
-        <Avatar className="size-8">
-          <AvatarImage alt="Avatar" src="/placeholder.svg?height=32&width=32" />
-        </Avatar>
       </div>
-      <CardContent className="space-y-3 p-0">
+      <CardContent className="space-y-2 !p-0">
         <div className="flex justify-between">
-          <span className="text-sm text-gray-500">Patient name</span>
-          <span className="text-sm">{cardProps.patient_name || "N/A"}</span>
+          <span className="text-[10px] text-gray-500">Patient name</span>
+          <span className="text-[10px]">{cardProps.patient_name || "N/A"}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-sm text-gray-500">Speciality</span>
-          <span className="text-sm">{cardProps.speciality || "N/A"}</span>
+          <span className="text-[10px] text-gray-500">Speciality</span>
+          <span className="text-[10px]">{cardProps.speciality || "N/A"}</span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-sm text-gray-500">Assigned to</span>
-          <span className={cardProps.assign_to ? "text-sm" : "text-sm text-gray-500"}>
-            {cardProps.assign_to || "None"}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-sm text-gray-500">Created</span>
-          <span className="text-sm">
+        <div className="flex items-end justify-between">
+          <div className="size-5">
+            {isAssigned ? (
+              <Button
+                className="size-5"
+                onClick={e => {
+                  e.stopPropagation();
+                  onUnassign?.();
+                }}
+                size="icon"
+                variant="link"
+              >
+                <Avatar className="size-5 !h-fit !w-fit">
+                  <AvatarImage src="/img/user-profile-1.svg" />
+                  <AvatarFallback>NB</AvatarFallback>
+                </Avatar>
+              </Button>
+            ) : (
+              <Button
+                className="z-10 size-5 rounded-full"
+                onClick={e => {
+                  e.stopPropagation();
+                  onUserClick?.("Nathaniel Brooks");
+                }}
+                size="icon"
+                variant="primaryOutline"
+              >
+                <User2 className="size-5" />
+              </Button>
+            )}
+          </div>
+          <span className="text-[10px]">
             {cardProps.created_at ? `${formatDate(cardProps.created_at)} days ago` : "Unknown"}
           </span>
         </div>
       </CardContent>
-      <div className="mt-4">
-        {isAssigned ? (
-          <Button
-            onClick={e => {
-              e.stopPropagation();
-              onUnassign?.();
-            }}
-            size="icon"
-            variant="link"
-          >
-            <Avatar className="size-8">
-              <AvatarImage src="/img/user-profile-1.svg" />
-              <AvatarFallback>NB</AvatarFallback>
-            </Avatar>
-          </Button>
-        ) : (
-          <Button
-            className="z-10 size-7 rounded-full"
-            onClick={e => {
-              e.stopPropagation();
-              onUserClick?.("Nathaniel Brooks");
-            }}
-            size="icon"
-            variant="primaryOutline"
-          >
-            <User2 className="size-5" />
-          </Button>
-        )}
-      </div>
     </Card>
   );
 }

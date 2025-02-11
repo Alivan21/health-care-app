@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as am5 from "@amcharts/amcharts5";
@@ -58,7 +58,7 @@ export default function FunnelChart() {
       { value: 6, category: "Submitted" },
       { value: 5, category: "Completed" },
     ]);
-  
+
     series.labels.template.setAll({
       fontSize: 10,
       fontWeight: "400",
@@ -66,7 +66,7 @@ export default function FunnelChart() {
       fill: am5.color(0x550000),
       text: "{category}",
     });
-  
+
     series.links.template.setAll({
       height: 0,
       width: 0,
@@ -85,7 +85,7 @@ export default function FunnelChart() {
       .appear(1000, 100)
       .then(() => {})
       .catch(err => console.error(err));
-    
+
     // Add legend
     const legend = chart.children.unshift(
       am5.Legend.new(root, {
@@ -96,20 +96,20 @@ export default function FunnelChart() {
         templateField: "category",
       })
     );
-  
+
     legend.data.setAll(series.dataItems);
-  
+
     legend.valueLabels.template.set("forceHidden", true);
-  
+
     legend.markers.template.setAll({
       width: 4,
       height: 8,
     });
-  
+
     legend.labels.template.setAll({
       fontSize: 12,
       fontWeight: "400",
-      fontFamily: "Plus Jakarta Sans"
+      fontFamily: "Plus Jakarta Sans",
     });
 
     return () => {
@@ -117,9 +117,9 @@ export default function FunnelChart() {
     };
   }, [fontLoaded]);
 
-  return ( 
+  return (
     <ChartLayout icon={<ChartSpline className="size-3" />} title="Funnel Steps">
       <div ref={chartRef} style={{ width: "100%", height: "300px" }} />
     </ChartLayout>
-  )
+  );
 }

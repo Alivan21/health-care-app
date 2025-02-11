@@ -23,7 +23,7 @@ export default function StatusBadge({ status, text, className }: StatusBadgeProp
 
   return (
     <Badge
-      className={cn("rounded-md font-semibold", statusStyles[status], className)}
+      className={cn("rounded-md !text-[8px] font-semibold", statusStyles[status], className)}
       variant="secondary"
     >
       {text ? text : status}
@@ -42,7 +42,7 @@ export function StatusIncomingBadge({ status, text, className }: StatusIncomingB
 
   return (
     <Badge
-      className={cn("rounded-md font-semibold", statusStyles[status], className)}
+      className={cn("rounded-md !text-[8px] font-semibold", statusStyles[status], className)}
       variant="secondary"
     >
       {text ? text : status}

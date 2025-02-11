@@ -67,8 +67,8 @@ export default function KanbanReferral({
   };
 
   const statusStyles: Record<string, string> = {
-    new: "bg-gray-500",
-    pending: "bg-yellow-300",
+    new: "bg-gray-300",
+    pending: "bg-yellow-400",
     approved: "bg-primary",
     completed: "bg-green-500",
     denied: "bg-destructive",
@@ -157,10 +157,10 @@ export default function KanbanReferral({
                 className="relative flex max-h-screen w-fit flex-col gap-4 overflow-auto rounded-lg bg-secondary"
                 key={status}
               >
-                <div className="sticky top-0 z-20 flex gap-2 bg-secondary p-2">
-                  <span className={`w-1.5 rounded-lg ${statusStyles[status]}`} />
+                <div className="sticky top-0 z-20 flex items-center gap-2 bg-secondary pb-1 pl-2 pt-3">
+                  <span className={`h-5 w-[6px] rounded-lg ${statusStyles[status]}`} />
                   <div className="space-x-2">
-                    <span className="capitalize">{status}</span>
+                    <span className="text-sm capitalize">{status}</span>
                     <Badge className="rounded-lg px-1.5">{statusFilteredCards.length}</Badge>
                   </div>
                 </div>
