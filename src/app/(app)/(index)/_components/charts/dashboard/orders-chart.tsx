@@ -2,10 +2,10 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { ordersChartConfig } from "@/constant/mock/chart-data/orders-chart/chart-config";
 import { OrdersChartData } from "@/constant/mock/chart-data/orders-chart/chart-data";
 import { SelectOptionsProps } from "@/constant/types/general";
-import { ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import ChartLayout from "../chart-layout";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, Cell } from "recharts";
+import { NotebookPen } from "lucide-react";
 
 export default function OrdersChart() {
   const [months, setMonths] = useState("3");
@@ -37,7 +37,7 @@ export default function OrdersChart() {
 
   return (
     <ChartLayout
-      icon={<ShoppingBasket className="size-3 text-[#1757F7]" />}
+      icon={<NotebookPen className="size-3 text-[#1757F7]" />}
       isSelectFilter
       selectProps={{
         options: monthOptions,

@@ -1,6 +1,6 @@
 import React from "react";
 import ChartLayout from "../chart-layout";
-import { ChartSpline, Dot } from "lucide-react";
+import { Dot, SquareChartGantt } from "lucide-react";
 
 export default function TodayActivity() {
   const cardData: CardProps[] = [
@@ -26,7 +26,7 @@ export default function TodayActivity() {
 
   return (
     <ChartLayout
-      icon={<ChartSpline className="size-3 text-[#1757F7]" />}
+      icon={<SquareChartGantt className="size-3 text-[#1757F7]" />}
       isSelectFilter={false}
       title="Today Activity"
     >
