@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MedicalCardTypes } from "@/constant/types/referral";
 import { formatDate } from "@/lib/utils";
 import { User2 } from "lucide-react";
+import { useState } from "react";
 
 interface Props {
   cardProps: MedicalCardTypes;
@@ -14,12 +15,16 @@ interface Props {
 }
 
 export default function MedicalCard({ onCardClick, onUserClick, onUnassign, cardProps }: Props) {
+  const [isReaded, setIsReaded] = useState(false);
   const isAssigned = cardProps.assign_to !== "" ? true : false;
 
   return (
     <Card
-      className="relative w-full min-w-64 max-w-64 cursor-pointer !px-3 !py-2"
-      onClick={() => onCardClick?.(cardProps)}
+      className={`relative w-full min-w-64 max-w-64 cursor-pointer !px-3 !py-2 ${isReaded ? 'bg-white' : 'bg-[#F2F6FF]'}`}
+      onClick={() => {
+        setIsReaded(true)
+        onCardClick?.(cardProps)
+      }}
     >
       <div
         className={`${cardProps.isTop ? "block" : "hidden"} absolute right-[-5px] top-4 z-10 flex flex-col items-end`}
@@ -85,6 +90,9 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
           </span>
         </div>
       </CardContent>
+      <div
+        className={`absolute right-0 top-0 h-full w-1 rounded-r-lg bg-yellow-400 ${isReaded ? "hidden" : "block"}`}
+      />
     </Card>
   );
 }
