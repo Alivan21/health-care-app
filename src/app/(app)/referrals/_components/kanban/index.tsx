@@ -27,6 +27,10 @@ export default function KanbanReferral({
   const [isDraft, setIsDraft] = useState(false);
   const [cardPropsArray, setCardPropsArray] = useState<MedicalCardTypes[]>(MedicalCardMockData);
 
+  const statusTitleConverter = (status: string) => {
+    return status.replace(/(\w+)_(\w+)/g, "$1 $2").replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   const updateAssignTo = (id: string, newAssignTo: string) => {
     setCardPropsArray(prev =>
       prev.map(card => (id === card.id ? { ...card, assign_to: newAssignTo } : card))
@@ -61,14 +65,16 @@ export default function KanbanReferral({
   const categorizedData = {
     new: cardPropsArray.slice(0, 3),
     pending: cardPropsArray.slice(3, 5),
+    in_progress: cardPropsArray.slice(13, 19),
     approved: cardPropsArray.slice(5, 8),
     completed: cardPropsArray.slice(8, 12),
-    denied: cardPropsArray.slice(12),
+    denied: cardPropsArray.slice(12, 13),
   };
 
   const statusStyles: Record<string, string> = {
     new: "bg-gray-300",
     pending: "bg-yellow-400",
+    in_progress: "bg-[#FF8A37]",
     approved: "bg-primary",
     completed: "bg-green-500",
     denied: "bg-destructive",
@@ -128,7 +134,7 @@ export default function KanbanReferral({
       />
 
       <ScrollArea className="w-full">
-        <section className="flex gap-4 px-8 py-6">
+        <section className="flex gap-4 px-8 pb-6 pt-2">
           {Object.entries(categorizedData).map(([status, cards]) => {
             const filteredCards = filterCards(cards, pathname).filter(card =>
               queueFilter === "my" ? card.assign_to !== "" : true
@@ -147,6 +153,8 @@ export default function KanbanReferral({
                 return card.status === "completed";
               } else if (statusFilter === "denied") {
                 return card.status === "denied";
+              } else if (statusFilter === "in_progress") {
+                return card.status === "in_progress"
               }
               return false;
             });
@@ -160,7 +168,7 @@ export default function KanbanReferral({
                 <div className="sticky top-0 z-20 flex items-center gap-2 bg-secondary pb-1 pl-2 pt-3">
                   <span className={`h-5 w-[6px] rounded-lg ${statusStyles[status]}`} />
                   <div className="space-x-2">
-                    <span className="text-sm capitalize">{status}</span>
+                    <span className="text-sm capitalize">{statusTitleConverter(status)}</span>
                     <Badge className="rounded-lg px-1.5">{statusFilteredCards.length}</Badge>
                   </div>
                 </div>

@@ -100,8 +100,8 @@ export default function ReferralHeader({
   ];
 
   return (
-    <section className="flex !w-auto flex-col gap-4 bg-white px-8 py-6">
-      <Title description="Lorem ipsum dolor sit amet consectetur" title="Referrals" />
+    <section className="flex !w-auto flex-col gap-4 bg-white px-8 pb-2 pt-4">
+      <Title title="Referrals" />
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <SegmentedControl onChange={setView} options={ViewOptions} value={view} variant="icon" />
