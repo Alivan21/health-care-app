@@ -29,7 +29,7 @@ export default function KanbanReferral({
 
   const statusTitleConverter = (status: string) => {
     return status.replace(/(\w+)_(\w+)/g, "$1 $2").replace(/\b\w/g, c => c.toUpperCase());
-  }
+  };
 
   const updateAssignTo = (id: string, newAssignTo: string) => {
     setCardPropsArray(prev =>
@@ -154,7 +154,7 @@ export default function KanbanReferral({
               } else if (statusFilter === "denied") {
                 return card.status === "denied";
               } else if (statusFilter === "in_progress") {
-                return card.status === "in_progress"
+                return card.status === "in_progress";
               }
               return false;
             });

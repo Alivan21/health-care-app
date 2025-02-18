@@ -18,7 +18,7 @@ export default function FormProvider<T extends FieldValues>({
     <Form {...methods}>
       <form
         id="submit-hook-form"
-        onSubmit={(event) => {
+        onSubmit={event => {
           event.preventDefault();
           void methods.handleSubmit(onSubmit)();
         }}
