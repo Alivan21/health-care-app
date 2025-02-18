@@ -11,7 +11,9 @@ type AuthLayoutProps = {
 };
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  const OPTIONS: EmblaOptionsType = {};
+  const OPTIONS: EmblaOptionsType = {
+    loop: false,
+  };
 
   return (
     <ScrollArea className="h-screen w-screen">

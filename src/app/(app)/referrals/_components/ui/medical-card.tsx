@@ -20,10 +20,10 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
 
   return (
     <Card
-      className={`relative w-full min-w-64 max-w-64 cursor-pointer !px-3 !py-2 ${isReaded ? 'bg-white' : 'bg-[#F2F6FF]'}`}
+      className={`relative w-full min-w-64 max-w-64 cursor-pointer !px-3 !py-2 ${isReaded ? "bg-white" : "bg-[#F2F6FF]"}`}
       onClick={() => {
-        setIsReaded(true)
-        onCardClick?.(cardProps)
+        setIsReaded(true);
+        onCardClick?.(cardProps);
       }}
     >
       <div

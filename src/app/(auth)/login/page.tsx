@@ -1,8 +1,6 @@
-import React from 'react'
-import LoginClient from './client'
+import React from "react";
+import LoginClient from "./client";
 
 export default function LoginPage() {
-  return (
-    <LoginClient />
-  )
+  return <LoginClient />;
 }

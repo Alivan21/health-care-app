@@ -5,14 +5,15 @@ import React from "react";
 import CarouselDot, { useDotButton } from "./carousel-dot";
 
 type PropType = {
-  options?: EmblaOptionsType;
+  options: EmblaOptionsType;
 };
 
 const CustomCarousel: React.FC<PropType> = props => {
   const { options } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  const [emblaRef, emblaApi] = useEmblaCarousel(options ?? {});
+  
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi || undefined);
+  
 
   const imageSlides = [
     { imageUrl: '/img/register_slide_1.png' },
