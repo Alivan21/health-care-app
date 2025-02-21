@@ -82,7 +82,10 @@ export function CaptchaMockup({
 
   const {
     formState: { errors },
+    watch
   } = methods;
+
+  const { captcha } = watch();
 
   const onSubmit = (data: UserCaptchaMockupType) => {
     console.log("Form Data", data);
@@ -130,7 +133,8 @@ export function CaptchaMockup({
                   </Link>
                 </div>
                 <Button
-                  className="!w-full rounded-lg !bg-[#1569EF]"
+                  className="mt-6 w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300"
+                  disabled={Boolean(captcha === '')}
                   type="submit"
                   variant="outline"
                 >
@@ -217,7 +221,12 @@ export function OTPEmail({ step, setStep }: { step: number; setStep: (value: num
           ))}
         </div>
 
-        <Button className="w-full" onClick={() => setStep(step + 1)} size="lg">
+        <Button 
+          className="w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300" 
+          disabled={otp.some(data => data === "")} 
+          onClick={() => setStep(step + 1)} 
+          size="lg"
+        >
           Confirm OTP Code
         </Button>
       </div>

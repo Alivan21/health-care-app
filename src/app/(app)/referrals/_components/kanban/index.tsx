@@ -180,6 +180,7 @@ export default function KanbanReferral({
                       onCardClick={() => handleOpenDrawer(cardData)}
                       onUnassign={() => unassignCard(cardData.id)}
                       onUserClick={newAssignTo => updateAssignTo(cardData.id, newAssignTo)}
+                      readedColor={statusStyles[status]}
                     />
                   </div>
                 ))}
