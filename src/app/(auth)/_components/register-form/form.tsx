@@ -7,6 +7,7 @@ import { UserRegisterSchema, UserRegisterSchemaType } from "@/schema/register";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 type RegisterFormProps = {
@@ -15,6 +16,7 @@ type RegisterFormProps = {
 };
 
 export default function UserRegistrationForm({ step, setStep }: RegisterFormProps) {
+  const [isDisabled, setIsDisabled] = useState(true);
   const methods = useForm<UserRegisterSchemaType>({
     resolver: zodResolver(UserRegisterSchema),
     defaultValues: {
@@ -30,13 +32,22 @@ export default function UserRegistrationForm({ step, setStep }: RegisterFormProp
 
   const {
     formState: { errors },
+    watch,
   } = methods;
+
+  const {username, email, last_name, first_name, confirm_password, password, phone_number} = watch()
 
   const onSubmit = (data: UserRegisterSchemaType) => {
     console.log("Form Submitted:", data);
     setStep(step + 1);
     console.log(step);
   };
+
+  useEffect(() => {
+    if (username !== "" && email !== "" && last_name !== "" && first_name !== "" && confirm_password !== "" && password !== "" && phone_number !== "") {
+      setIsDisabled(false);
+    }
+  }, [confirm_password, email, first_name, last_name, password, phone_number, username])
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -89,7 +100,11 @@ export default function UserRegistrationForm({ step, setStep }: RegisterFormProp
         />
       </div>
 
-      <Button className="mt-6 w-full bg-gray-200 text-gray-800 hover:bg-gray-300" type="submit">
+      <Button
+        className="mt-6 w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300"
+        disabled={isDisabled} 
+        type="submit"
+      >
         Sign Up
       </Button>
 
