@@ -9,7 +9,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-export default function UserRegistrationForm() {
+type RegisterFormProps = {
+  step: number;
+  setStep: (value: number) => void;
+};
+
+export default function UserRegistrationForm({ step, setStep }: RegisterFormProps) {
   const methods = useForm<UserRegisterSchemaType>({
     resolver: zodResolver(UserRegisterSchema),
     defaultValues: {
@@ -29,6 +34,8 @@ export default function UserRegistrationForm() {
 
   const onSubmit = (data: UserRegisterSchemaType) => {
     console.log("Form Submitted:", data);
+    setStep(step + 1);
+    console.log(step);
   };
 
   return (
@@ -59,6 +66,12 @@ export default function UserRegistrationForm() {
           label="Email"
           name="email"
           placeholder="Email"
+        />
+        <CustomFormInput
+          error={errors.phone_number?.message}
+          label="Phone Number"
+          name="phone_number"
+          placeholder="Phone Number"
         />
         <CustomFormInput
           error={errors.password?.message}

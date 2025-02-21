@@ -8,9 +8,11 @@ import { UserLoginSchema, UserLoginSchemaType } from "@/schema/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function UserLoginForm() {
+  const router = useRouter()
   const methods = useForm<UserLoginSchemaType>({
     resolver: zodResolver(UserLoginSchema),
     defaultValues: {
@@ -25,6 +27,7 @@ export default function UserLoginForm() {
 
   const onSubmit = (data: UserLoginSchemaType) => {
     console.log("Form Submitted:", data);
+    router.push("/")
   };
 
   return (
