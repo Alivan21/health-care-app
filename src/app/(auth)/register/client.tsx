@@ -4,6 +4,7 @@ import FormProvider from "@/components/hook-form-provider";
 import CustomFormInput from "@/components/input/custom-form-input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { UserCaptchaMockup, UserCaptchaMockupType } from "@/schema/captcha";
@@ -13,19 +14,48 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import RegisterAssignmentForm from "../_components/register-assignment/form";
 import UserRegistrationForm from "../_components/register-form/form";
+import SuccessRegisterDialog from "../_components/success-register-dialog";
+import IntroDialog from "../_components/intro-dialog";
 
 export default function RegisterClient() {
-  const [step, setStep] = useState(1);
-
-  console.log(step);
+  const [step, setStep] = useState(4);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [successAssignmentDialog, setSuccssAssignmentDialog] = useState(false);
+  const [isIntroduceDialog, setIsIntroduceDialog] = useState(false);
 
   return (
     <>
+      {/* Main Registration Steps */}
       <RegisterFormSection setStep={setStep} step={step} />
       <CaptchaMockup setStep={setStep} step={step} />
       <OTPEmail setStep={setStep} step={step} />
-      <RegisterSuccess step={step} />
+      <RegisterSuccess setIsDialogOpen={setIsDialogOpen} step={step} />
+
+      {/* Dialog for Multi-Step Assignment Form */}
+      <Dialog onOpenChange={setIsDialogOpen} open={isDialogOpen}>
+        <DialogContent className="w-[780px] max-w-none !rounded-[18px] !p-0">
+          <RegisterAssignmentForm
+            setIsDialogOpen={setIsDialogOpen}
+            setIsSuccessDialogOpen={setSuccssAssignmentDialog}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog for Success Dialog*/}
+      <Dialog onOpenChange={setSuccssAssignmentDialog} open={successAssignmentDialog}>
+        <DialogContent className="w-[780px] max-w-none !rounded-[18px] !p-0">
+          <SuccessRegisterDialog setIsDialogOpen={setSuccssAssignmentDialog} setIsIntroduceDialogOpen={setIsIntroduceDialog}/>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog for Introduction Dialog*/}
+      <Dialog onOpenChange={setIsIntroduceDialog} open={isIntroduceDialog}>
+        <DialogContent className="w-[780px] max-w-none !rounded-[18px]">
+          <IntroDialog />
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
@@ -82,7 +112,7 @@ export function CaptchaMockup({
 
   const {
     formState: { errors },
-    watch
+    watch,
   } = methods;
 
   const { captcha } = watch();
@@ -134,7 +164,7 @@ export function CaptchaMockup({
                 </div>
                 <Button
                   className="mt-6 w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300"
-                  disabled={Boolean(captcha === '')}
+                  disabled={Boolean(captcha === "")}
                   type="submit"
                   variant="outline"
                 >
@@ -221,10 +251,10 @@ export function OTPEmail({ step, setStep }: { step: number; setStep: (value: num
           ))}
         </div>
 
-        <Button 
-          className="w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300" 
-          disabled={otp.some(data => data === "")} 
-          onClick={() => setStep(step + 1)} 
+        <Button
+          className="w-full bg-[#1569EF] !font-normal !text-white hover:bg-gray-300 disabled:bg-gray-300"
+          disabled={otp.some(data => data === "")}
+          onClick={() => setStep(step + 1)}
           size="lg"
         >
           Confirm OTP Code
@@ -234,7 +264,13 @@ export function OTPEmail({ step, setStep }: { step: number; setStep: (value: num
   );
 }
 
-export function RegisterSuccess({ step }: { step: number }) {
+export function RegisterSuccess({
+  step,
+  setIsDialogOpen,
+}: {
+  step: number;
+  setIsDialogOpen: (value: boolean) => void;
+}) {
   return (
     step === 4 && (
       <div className="flex min-h-screen items-center justify-center p-4">
@@ -245,11 +281,11 @@ export function RegisterSuccess({ step }: { step: number }) {
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight">Registration Successful!</h1>
             <p className="text-muted-foreground">
-              Your account has been created successfully. You can now login to access your account.
+              Your account has been created successfully. You can now log in to access your account.
             </p>
           </div>
-          <Button asChild className="w-full" size="lg">
-            <Link href="/login">Back to Login</Link>
+          <Button className="w-full" onClick={() => setIsDialogOpen(true)} size="lg">
+            Set Up Organization
           </Button>
         </Card>
       </div>

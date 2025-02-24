@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, FieldError, useFormContext } from "react-hook-form";
 
 type CustomInputProps = {
   name: string;
@@ -10,7 +10,7 @@ type CustomInputProps = {
   inputWrapperClassName?: string;
   inputClassName?: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-  error?: string;
+  error?: string | FieldError;
 };
 
 export default function CustomFormInput({
@@ -52,7 +52,11 @@ export default function CustomFormInput({
                 type={type}
               />
             </div>
-            {!!error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+            {!!error && (
+              <p className="mt-1 text-xs text-red-500">
+                {typeof error === "string" ? error : error.message} 
+              </p>
+            )}
           </>
         )}
       />
