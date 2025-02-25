@@ -20,7 +20,7 @@ const tourSections: TourSection[] = [
     title: "Submit your first referral",
     description: "Lorem ipsum dolor sit amet consectetur. Nibh feugiat vitae at hendrerit",
     action: "Try it now",
-    actionHref: "/login",
+    actionHref: "/referrals",
   },
   {
     id: "tour",
@@ -28,7 +28,7 @@ const tourSections: TourSection[] = [
     title: "Making a tour",
     description: "Lorem ipsum dolor sit amet consectetur. Nibh feugiat vitae at hendrerit",
     action: "Explore Features",
-    actionHref: "/login",
+    actionHref: "/",
   },
   {
     id: "emr",

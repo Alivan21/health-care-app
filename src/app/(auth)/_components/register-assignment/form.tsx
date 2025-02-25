@@ -1,3 +1,4 @@
+import Autocomplete from "@/components/autocomplete";
 import { FileUploader } from "@/components/file-uploader";
 import FormProvider from "@/components/hook-form-provider";
 import CustomFormInput from "@/components/input/custom-form-input";
@@ -8,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import taxonomyData from "@/constant/mock/taxonomy-data.json";
 import { StepFormProps } from "@/constant/types/general";
 import { UserAssignemtSchema, UserAssignmentSchemaType } from "@/schema/assignment";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,10 +30,12 @@ export default function RegisterAssignmentForm({
 
   const methods = useForm<UserAssignmentSchemaType>({
     resolver: zodResolver(UserAssignemtSchema),
+    reValidateMode: "onChange",
     defaultValues: {
       organization_name: "",
       organization_type: "",
       organization_npi: "",
+      organization_taxid: "",
       organization_taxonomy: "",
       payers_region: "",
       organization_address: "",
@@ -54,7 +58,18 @@ export default function RegisterAssignmentForm({
     setStep(step + 1);
   };
 
-  const handleNext = () => setStep(prev => prev + 1);
+  const handleNext = async () => {
+    const fieldsToValidate: (keyof UserAssignmentSchemaType)[] =
+      step === 0
+        ? ["organization_name", "organization_type", "organization_npi", "organization_taxonomy", "payers_region"]
+        : ["organization_address", "organization_suite", "organization_zipcode", "organization_city", "organization_state", "organization_phone"];
+  
+    const isValid = await methods.trigger(fieldsToValidate);
+  
+    if (isValid) {
+      setStep(prev => prev + 1);
+    }
+  }
 
   const prevStep = () => setStep(prev => prev - 1);
 
@@ -94,11 +109,11 @@ export default function RegisterAssignmentForm({
           </div>
         )}
         <FormProvider methods={methods} onSubmit={onSubmit}>
-          <ScrollArea className="h-[500px] w-full overflow-y-auto px-2">
-            <div className="mt-10 flex w-full flex-col space-y-4 px-4">
+          <ScrollArea className="h-[550px] w-full overflow-y-auto p-2">
+            <div className="mt-9 flex w-full flex-col space-y-4 px-4">
               {step === 0 && <StepOne errors={errors} />}
               {step === 1 && <StepTwo errors={errors} />}
-              {step === 2 && <InviteTeamMemberForm errors={errors}/>}
+              {step === 2 && <InviteTeamMemberForm errors={errors} />}
               {step === 3 && (
                 <div className="flex h-full items-center justify-center p-4">
                   <Card className="w-full max-w-md space-y-6 !border-0 p-6 text-center !shadow-none">
@@ -140,7 +155,12 @@ export default function RegisterAssignmentForm({
                   <Button
                     className="!w-full rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
                     disabled={!isStepValid}
-                    onClick={handleNext}
+                    onClick={() => { 
+                      handleNext().catch(err => {
+                        console.error("Error in handleNext:", err);
+                        throw new Error(err instanceof Error ? err.message : String(err));
+                      });
+                    }}
                     type="button"
                   >
                     Continue
@@ -180,6 +200,9 @@ export default function RegisterAssignmentForm({
 }
 
 export function StepOne({ errors }: StepFormProps) {
+  const { control } = useFormContext();
+  const taxonomyStringData = taxonomyData;
+
   return (
     <>
       <CustomFormInput
@@ -205,11 +228,25 @@ export function StepOne({ errors }: StepFormProps) {
         name="organization_npi"
         placeholder="Enter NPI"
       />
-      <CustomFormInput
-        error={errors.organization_taxonomy?.message}
-        label="Organization Taxonomy"
+      <Controller
+        control={control}
         name="organization_taxonomy"
-        placeholder="Enter taxonomy"
+        render={({ field }) => (
+          <div className="relative w-full">
+            <Autocomplete
+              {...field}
+              error={errors.organization_taxonomy?.message}
+              label="Organization Taxonomy"
+              options={taxonomyStringData.providerTaxonomies}
+            />
+          </div>
+        )}
+      />
+      <CustomFormInput
+        error={errors.organization_zipcode?.message}
+        label="Organization Tax ID"
+        name="organization_taxid"
+        placeholder="Enter organization Tax ID"
       />
       <CustomFormSelect
         error={errors.payers_region?.message}
@@ -231,19 +268,19 @@ export function StepTwo({ errors }: StepFormProps) {
     <>
       <CustomFormInput
         error={errors.organization_address?.message}
-        label="Organization Address"
+        label="Street Address"
         name="organization_address"
         placeholder="Enter organization address"
       />
       <CustomFormInput
         error={errors.organization_suite?.message}
-        label="Organization Suite"
+        label="Suite, Unit, Floor"
         name="organization_suite"
         placeholder="Enter organization suite"
       />
       <CustomFormInput
         error={errors.organization_zipcode?.message}
-        label="Organization Zipcode"
+        label="Zipcode"
         name="organization_zipcode"
         placeholder="Enter organization zipcode"
       />
@@ -273,9 +310,15 @@ export function StepTwo({ errors }: StepFormProps) {
       </div>
       <CustomFormInput
         error={errors.organization_phone?.message}
-        label="Organization Phone"
+        label="Phone Number"
         name="organization_phone"
         placeholder="Enter organization phone"
+      />
+      <CustomFormInput
+        error={errors.organization_phone?.message}
+        label="Fax Number"
+        name="organization_phone"
+        placeholder="Enter organization fax"
       />
     </>
   );
@@ -283,7 +326,7 @@ export function StepTwo({ errors }: StepFormProps) {
 
 export function InviteTeamMemberForm({ errors }: StepFormProps) {
   const [files, setFiles] = useState<File[]>([]);
-  const { control } = useFormContext()
+  const { control } = useFormContext();
 
   const roles = [
     {
@@ -328,7 +371,7 @@ export function InviteTeamMemberForm({ errors }: StepFormProps) {
                   render={({ field }) => (
                     <div className="grid gap-4">
                       {roles.map(role => {
-                        const isChecked = String(field.value) === role.id
+                        const isChecked = String(field.value) === role.id;
 
                         return (
                           <div className="flex items-start space-x-4 py-2" key={role.id}>
@@ -336,7 +379,7 @@ export function InviteTeamMemberForm({ errors }: StepFormProps) {
                               checked={isChecked}
                               className="mt-1"
                               id={role.id}
-                              onCheckedChange={(checked) => field.onChange(checked ? role.id : "")}
+                              onCheckedChange={checked => field.onChange(checked ? role.id : "")}
                             />
                             <div className="grid gap-1.5">
                               <Label className="font-normal leading-none" htmlFor={role.id}>

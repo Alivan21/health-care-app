@@ -3,8 +3,9 @@ import { z } from "zod";
 export const UserAssignemtSchema = z.object({
   organization_name: z.string().min(1, { message: "The field is required" }),
   organization_type: z.string().min(1, { message: "The field is required" }),
-  organization_npi: z.string().min(1, { message: "The field is required" }),
+  organization_npi: z.string().length(10, { message: "NPI must be exactly 10 characters long" }),
   organization_taxonomy: z.string().min(1, { message: "The field is required" }),
+  organization_taxid: z.string().min(1, { message: "The field is required" }),
   payers_region: z.string().min(1, { message: "The field is required" }),
   organization_address: z.string().min(1, { message: "The field is required" }),
   organization_suite: z.string().optional(),
