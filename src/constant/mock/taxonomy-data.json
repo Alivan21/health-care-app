@@ -1,0 +1,124 @@
+{
+  "providerTaxonomies": [
+    {
+      "label": "208D00000X - Allopathic & Osteopathic Physicians/General Practice",
+      "value": "208D00000X"
+    },
+    {
+      "label": "208600000X - Allopathic & Osteopathic Physicians/Surgery",
+      "value": "208600000X"
+    },
+    {
+      "label": "2086H0002X - Allopathic & Osteopathic Physicians/Surgery/Hospice and Palliative Medicine",
+      "value": "2086H0002X"
+    },
+    {
+      "label": "2086S0120X - Allopathic & Osteopathic Physicians/Surgery/Pediatric Surgery",
+      "value": "2086S0120X"
+    },
+    {
+      "label": "2086S0122X - Allopathic & Osteopathic Physicians/Surgery/Plastic and Reconstructive Surgery",
+      "value": "2086S0122X"
+    },
+    {
+      "label": "2086S0105X - Allopathic & Osteopathic Physicians/Surgery/Surgery of the Hand",
+      "value": "2086S0105X"
+    },
+    {
+      "label": "2086S0102X - Allopathic & Osteopathic Physicians/Surgery/Surgical Critical Care",
+      "value": "2086S0102X"
+    },
+    {
+      "label": "2086X0206X - Allopathic & Osteopathic Physicians/Surgery/Surgical Oncology",
+      "value": "2086X0206X"
+    },
+    {
+      "label": "2086S0127X - Allopathic & Osteopathic Physicians/Surgery/Trauma Surgery",
+      "value": "2086S0127X"
+    },
+    {
+      "label": "2086S0129X - Allopathic & Osteopathic Physicians/Surgery/Vascular Surgery",
+      "value": "2086S0129X"
+    },
+    {
+      "label": "208G00000X - Allopathic & Osteopathic Physicians/Thoracic Surgery (Cardiothoracic Vascular Surgery)",
+      "value": "208G00000X"
+    },
+    {
+      "label": "204F00000X - Allopathic & Osteopathic Physicians/Transplant Surgery",
+      "value": "204F00000X"
+    },
+    {
+      "label": "208C00000X - Allopathic & Osteopathic Physicians/Colon & Rectal Surgery",
+      "value": "208C00000X"
+    },
+    {
+      "label": "207T00000X - Allopathic & Osteopathic Physicians/Neurological Surgery",
+      "value": "207T00000X"
+    },
+    {
+      "label": "204E00000X - Allopathic & Osteopathic Physicians/Oral & Maxillofacial Surgery",
+      "value": "204E00000X"
+    },
+    {
+      "label": "207X00000X - Allopathic & Osteopathic Physicians/Orthopedic Surgery",
+      "value": "207X00000X"
+    },
+    {
+      "label": "207XS0114X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Adult Reconstructive Orthopedic Surgery",
+      "value": "207XS0114X"
+    },
+    {
+      "label": "207XX0004X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Foot and Ankle Surgery",
+      "value": "207XX0004X"
+    },
+    {
+      "label": "207XS0106X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Hand Surgery",
+      "value": "207XS0106X"
+    },
+    {
+      "label": "207XS0117X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Orthopedic Surgery of the Spine",
+      "value": "207XS0117X"
+    },
+    {
+      "label": "207XX0801X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Orthopedic Trauma",
+      "value": "207XX0801X"
+    },
+    {
+      "label": "207XP3100X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Pediatric Orthopedic Surgery",
+      "value": "207XP3100X"
+    },
+    {
+      "label": "207XX0005X - Allopathic & Osteopathic Physicians/Orthopedic Surgery/Sports Medicine",
+      "value": "207XX0005X"
+    },
+    {
+      "label": "208200000X - Allopathic & Osteopathic Physicians/Plastic Surgery",
+      "value": "208200000X"
+    },
+    {
+      "label": "2082S0099X - Allopathic & Osteopathic Physicians/Plastic Surgery/Plastic Surgery Within the Head & Neck",
+      "value": "2082S0099X"
+    },
+    {
+      "label": "2082S0105X - Allopathic & Osteopathic Physicians/Plastic Surgery/Surgery of the Hand",
+      "value": "2082S0105X"
+    },
+    {
+      "label": "207K00000X - Allopathic & Osteopathic Physicians/Allergy and Immunology",
+      "value": "207K00000X"
+    },
+    {
+      "label": "207KA0200X - Allopathic & Osteopathic Physicians/Allergy and Immunology/Allergy",
+      "value": "207KA0200X"
+    },
+    {
+      "label": "207KI0005X - Allopathic & Osteopathic Physicians/Allergy and Immunology/Clinical & Laboratory Immunology",
+      "value": "207KI0005X"
+    },
+    {
+      "label": "207Y00000X - Allopathic & Osteopathic Physicians/Otolaryngology",
+      "value": "207Y00000X"
+    }
+  ]
+}

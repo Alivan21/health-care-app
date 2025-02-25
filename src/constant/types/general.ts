@@ -1,3 +1,6 @@
+import { FieldErrors } from "react-hook-form";
+import { UserAssignmentSchemaType } from "@/schema/assignment";
+
 export type SelectOptionsProps = {
   label: string;
   value: string;
@@ -16,4 +19,8 @@ export type ChartProps = {
   children: React.ReactNode;
   isSelectFilter?: boolean;
   selectProps?: SelectProps;
+};
+
+export type StepFormProps = {
+  errors: FieldErrors<UserAssignmentSchemaType>;
 };
