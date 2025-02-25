@@ -44,6 +44,7 @@ export default function RegisterAssignmentForm({
       organization_city: "",
       organization_state: "",
       organization_phone: "",
+      organization_fax: "",
       organization_member: [{ member_email: "", member_role: "" }],
     },
   });
@@ -203,6 +204,19 @@ export function StepOne({ errors }: StepFormProps) {
   const { control } = useFormContext();
   const taxonomyStringData = taxonomyData;
 
+  const regions = [
+    { label: "Northeast", value: "northeast" },
+    { label: "Southeast", value: "southeast" },
+    { label: "Midwest", value: "midwest" },
+    { label: "Southwest", value: "southwest" },
+    { label: "West", value: "west" },
+    { label: "Pacific Northwest", value: "pacific_northwest" },
+    { label: "Great Plains", value: "great_plains" },
+    { label: "Rocky Mountains", value: "rocky_mountains" },
+    { label: "Deep South", value: "deep_south" },
+    { label: "Appalachia", value: "appalachia" }
+  ];
+
   return (
     <>
       <CustomFormInput
@@ -216,10 +230,8 @@ export function StepOne({ errors }: StepFormProps) {
         label="Organization Type"
         name="organization_type"
         options={[
-          { value: "hospital", label: "Hospital" },
-          { value: "clinic", label: "Clinic" },
-          { value: "pharmacy", label: "Pharmacy" },
-          { value: "laboratory", label: "Laboratory" },
+          { value: "service_provider", label: "Heath Service Provider" },
+          { value: "healthcare", label: "Heathcare Provider" },
         ]}
       />
       <CustomFormInput
@@ -252,12 +264,7 @@ export function StepOne({ errors }: StepFormProps) {
         error={errors.payers_region?.message}
         label="Payers Region"
         name="payers_region"
-        options={[
-          { value: "north", label: "North" },
-          { value: "south", label: "South" },
-          { value: "east", label: "East" },
-          { value: "west", label: "West" },
-        ]}
+        options={regions}
       />
     </>
   );
@@ -317,7 +324,7 @@ export function StepTwo({ errors }: StepFormProps) {
       <CustomFormInput
         error={errors.organization_phone?.message}
         label="Fax Number"
-        name="organization_phone"
+        name="organization_fax"
         placeholder="Enter organization fax"
       />
     </>

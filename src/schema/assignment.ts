@@ -13,6 +13,7 @@ export const UserAssignemtSchema = z.object({
   organization_city: z.string().min(1, { message: "The field is required" }),
   organization_state: z.string().min(1, { message: "The field is required" }),
   organization_phone: z.string().min(1, { message: "The field is required" }),
+  organization_fax: z.string().optional(),
   organization_member: z.array(
     z.object({
       member_email: z.string().email().min(1, { message: "The field is required" }),
