@@ -20,7 +20,7 @@ import SuccessRegisterDialog from "../_components/success-register-dialog";
 import IntroDialog from "../_components/intro-dialog";
 
 export default function RegisterClient() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [successAssignmentDialog, setSuccssAssignmentDialog] = useState(false);
   const [isIntroduceDialog, setIsIntroduceDialog] = useState(false);
