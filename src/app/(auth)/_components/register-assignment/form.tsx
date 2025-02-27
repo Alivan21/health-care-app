@@ -267,7 +267,7 @@ export function StepOne({ errors }: StepFormProps) {
       <CustomFormSelect
         className="h-56"
         error={errors.payers_region?.message}
-        label="Payers Region"
+        label="Payer's Region"
         name="payers_region"
         options={regions}
       />
@@ -404,7 +404,7 @@ export function StepTwo({ errors }: StepFormProps) {
       />
       <CustomFormInput
         error={errors.organization_zipcode?.message}
-        label="Zipcode"
+        label="Zip Code"
         name="organization_zipcode"
         placeholder="Enter organization zipcode"
       />
