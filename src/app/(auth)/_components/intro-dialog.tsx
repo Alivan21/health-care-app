@@ -1,16 +1,16 @@
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { FileText, Layout, Heart } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import { FileText, Layout, Heart } from "lucide-react";
+import Link from "next/link";
 
 interface TourSection {
-  id: string
-  icon: React.ReactNode
-  title: string
-  description: string
-  action: string
-  actionHref: string
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  action: string;
+  actionHref: string;
 }
 
 const tourSections: TourSection[] = [
@@ -38,10 +38,10 @@ const tourSections: TourSection[] = [
     action: "Configure your EHR",
     actionHref: "/login",
   },
-]
+];
 
 export default function IntroDialog() {
-  const [hoveredSection, setHoveredSection] = useState<string | null>(null)
+  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
 
   return (
     <div>

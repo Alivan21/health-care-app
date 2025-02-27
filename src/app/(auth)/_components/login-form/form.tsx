@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function UserLoginForm() {
-  const router = useRouter()
+  const router = useRouter();
   const methods = useForm<UserLoginSchemaType>({
     resolver: zodResolver(UserLoginSchema),
     defaultValues: {
@@ -27,7 +27,7 @@ export default function UserLoginForm() {
 
   const onSubmit = (data: UserLoginSchemaType) => {
     console.log("Form Submitted:", data);
-    router.push("/")
+    router.push("/");
   };
 
   return (

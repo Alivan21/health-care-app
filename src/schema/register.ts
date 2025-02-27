@@ -10,7 +10,7 @@ export const UserRegisterSchema = z
     password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
     confirm_password: z.string().min(1, { message: "The field is required" }),
   })
-  .refine((data) => data.password === data.confirm_password, {
+  .refine(data => data.password === data.confirm_password, {
     message: "Passwords do not match",
     path: ["confirm_password"],
   });

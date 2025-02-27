@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function SuccessRegisterDialog({
   setIsDialogOpen,
-  setIsIntroduceDialogOpen
+  setIsIntroduceDialogOpen,
 }: {
   setIsDialogOpen: (value: boolean) => void;
   setIsIntroduceDialogOpen: (value: boolean) => void;
@@ -46,8 +46,8 @@ export default function SuccessRegisterDialog({
               <Button
                 className="w-full bg-blue-600 px-8 text-white hover:bg-blue-700 md:w-auto"
                 onClick={() => {
-                  setIsDialogOpen(false)
-                  setIsIntroduceDialogOpen(true)
+                  setIsDialogOpen(false);
+                  setIsIntroduceDialogOpen(true);
                 }}
               >
                 Continue
