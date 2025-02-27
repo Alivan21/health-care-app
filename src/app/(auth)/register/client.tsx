@@ -21,7 +21,7 @@ import IntroDialog from "../_components/intro-dialog";
 import { useRouter } from "next/navigation";
 
 export default function RegisterClient() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [successAssignmentDialog, setSuccssAssignmentDialog] = useState(false);
   const [isIntroduceDialog, setIsIntroduceDialog] = useState(false);
