@@ -24,3 +24,9 @@ export type ChartProps = {
 export type StepFormProps = {
   errors: FieldErrors<UserAssignmentSchemaType>;
 };
+
+export type FileStepFormProps = {
+  errors: FieldErrors<UserAssignmentSchemaType>;
+  file: File;
+  setFile;
+};

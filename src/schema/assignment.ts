@@ -14,12 +14,14 @@ export const UserAssignemtSchema = z.object({
   organization_state: z.string().min(1, { message: "The field is required" }),
   organization_phone: z.string().min(1, { message: "The field is required" }),
   organization_fax: z.string().optional(),
-  organization_member: z.array(
-    z.object({
-      member_email: z.string().email().min(1, { message: "The field is required" }),
-      member_role: z.string().min(1, { message: "The field is required" }),
-    })
-  )
-})
+  organization_member: z
+    .array(
+      z.object({
+        member_email: z.string().email().or(z.literal("")).optional(),
+        member_role: z.string().optional(),
+      })
+    )
+    .optional(),
+});
 
 export type UserAssignmentSchemaType = z.infer<typeof UserAssignemtSchema>;

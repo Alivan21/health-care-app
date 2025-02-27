@@ -15,7 +15,13 @@ interface Props {
   onUnassign?: () => void;
 }
 
-export default function MedicalCard({ onCardClick, onUserClick, onUnassign, cardProps, readedColor }: Props) {
+export default function MedicalCard({
+  onCardClick,
+  onUserClick,
+  onUnassign,
+  cardProps,
+  readedColor,
+}: Props) {
   const [isReaded, setIsReaded] = useState(false);
   const isAssigned = cardProps.assign_to !== "" ? true : false;
 
@@ -92,7 +98,7 @@ export default function MedicalCard({ onCardClick, onUserClick, onUnassign, card
         </div>
       </CardContent>
       <div
-        className={`absolute right-0 top-0 h-full w-1 rounded-r-lg ${readedColor ? readedColor : 'bg-yellow-400'} ${isReaded ? "hidden" : "block"}`}
+        className={`absolute right-0 top-0 h-full w-1 rounded-r-lg ${readedColor ? readedColor : "bg-yellow-400"} ${isReaded ? "hidden" : "block"}`}
       />
     </Card>
   );

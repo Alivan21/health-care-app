@@ -11,14 +11,13 @@ type PropType = {
 const CustomCarousel: React.FC<PropType> = props => {
   const { options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options ?? {});
-  
+
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi || undefined);
-  
 
   const imageSlides = [
-    { imageUrl: '/img/register_slide_1.png' },
-    { imageUrl: '/img/register_slide_2.png' },
-    { imageUrl: '/img/register_slide_3.png' }
+    { imageUrl: "/img/register_slide_1.png" },
+    { imageUrl: "/img/register_slide_2.png" },
+    { imageUrl: "/img/register_slide_3.png" },
   ];
 
   return (
@@ -44,9 +43,7 @@ const CustomCarousel: React.FC<PropType> = props => {
         <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
             <CarouselDot
-              className={'embla__dot'.concat(
-                index === selectedIndex ? ' embla__dot--selected' : ''
-              )}
+              className={"embla__dot".concat(index === selectedIndex ? "embla__dot--selected" : "")}
               key={index}
               onClick={() => onDotButtonClick(index)}
             />

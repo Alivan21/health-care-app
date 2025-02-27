@@ -19,7 +19,7 @@ type AutocompleteProps = {
 
 /**
  * Autocomplete component for selecting options from a list.
- * 
+ *
  * @component
  * @param {Object[]} options - List of options available for selection.
  * @param {string} options[].label - Display label for the option.
@@ -30,21 +30,21 @@ type AutocompleteProps = {
  * @param {Function} onChange - Callback function triggered when value changes.
  * @param {string} [label] - Label for the input field.
  * @param {string} [error] - Error message to display.
- * 
+ *
  * @example
  * const options = [
  *   { label: "Apple", value: "apple" },
  *   { label: "Banana", value: "banana" },
  *   { label: "Cherry", value: "cherry" }
  * ];
- * 
- * <Autocomplete 
- *   options={options} 
- *   name="fruit" 
- *   value={selectedValue} 
- *   onChange={setSelectedValue} 
- *   label="Select a fruit" 
- *   error={errorMessage} 
+ *
+ * <Autocomplete
+ *   options={options}
+ *   name="fruit"
+ *   value={selectedValue}
+ *   onChange={setSelectedValue}
+ *   label="Select a fruit"
+ *   error={errorMessage}
  * />
  */
 export default function Autocomplete({
@@ -69,10 +69,6 @@ export default function Autocomplete({
       queryRef.current = selectedOption.label;
       setQuery(selectedOption.label);
       setSelectedElement(selectedOption.element || null);
-    } else {
-      queryRef.current = "";
-      setQuery("");
-      setSelectedElement(null);
     }
   }, [value, options]);
 
@@ -81,9 +77,10 @@ export default function Autocomplete({
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    queryRef.current = e.target.value;
-    onChange(e.target.value);
-    setSelectedElement(null);
+    const newQuery = e.target.value;
+    queryRef.current = newQuery;
+    onChange(newQuery);
+    setQuery(newQuery);
     setIsOpen(true);
     setHighlightedIndex(-1);
   };
@@ -173,23 +170,23 @@ export default function Autocomplete({
         )}
       </div>
       {!!isOpen && (
-        <div 
-          className='absolute left-0 top-full z-10 mt-1 w-full rounded-md border bg-white shadow-md'
+        <div
+          className="absolute left-0 top-full z-10 mt-1 w-full rounded-md border bg-white shadow-md"
           id="autocomplete-options"
           role="listbox"
         >
-          <ScrollArea className='h-40 w-full'>
-            <div className='p-1'>
+          <ScrollArea className="h-40 w-full">
+            <div className="p-1">
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((option, index) => (
                   <div
                     aria-selected={highlightedIndex === index}
                     className={`cursor-pointer rounded-sm px-3 py-2 text-sm hover:bg-gray-100 ${
-                      highlightedIndex === index ? 'bg-gray-100' : ''
+                      highlightedIndex === index ? "bg-gray-100" : ""
                     }`}
                     key={option.value}
                     onClick={() => handleOptionClick(option)}
-                    onKeyDown={(e) => handleKeyDown(e, option)}
+                    onKeyDown={e => handleKeyDown(e, option)}
                     role="option"
                     tabIndex={0}
                   >
@@ -197,7 +194,7 @@ export default function Autocomplete({
                   </div>
                 ))
               ) : (
-                <div className='px-3 py-2 text-sm text-gray-500'>No results</div>
+                <div className="px-3 py-2 text-sm text-gray-500">No results</div>
               )}
             </div>
           </ScrollArea>

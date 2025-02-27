@@ -18,12 +18,14 @@ import RegisterAssignmentForm from "../_components/register-assignment/form";
 import UserRegistrationForm from "../_components/register-form/form";
 import SuccessRegisterDialog from "../_components/success-register-dialog";
 import IntroDialog from "../_components/intro-dialog";
+import { useRouter } from "next/navigation";
 
 export default function RegisterClient() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [successAssignmentDialog, setSuccssAssignmentDialog] = useState(false);
   const [isIntroduceDialog, setIsIntroduceDialog] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -46,12 +48,23 @@ export default function RegisterClient() {
       {/* Dialog for Success Dialog*/}
       <Dialog onOpenChange={setSuccssAssignmentDialog} open={successAssignmentDialog}>
         <DialogContent className="w-[780px] max-w-none !rounded-[18px] !p-0">
-          <SuccessRegisterDialog setIsDialogOpen={setSuccssAssignmentDialog} setIsIntroduceDialogOpen={setIsIntroduceDialog}/>
+          <SuccessRegisterDialog
+            setIsDialogOpen={setSuccssAssignmentDialog}
+            setIsIntroduceDialogOpen={setIsIntroduceDialog}
+          />
         </DialogContent>
       </Dialog>
 
       {/* Dialog for Introduction Dialog*/}
-      <Dialog onOpenChange={setIsIntroduceDialog} open={isIntroduceDialog}>
+      <Dialog
+        onOpenChange={open => {
+          setIsIntroduceDialog(open);
+          if (!open) {
+            router.push("/referrals");
+          }
+        }}
+        open={isIntroduceDialog}
+      >
         <DialogContent className="w-[780px] max-w-none !rounded-[18px]">
           <IntroDialog />
         </DialogContent>

@@ -20,7 +20,9 @@ export default function FormProvider<T extends FieldValues>({
         id="submit-hook-form"
         onSubmit={event => {
           event.preventDefault();
-          void methods.handleSubmit(onSubmit, (errors) => console.log("Validation Errors:", errors))();
+          void methods.handleSubmit(onSubmit, errors =>
+            console.log("Validation Errors:", errors)
+          )();
         }}
         style={{ width: "100%", backgroundColor }}
       >
