@@ -22,8 +22,6 @@ export default function OnboardingProgressBox({
 
   if (!showComponent) return null;
 
-  console.log(progress);
-
   return (
     <div
       className={`flex translate-y-4 items-center rounded-full pr-3 text-white opacity-0 ${isCompleted ? "animate-fadeOutDown bg-[#34C759]" : "animate-fadeInUp bg-[#1757F7]"}`}
