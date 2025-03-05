@@ -6,6 +6,7 @@ import ReferralHeader from "../_components/header/title";
 import KanbanReferral from "../_components/kanban";
 import { usePathname } from "next/navigation";
 import ListReferral from "../_components/list";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function SpecialityReferralClient() {
   const pathname = usePathname();
@@ -26,13 +27,21 @@ export default function SpecialityReferralClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral
-        pathname={pathname}
-        queueFilter={queue}
-        statusFilter={cardStatus}
-        view={view}
-      />
-      <ListReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
+      <ScrollArea>
+        <KanbanReferral
+          pathname={pathname}
+          queueFilter={queue}
+          statusFilter={cardStatus}
+          view={view}
+        />
+        <ListReferral
+          pathname={pathname}
+          queueFilter={queue}
+          statusFilter={cardStatus}
+          view={view}
+        />
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </MainContainer>
   );
 }

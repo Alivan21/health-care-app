@@ -1,10 +1,11 @@
 "use client";
 
 import MainContainer from "@/components/layouts/main-container";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ReferralHeader from "../_components/header/title";
 import KanbanReferral from "../_components/kanban";
-import { usePathname } from "next/navigation";
 import ListReferral from "../_components/list";
 
 export default function ReferralDraftClient() {
@@ -26,13 +27,21 @@ export default function ReferralDraftClient() {
         status={status}
         view={view}
       />
-      <KanbanReferral
-        pathname={pathname}
-        queueFilter={queue}
-        statusFilter={cardStatus}
-        view={view}
-      />
-      <ListReferral pathname={pathname} queueFilter={queue} statusFilter={cardStatus} view={view} />
+      <ScrollArea>
+        <KanbanReferral
+          pathname={pathname}
+          queueFilter={queue}
+          statusFilter={cardStatus}
+          view={view}
+        />
+        <ListReferral
+          pathname={pathname}
+          queueFilter={queue}
+          statusFilter={cardStatus}
+          view={view}
+        />
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </MainContainer>
   );
 }
