@@ -98,7 +98,7 @@ export default function MedicalCard({
         </div>
       </CardContent>
       <div
-        className={`absolute right-0 top-0 h-full w-1 rounded-r-lg ${readedColor ? readedColor : "bg-yellow-400"} ${isReaded ? "hidden" : "block"}`}
+        className={`absolute left-0 top-0 h-full w-1 rounded-l-lg ${readedColor ? readedColor : "bg-yellow-400"} ${isReaded ? "hidden" : "block"}`}
       />
     </Card>
   );
