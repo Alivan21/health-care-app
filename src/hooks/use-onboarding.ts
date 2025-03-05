@@ -13,13 +13,19 @@ export function useOnboarding({
   isTimeout = false,
   timeout = 1000,
 }: UseOnboardingProps) {
-  const [isOnboarded, setIsOnboarded] = useState(() => {
-    return localStorage.getItem(onboarding_key) === "true";
-  });
+  const [isOnboarded, setIsOnboarded] = useState(false);
 
   useEffect(() => {
-    if (progress.some(p => p > 100)) {
-      localStorage.setItem(onboarding_key, "true");
+    if (typeof window !== "undefined") {
+      setIsOnboarded(localStorage.getItem(onboarding_key) === "true");
+    }
+  }, [onboarding_key]);
+
+  useEffect(() => {
+    if (progress.some((p) => p > 100)) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(onboarding_key, "true");
+      }
 
       if (isTimeout) {
         const timer = setTimeout(() => {
