@@ -13,10 +13,10 @@ export default function AppLayout({
         <MainSidebar menu={SidebarMenuList} />
         <ScrollArea
           className="flex max-h-dvh w-full flex-col !overflow-x-auto"
-          viewportClassName="[&>div]:!block"
+          viewportClassName="[&>div]:!block [&>div]:min-h-full [&>div]:h-full"
         >
           <div
-            className="relative grow overflow-auto"
+            className="no-scrollbar relative h-full grow overflow-auto"
             style={{
               backgroundColor: "white",
               backgroundImage: "radial-gradient(circle, #E5E7EB 1px, transparent 1px)",

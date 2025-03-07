@@ -174,7 +174,7 @@ export function MainSidebar({ menu }: { menu: MenuSection[] }) {
   const referralsItem = menu[0].items.find(item => item.href === "/referrals");
 
   return (
-    <Sidebar className="z-20 border-r" collapsible="icon">
+    <Sidebar className="z-40 border-r" collapsible="icon">
       <CollapseButton />
       <SidebarHeader className="border-b p-4">
         <div className="flex items-center gap-3 px-2">

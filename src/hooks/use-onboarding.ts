@@ -22,7 +22,7 @@ export function useOnboarding({
   }, [onboarding_key]);
 
   useEffect(() => {
-    if (progress.some((p) => p > 100)) {
+    if (progress.some(p => p > 100)) {
       if (typeof window !== "undefined") {
         localStorage.setItem(onboarding_key, "true");
       }

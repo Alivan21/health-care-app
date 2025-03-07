@@ -1,17 +1,18 @@
 "use client";
 
+import { PageHeader } from "@/components/layouts/header";
 import MainContainer from "@/components/layouts/main-container";
-import { useState } from "react";
-import ReferralHeader from "./header/title";
-import KanbanReferral from "./kanban";
-import ListReferral from "./list";
-import IncomingSection from "./incoming/incoming-section";
-import { Toaster } from "@/components/ui/toaster";
 import OnboardingProgressBox from "@/components/onboarding/progress-box";
 import StepBoxContainer from "@/components/onboarding/step-box-container";
-import { PageHeader } from "@/components/layouts/header";
+import { Toaster } from "@/components/ui/toaster";
+import { useHorizontalScroll } from "@/hooks/use-horizontal-scroll";
 import { useOnboarding } from "@/hooks/use-onboarding";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useState } from "react";
+import ReferralHeader from "./header/title";
+import IncomingSection from "./incoming/incoming-section";
+import KanbanReferral from "./kanban";
+import ListReferral from "./list";
+import ScrollHorizontalButton from "./ui/scroll-horizontal-button";
 
 export default function ReferralClient() {
   const [queue, setQueue] = useState("all");
@@ -26,6 +27,8 @@ export default function ReferralClient() {
     isTimeout: true,
     timeout,
   });
+
+  const { scrollContainerRef, scrollLeft, scrollRight } = useHorizontalScroll();
 
   const breadcrumbs = [
     { title: "Dashboard", link: "/" },
@@ -76,6 +79,10 @@ export default function ReferralClient() {
       {!isOnboarded && (
         <div className="pointer-events-auto fixed inset-0 z-40 bg-black opacity-75" />
       )}
+
+      <ScrollHorizontalButton onClick={scrollLeft} position="left" />
+      <ScrollHorizontalButton onClick={scrollRight} position="right" />
+
       <PageHeader breadcrumbs={breadcrumbs} />
       <MainContainer className="flex flex-col !p-0">
         {!isOnboarded && (
@@ -99,15 +106,16 @@ export default function ReferralClient() {
           status={status}
           view={view}
         />
-        <ScrollArea>
-          {status === "outgoing" ? (
-            <KanbanReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
-          ) : (
-            <IncomingSection />
-          )}
-          <ListReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        <div className="no-scrollbar relative w-full overflow-x-auto" ref={scrollContainerRef}>
+          <div className="flex w-max">
+            {status === "outgoing" ? (
+              <KanbanReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
+            ) : (
+              <IncomingSection />
+            )}
+            <ListReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
+          </div>
+        </div>
       </MainContainer>
     </>
   );
