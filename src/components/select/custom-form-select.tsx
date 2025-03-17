@@ -10,6 +10,7 @@ type CustomSelectProps = {
   options: { value: string; label: string }[];
   error?: string | FieldError;
   className?: string;
+  placeholder?: string;
 };
 
 export default function CustomFormSelect({
@@ -18,13 +19,14 @@ export default function CustomFormSelect({
   options,
   error,
   className,
+  placeholder,
 }: CustomSelectProps) {
   const { control } = useFormContext();
 
   return (
     <div className="w-full">
       {!!label && (
-        <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor={name}>
+        <label className="mb-1 block text-xs font-medium text-gray-700" htmlFor={name}>
           {label}
         </label>
       )}
@@ -34,7 +36,7 @@ export default function CustomFormSelect({
         render={({ field }) => (
           <Select onValueChange={field.onChange} value={String(field.value)}>
             <SelectTrigger className="!text-[#878787]">
-              <SelectValue className="!text-[#878787]" placeholder="Select" />
+              <SelectValue className="!text-[#878787]" placeholder={placeholder || "Select"} />
             </SelectTrigger>
             <SelectContent>
               <ScrollArea className={className}>

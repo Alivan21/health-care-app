@@ -13,12 +13,14 @@ import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import type { DateRange } from "react-day-picker";
 import type { ProcedureCode } from "@/constant/types/referral";
 
 export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedCodes, setSelectedCodes] = useState<ProcedureCode[]>([]);
+  const [search, setSearch] = useState("");
 
   const [availableCodes, setAvailableCodes] = useState<ProcedureCode[]>([
     {
@@ -73,14 +75,16 @@ export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean })
   };
 
   const handleCodeSelection = (code: ProcedureCode) => {
-    if (selectedCodes.find(c => c.code === code.code)) {
-      setSelectedCodes(selectedCodes.filter(c => c.code !== code.code));
+    const isSelected = selectedCodes.find(c => c.code === code.code);
+    if (isSelected) {
+      handleRemoveSelected(code.code);
     } else {
-      setSelectedCodes([...selectedCodes, { ...code, selected: true }]);
+      setSelectedCodes([...selectedCodes, code]);
     }
   };
 
   const handleQuantityChange = (code: string, quantity: number) => {
+    if (quantity < 1) return;
     setSelectedCodes(selectedCodes.map(c => (c.code === code ? { ...c, quantity: quantity } : c)));
     setAvailableCodes(
       availableCodes.map(c => (c.code === code ? { ...c, quantity: quantity } : c))
@@ -102,11 +106,19 @@ export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean })
     }
   }, [availableCodes, isDraft]);
 
+  const filteredCodes = availableCodes.filter(
+    code =>
+      code.code.toLowerCase().includes(search.toLowerCase()) ||
+      code.description.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="space-y-1 p-4">
+      {/* Trigger */}
       <button
         className="flex w-full cursor-pointer flex-wrap gap-2 rounded-md border border-input bg-background px-3 py-2"
         onClick={() => setIsOpen(!isOpen)}
+        type="button"
       >
         <div className="flex w-full items-center justify-between">
           <div className="flex flex-wrap gap-2">
@@ -119,21 +131,12 @@ export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean })
                     e.stopPropagation();
                     handleRemoveSelected(code.code);
                   }}
+                  type="button"
                 >
                   <span className="text-sm">
                     {code.code}: {code.description}
                   </span>
-                  <Button
-                    className="size-5 p-0 hover:bg-gray-200"
-                    onClick={e => {
-                      e.stopPropagation();
-                      handleRemoveSelected(code.code);
-                    }}
-                    size="sm"
-                    variant="ghost"
-                  >
-                    <X className="size-3" />
-                  </Button>
+                  <X className="size-3" />
                 </button>
               ))
             ) : (
@@ -144,68 +147,89 @@ export default function ProcedureCodeSelector({ isDraft }: { isDraft: boolean })
         </div>
       </button>
 
-      {/* Available Codes */}
+      {/* Dropdown */}
       {!!isOpen && (
         <div className="space-y-2 rounded-md border px-3 py-2">
-          {availableCodes.map(code => (
-            <div className="flex items-center gap-4 rounded-md border p-4" key={code.code}>
-              <Checkbox
-                checked={selectedCodes.some(c => c.code === code.code)}
-                onCheckedChange={() => handleCodeSelection(code)}
-              />
-              <div className="flex-1 space-y-1">
-                <div className="font-medium">{code.code}</div>
-                <div className="text-sm text-muted-foreground">{code.description}</div>
-              </div>
-              <Input
-                className="w-20"
-                min={1}
-                onChange={e => handleQuantityChange(code.code, parseInt(e.target.value))}
-                type="number"
-                value={code.quantity}
-              />
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    className={cn(
-                      "w-[280px] justify-start text-left font-normal",
-                      !code.dateRange && "text-muted-foreground"
-                    )}
-                    variant="outline"
-                  >
-                    <CalendarIcon className="mr-2 size-4" />
-                    {code.dateRange?.from ? (
-                      code.dateRange.to ? (
-                        <>
-                          {format(code.dateRange.from, "LLL dd, y")} -{" "}
-                          {format(code.dateRange.to, "LLL dd, y")}
-                        </>
-                      ) : (
-                        format(code.dateRange.from, "LLL dd, y")
-                      )
-                    ) : (
-                      <span>Pick a date range</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="start" className="w-auto p-0">
-                  <Calendar
-                    defaultMonth={code.dateRange?.from}
-                    initialFocus
-                    mode="range"
-                    numberOfMonths={2}
-                    onSelect={dateRange =>
-                      handleDateRangeChange(
-                        code.code,
-                        dateRange ?? { from: undefined, to: undefined }
-                      )
-                    }
-                    selected={code.dateRange}
+          {/* Search */}
+          <Input
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search Procedure Code"
+            value={search}
+          />
+
+          {/* Scrollable Codes List */}
+          <ScrollArea className="h-[300px] w-full pr-3">
+            <div className="space-y-2">
+              {filteredCodes.length === 0 && (
+                <div className="py-4 text-center text-sm text-muted-foreground">
+                  No procedure codes found.
+                </div>
+              )}
+              {filteredCodes.map(code => (
+                <div
+                  className="flex items-center gap-4 rounded-md border p-4 transition hover:bg-muted"
+                  key={code.code}
+                >
+                  <Checkbox
+                    checked={selectedCodes.some(c => c.code === code.code)}
+                    onCheckedChange={() => handleCodeSelection(code)}
                   />
-                </PopoverContent>
-              </Popover>
+                  <div className="flex-1 space-y-1">
+                    <div className="font-medium">{code.code}</div>
+                    <div className="text-sm text-muted-foreground">{code.description}</div>
+                  </div>
+                  <Input
+                    className="w-20"
+                    min={1}
+                    onChange={e => handleQuantityChange(code.code, parseInt(e.target.value))}
+                    type="number"
+                    value={code.quantity}
+                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        className={cn(
+                          "w-[280px] justify-start text-left font-normal",
+                          !code.dateRange && "text-muted-foreground"
+                        )}
+                        type="button"
+                        variant="outline"
+                      >
+                        <CalendarIcon className="mr-2 size-4" />
+                        {code.dateRange?.from ? (
+                          code.dateRange.to ? (
+                            <>
+                              {format(code.dateRange.from, "LLL dd, y")} -{" "}
+                              {format(code.dateRange.to, "LLL dd, y")}
+                            </>
+                          ) : (
+                            format(code.dateRange.from, "LLL dd, y")
+                          )
+                        ) : (
+                          <span>Pick a date range</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="start" className="w-auto p-0">
+                      <Calendar
+                        defaultMonth={code.dateRange?.from}
+                        initialFocus
+                        mode="range"
+                        numberOfMonths={2}
+                        onSelect={dateRange =>
+                          handleDateRangeChange(
+                            code.code,
+                            dateRange ?? { from: undefined, to: undefined }
+                          )
+                        }
+                        selected={code.dateRange}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              ))}
             </div>
-          ))}
+          </ScrollArea>
         </div>
       )}
     </div>

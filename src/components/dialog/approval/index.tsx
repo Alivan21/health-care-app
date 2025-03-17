@@ -71,7 +71,7 @@ export default function RequestApprovalDialog({ open, onClose, isDraft }: Props)
   return (
     <>
       <Dialog onOpenChange={handleClose} open={open}>
-        <DialogContent className="max-w-3xl p-3" showClose={false}>
+        <DialogContent className="max-w-3xl p-3">
           <DialogHeader className="flex flex-row items-center justify-between space-y-0 px-2">
             <div className="flex items-center gap-2">
               <DialogClose asChild>

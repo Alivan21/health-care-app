@@ -1,3 +1,5 @@
+import { DatePicker } from "@/components/date-picker";
+import CustomInput from "@/components/input/custom-input";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -6,13 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import {
   Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
 } from "@/components/ui/select";
 import {
   Table,
@@ -22,12 +25,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { WandSparkles, X, AlignVerticalSpaceBetween, CopySlash, PencilLine } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import type { ProcedureCode } from "@/constant/types/referral";
+import { WandSparkles, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
-import CustomInput from "@/components/input/custom-input";
-import type { ProcedureCode } from "@/constant/types/referral";
-import { ProcedureCodeSection } from "@/components/drawer/referral";
 
 interface Props {
   open?: boolean;
@@ -38,78 +41,61 @@ interface Props {
   setReferral?: (value: boolean) => void;
 }
 
-export default function IncomingDocumentDialog({
-  open,
-  onClose,
-  buttonDialog,
-  isParsed,
-  setIsParsed,
-  setReferral,
-}: Props) {
+export const items = [
+  {
+    title: "Organization & Payer",
+    content: <OrganizationPayerSection />,
+  },
+  {
+    title: "Summary",
+    content: <SummarySection />,
+  },
+  {
+    title: "Patient Information",
+    content: <PatientInformationSection />,
+  },
+  {
+    title: "Insurance Information",
+    content: <PatientInformationSection />,
+  },
+  {
+    title: "Requesting Provider",
+    content: "Yes. It's animated by default, but you can disable it if you prefer.",
+  },
+];
+
+export default function IncomingDocumentDialog({ open, onClose, buttonDialog }: Props) {
+  const router = useRouter();
+
+  const handleDetailParse = () => {
+    router.push("/referrals/incoming");
+  };
+
   return (
     <Dialog onOpenChange={onClose} open={open}>
       {!!buttonDialog && <DialogTrigger asChild>buttonDialog</DialogTrigger>}
-      <DialogContent className="w-full !max-w-[1150px]">
-        <DialogHeader>
-          <DialogTitle>Document1.pdf</DialogTitle>
-        </DialogHeader>
-        <div className="flex w-full space-x-6 p-5">
-          <div className="flex w-full flex-col">
-            <div className="h-[500px] w-full">
-              <iframe
-                className="size-full border-0"
-                src="/documents/mock-patient-document.pdf"
-                title="Document Viewer"
-              />
-            </div>
-            <div className="mt-8 flex items-center space-x-2 self-end">
-              <Button className="!hover:bg-white !border border-border !bg-white !text-muted-foreground">
-                Download
-              </Button>
-              <Button onClick={() => setIsParsed?.(true)}>
-                <WandSparkles /> Parsing Fax
-              </Button>
-            </div>
-          </div>
-          <div className={`${isParsed ? "flex" : "hidden"} w-full flex-col`}>
-            <div className="flex size-full max-h-[496px] flex-col items-start overflow-y-auto rounded-lg border border-border p-4">
-              <div className="mb-8 flex flex-col space-y-2">
-                <p className="text-base font-semibold">Parsed Data</p>
-                <p className="text-sm font-normal text-[#878787]">Lorem ipsum dolor sir amet</p>
+      <DialogContent className="h-screen w-full max-w-full overflow-y-auto p-0 sm:max-w-[95vw] md:max-w-[90vw]">
+        <div className="flex h-full flex-col p-4">
+          <DialogHeader>
+            <DialogTitle>Document1.pdf</DialogTitle>
+          </DialogHeader>
+          <div className="flex size-full space-x-6 p-5">
+            <div className="flex w-full flex-col">
+              <div className="size-full">
+                <iframe
+                  className="size-full border-0"
+                  src="/documents/mock-patient-document.pdf"
+                  title="Document Viewer"
+                />
               </div>
-              <div className="mb-5 flex flex-col items-start space-y-2">
-                <p className="text-sm">Patient Information</p>
-                <PatientInformationSection />
+              <div className="mt-8 flex items-center space-x-2 self-end">
+                <Button className="!hover:bg-white !border border-border !bg-white !text-muted-foreground">
+                  Download
+                </Button>
+                <Button onClick={handleDetailParse}>
+                  <WandSparkles /> Parsing Fax
+                </Button>
               </div>
-              <div className="mb-5 flex w-full flex-col items-start space-y-2">
-                <p className="text-sm">Organization & Payer</p>
-                <OrganizationPayerSection />
-              </div>
-              <div className="mb-5 flex w-full flex-col items-start space-y-2">
-                <p className="text-sm">Requesting Provider</p>
-                <RequestingProviderSection />
-              </div>
-              <div className="flex w-full flex-col items-start space-y-2">
-                <p className="text-sm">Procedure Code</p>
-                <ProcedureCodeSection />
-              </div>
-            </div>
-            <div className="mt-8 flex items-center space-x-2 self-end">
-              <Button className="!hover:bg-white !border border-border !bg-white !text-muted-foreground">
-                Retry Parsing <AlignVerticalSpaceBetween />
-              </Button>
-              <Button className="!hover:bg-white !border border-border !bg-white !text-muted-foreground">
-                Auto Match <CopySlash />
-              </Button>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  setReferral?.(true);
-                  onClose?.(false);
-                }}
-              >
-                Add Referral <PencilLine />
-              </Button>
             </div>
           </div>
         </div>
@@ -119,6 +105,8 @@ export default function IncomingDocumentDialog({
 }
 
 export function PatientInformationSection() {
+  const [date, setDate] = useState<Date>();
+
   return (
     <Table>
       <TableHeader>
@@ -126,12 +114,50 @@ export function PatientInformationSection() {
           <TableHead className="!pr-0 !font-normal">Patient Name</TableHead>
           <TableHead className="!pr-0 !font-normal">Member ID</TableHead>
           <TableHead className="!pr-0 !font-normal">Date of Birth</TableHead>
-          <TableHead className="!pr-0 !font-normal">Gender</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          {Array.from({ length: 4 }).map((_, index) => (
+          <TableCell className="!p-2">
+            <CustomInput
+              inputClassName="!text-xs"
+              inputProps={{
+                defaultValue: "Emily Watkins",
+              }}
+              placeholder="Patient Name"
+            />
+          </TableCell>
+          <TableCell className="!p-2">
+            <CustomInput
+              inputClassName="!text-xs"
+              inputProps={{
+                defaultValue: "Emily Watkins",
+              }}
+              placeholder="Patient Name"
+            />
+          </TableCell>
+          <TableCell className="!p-2">
+            <DatePicker onSelect={setDate} selected={date} />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
+export function InsuranceInfoSection() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="!pr-0 !font-normal">Insurance</TableHead>
+          <TableHead className="!pr-0 !font-normal">Request Type</TableHead>
+          <TableHead className="!pr-0 !font-normal">Relation to Subscriber</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          {Array.from({ length: 3 }).map((_, index) => (
             <TableCell className="!p-2" key={index}>
               <CustomInput
                 inputClassName="!text-xs"
@@ -149,49 +175,75 @@ export function PatientInformationSection() {
 }
 
 export function OrganizationPayerSection() {
-  const [provider, setProvider] = useState("provider1");
-
-  const providerOptions = [
-    { label: "Outpatient Authorization", value: "provider1" },
-    { label: "Outpatient Authorization", value: "provider2" },
-  ];
-
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="!pr-0 !font-normal">Payer</TableHead>
-          <TableHead className="!pr-0 !font-normal">Provider Role</TableHead>
+          <TableHead className="!pr-0 !font-normal">Organization Name</TableHead>
+          <TableHead className="!pr-0 !font-normal">Address</TableHead>
+          <TableHead className="!pr-0 !font-normal">Phone</TableHead>
+          <TableHead className="!pr-0 !font-normal">Fax</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>
-            <CustomInput
-              inputClassName="!text-xs"
-              inputProps={{
-                defaultValue: "Emily Watkins",
-              }}
-              placeholder="Patient Name"
-            />
-          </TableCell>
-          <TableCell>
-            <Select defaultValue="provider1" onValueChange={setProvider} value={provider}>
-              <SelectTrigger className="w-full" variant="default">
-                <SelectValue className="!text-muted-foreground" placeholder="Provider Role" />
-              </SelectTrigger>
-              <SelectContent className="!w-full">
-                {providerOptions.map((data, index) => (
-                  <SelectItem key={index} value={data.value}>
-                    {data.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </TableCell>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <TableCell className="!p-2" key={index}>
+              <CustomInput
+                inputClassName="!text-xs"
+                inputProps={{
+                  defaultValue: "",
+                }}
+                placeholder="Organization input field"
+              />
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableBody>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="!pr-0 !font-normal">Speciality</TableHead>
+          <TableHead className="!pr-0 !font-normal">NPI</TableHead>
+          <TableHead className="!pr-0 !font-normal">Tax ID</TableHead>
+          <TableHead className="!pr-0 !font-normal">Contact Info</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <TableCell className="!p-2" key={index}>
+              <CustomInput
+                inputClassName="!text-xs"
+                inputProps={{
+                  defaultValue: "",
+                }}
+                placeholder="Organization input field"
+              />
+            </TableCell>
+          ))}
         </TableRow>
       </TableBody>
     </Table>
+  );
+}
+
+export function SummarySection() {
+  const [message, setMessage] = useState<string>();
+
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = e => {
+    setMessage(e.target.value);
+  };
+
+  return (
+    <div className="grid w-full gap-2">
+      <Label htmlFor="message">Your Sumarry</Label>
+      <Textarea
+        id="message"
+        onChange={handleChange}
+        placeholder="Type your message here."
+        value={message}
+      />
+    </div>
   );
 }
 

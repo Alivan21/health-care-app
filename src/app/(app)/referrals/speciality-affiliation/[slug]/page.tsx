@@ -3,6 +3,7 @@
 import { PageHeader } from "@/components/layouts/header";
 import SpecialityAffiliationReferralClient from "../client";
 import { usePathname } from "next/navigation";
+import { formatSlug } from "@/lib/utils";
 
 export default function SpecialityAffiliationReferralsPage() {
   const pathname = usePathname();
@@ -12,7 +13,7 @@ export default function SpecialityAffiliationReferralsPage() {
   const breadcrumbs = [
     { title: "Dashboard", link: "/" },
     { title: "Referrals", link: "/referrals" },
-    { title: slug || "Loading...", link: `/referrals/${slug || ""}` },
+    { title: formatSlug(slug), link: `/referrals/${slug ?? ""}` },
   ];
 
   return (
