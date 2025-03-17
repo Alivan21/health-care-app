@@ -3,8 +3,6 @@ import { ReusableTable } from "../list/list-table";
 import { IncomingMockData } from "@/constant/mock/incoming-data";
 import { createIncomingTableData } from "@/constant/mock/table-data";
 import IncomingDocumentDialog from "@/components/dialog/incoming/document-dialog";
-import { useToast } from "@/hooks/use-toast";
-import { Check } from "lucide-react";
 import SuccessDialog from "@/components/dialog/success-dialog";
 import RequestApprovalDialog from "@/components/dialog/approval";
 import { MedicalCardTypes } from "@/constant/types/referral";
@@ -12,7 +10,6 @@ import { MedicalCardMockData } from "@/constant/mock/medical-card";
 import IncomingReferralDrawer from "@/components/drawer/incoming-referral";
 
 export default function IncomingSection() {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [submitReferralOpen, setSubmitReferralOpen] = useState(false);
   const [isParsed, setIsParsed] = useState(false);
@@ -71,26 +68,13 @@ export default function IncomingSection() {
         open={open}
         setIsParsed={() => {
           setIsParsed(true);
-          setTimeout(() => {
-            toast({
-              color: "#E9F7EF",
-              className: "bg-[#E7F6EC] border-0",
-              duration: 1000,
-              description: (
-                <div className="flex items-center gap-2 text-[#0E844E]">
-                  <Check className="size-5" />
-                  <span className="font-medium">Parsing Completed!</span>
-                </div>
-              ),
-            });
-          }, 500);
         }}
         setReferral={setShowSuccessDialog}
       />
 
       <SuccessDialog onClose={() => setShowSuccessDialog(false)} open={showSuccessDialog} />
 
-      <div className="px-6 py-5">
+      <div className="w-full px-6 py-5">
         <ReusableTable columns={tableCol} data={IncomingMockData} />
       </div>
     </>

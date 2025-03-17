@@ -29,7 +29,7 @@ export default function CustomFormInput({
   return (
     <div className="w-full">
       {!!label && (
-        <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor={name}>
+        <label className="mb-1 block text-xs font-medium text-gray-700" htmlFor={name}>
           {label}
         </label>
       )}

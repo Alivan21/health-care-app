@@ -33,3 +33,12 @@ export function formatDate(date: Date) {
 export const convertToSlug = (str: string) => {
   return str.trim().toLowerCase().replace(/\s+/g, "-");
 };
+
+export const formatSlug = (slug: string | undefined) => {
+  if (!slug) return "Loading...";
+
+  return slug
+    .split("-")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};

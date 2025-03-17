@@ -107,9 +107,11 @@ export default function ReferralClient() {
           view={view}
         />
         <div className="no-scrollbar relative w-full overflow-x-auto" ref={scrollContainerRef}>
-          <div className="flex w-max">
+          <div className="flex w-full">
             {status === "outgoing" ? (
-              <KanbanReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
+              <div className="w-max">
+                <KanbanReferral queueFilter={queue} statusFilter={cardStatus} view={view} />
+              </div>
             ) : (
               <IncomingSection />
             )}

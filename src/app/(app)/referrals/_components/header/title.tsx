@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Columns3, Kanban, User, Users } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface ReferralHeaderProps {
   queue: string;
@@ -34,6 +34,7 @@ export default function ReferralHeader({
   setCardStatus,
 }: ReferralHeaderProps) {
   const routes = useRouter();
+  const location = usePathname();
 
   const ViewOptions = [
     {
@@ -134,7 +135,7 @@ export default function ReferralHeader({
             </SelectContent>
           </Select>
         </div>
-        <div>
+        <div className={`${location === "/referrals" ? "flex" : "hidden"}`}>
           <SegmentedControl
             onChange={setStatus}
             options={StatusOptions}
