@@ -24,6 +24,16 @@ export type ProcedureCode = {
   selected?: boolean;
 };
 
+export type ProcedureFaxType = {
+  cptCode: string;
+  description: string;
+  type: string;
+  fromDate: Date;
+  toDate: Date;
+  qty: string;
+  qtyType: string;
+};
+
 export type IncomingTableDataType = {
   referral_from: string;
   referral_from_address: string;

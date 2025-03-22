@@ -68,7 +68,7 @@ export default function IncomingDocumentDialog({ open, onClose, buttonDialog }: 
   const router = useRouter();
 
   const handleDetailParse = () => {
-    router.push("/referrals/incoming");
+    router.push("/efax/incoming");
   };
 
   return (
