@@ -9,7 +9,11 @@ import { MedicalCardTypes } from "@/constant/types/referral";
 import { MedicalCardMockData } from "@/constant/mock/medical-card";
 import IncomingReferralDrawer from "@/components/drawer/incoming-referral";
 
-export default function IncomingSection() {
+export default function IncomingSection({
+  className,
+}: {
+  className?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [submitReferralOpen, setSubmitReferralOpen] = useState(false);
   const [isParsed, setIsParsed] = useState(false);
@@ -74,7 +78,7 @@ export default function IncomingSection() {
 
       <SuccessDialog onClose={() => setShowSuccessDialog(false)} open={showSuccessDialog} />
 
-      <div className="w-full px-6 py-5">
+      <div className={`w-full px-6 py-5 ${className}`}>
         <ReusableTable columns={tableCol} data={IncomingMockData} />
       </div>
     </>

@@ -2,7 +2,6 @@ import { MenuSection } from "@/components/layouts/sidebar";
 import { MedicalCardMockData } from "@/constant/mock/medical-card";
 import { convertToSlug } from "@/lib/utils";
 import {
-  BarChart3,
   CircleHelp,
   LayoutDashboard,
   MessageSquareMore,
@@ -10,6 +9,7 @@ import {
   Share2,
   Users,
   BriefcaseMedical,
+  Calendar,
 } from "lucide-react";
 
 export const SidebarMenuList: MenuSection[] = [
@@ -22,7 +22,7 @@ export const SidebarMenuList: MenuSection[] = [
         href: "/",
       },
       {
-        title: "Referrals",
+        title: "Approvals",
         icon: <Share2 className="size-4" />,
         href: "/referrals",
         badge: 3,
@@ -105,6 +105,21 @@ export const SidebarMenuList: MenuSection[] = [
         ],
       },
       {
+        title: "eFax",
+        icon: <Users className="size-4" />,
+        href: "/efax",
+      },
+      {
+        title: "Calendar",
+        icon: <Calendar className="size-4" />,
+        href: "/calendar",
+      },
+    ],
+  },
+  {
+    label: "OTHER MENU",
+    items: [
+      {
         title: "Patients",
         icon: <Users className="size-4" />,
         href: "/patients",
@@ -115,16 +130,16 @@ export const SidebarMenuList: MenuSection[] = [
         href: "/provider-network",
       },
       {
+        title: "Reports",
+        icon: <BriefcaseMedical className="size-4" />,
+        href: "/reports",
+      },
+      {
         title: "Workflow",
         icon: <Network className="size-4" />,
         href: "/workflow",
       },
-      {
-        title: "Analytics",
-        icon: <BarChart3 className="size-4" />,
-        href: "/analytics",
-      },
-    ],
+    ]
   },
   {
     label: "OTHER",

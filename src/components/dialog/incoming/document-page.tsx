@@ -23,21 +23,71 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { DocumentParseSchema, DocumentParseSchemaType } from "@/schema/document-parse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { useToast } from "@/hooks/use-toast";
-import SuccessDialog from "../success-dialog";
 import { useRouter } from "next/navigation";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import SuccessDialog from "../success-dialog";
 
 export default function IncomingDocumentPage() {
   const { toast } = useToast();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  // const [search, setSearch] = useState("");
+  // const [isOpen, setIsOpen] = useState(false);
   const totalPages = 6;
+
+  // const [availableCodes, setAvailableCodes] = useState<ProcedureCode[]>([
+  //   {
+  //     code: "99204",
+  //     description: "New Patient, Moderate Complexity Visit",
+  //     quantity: 1,
+  //     dateRange: {
+  //       from: new Date(2024, 11, 5),
+  //       to: new Date(2025, 2, 5),
+  //     },
+  //   },
+  //   {
+  //     code: "99214",
+  //     description: "Established Patient, Moderate Complexity Visit",
+  //     quantity: 1,
+  //     dateRange: {
+  //       from: new Date(2024, 11, 5),
+  //       to: new Date(2025, 2, 5),
+  //     },
+  //   },
+  //   {
+  //     code: "99202",
+  //     description: "New Patient, Straightforward Visit",
+  //     quantity: 1,
+  //     dateRange: {
+  //       from: new Date(2024, 11, 5),
+  //       to: new Date(2025, 2, 5),
+  //     },
+  //   },
+  //   {
+  //     code: "99205",
+  //     description: "New Patient, High Complexity Visit",
+  //     quantity: 1,
+  //     dateRange: {
+  //       from: new Date(2024, 11, 5),
+  //       to: new Date(2025, 2, 5),
+  //     },
+  //   },
+  //   {
+  //     code: "99211",
+  //     description: "Established Patient, Minimal Visit",
+  //     quantity: 1,
+  //     dateRange: {
+  //       from: new Date(2024, 11, 5),
+  //       to: new Date(2025, 2, 5),
+  //     },
+  //   },
+  // ]);
 
   const breadcrumbs = [
     { title: "Dashboard", link: "/" },
@@ -210,7 +260,7 @@ export default function IncomingDocumentPage() {
             />
 
             {/* Button Section */}
-            <div className="sticky bottom-3 mt-2 flex w-full items-center justify-between rounded-lg border border-border bg-white p-3 shadow-md">
+            <div className="sticky bottom-4 mx-4 mt-2 flex w-full max-w-[645px] items-center justify-between rounded-lg border border-border bg-white p-3 shadow-md">
               <div className="flex items-center space-x-3">
                 <Button
                   disabled={currentPage === 1}
@@ -235,7 +285,10 @@ export default function IncomingDocumentPage() {
 
               <div className="flex items-center space-x-3">
                 <Button variant="outline">Download</Button>
-                <Button variant="default">Parsing Now</Button>
+                <Button variant="default">
+                  <WandSparkles />
+                  Parsing Fax
+                </Button>
               </div>
             </div>
           </ScrollArea>
@@ -694,7 +747,7 @@ export default function IncomingDocumentPage() {
               </div>
 
               {/* Button Section */}
-              <div className="sticky bottom-0 mt-4 flex items-center space-x-2 rounded-lg border border-border bg-white p-3 shadow-md">
+              <div className="sticky bottom-2 mx-5 mt-4 flex max-w-[650px] items-center space-x-2 rounded-lg border border-border bg-white p-3 shadow-md">
                 <Button
                   className="!hover:bg-white flex-1 !border border-border !bg-white !text-muted-foreground"
                   type="button"
