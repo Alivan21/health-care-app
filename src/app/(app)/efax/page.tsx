@@ -1,6 +1,6 @@
-import { PageHeader } from '@/components/layouts/header';
-import React from 'react'
-import EfaxClient from './client';
+import { PageHeader } from "@/components/layouts/header";
+import React from "react";
+import EfaxClient from "./client";
 
 export default function EfaxPage() {
   const breadcrumbs = [
@@ -13,5 +13,5 @@ export default function EfaxPage() {
       <PageHeader breadcrumbs={breadcrumbs} />
       <EfaxClient />
     </>
-  ) 
+  );
 }

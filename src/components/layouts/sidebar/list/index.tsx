@@ -139,7 +139,7 @@ export const SidebarMenuList: MenuSection[] = [
         icon: <Network className="size-4" />,
         href: "/workflow",
       },
-    ]
+    ],
   },
   {
     label: "OTHER",

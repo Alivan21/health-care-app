@@ -34,6 +34,7 @@ import TabsSection from "./tabs";
 import { Label } from "../ui/label";
 import Image from "next/image";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { useRouter } from "next/navigation";
 
 interface Props {
   props: MedicalCardTypes;
@@ -56,6 +57,7 @@ export default function ReferralDrawer({
   isApproved,
   isDraft,
 }: Props) {
+  const router = useRouter();
   const statusBadge = (priority: DoctorPriorityTypes) => {
     if (props.status === "approved") {
       return <StatusBadge status="SUCCESS" text="Approved" />;
@@ -188,8 +190,13 @@ export default function ReferralDrawer({
             </div>
           ) : (
             <div className="flex gap-4">
-              <Button className="flex-1" variant="outline">
-                Schedule
+              <Button
+                className="flex-1 !border-blue-600 text-blue-600 disabled:hover:cursor-not-allowed"
+                disabled={props.status !== "approved"}
+                onClick={() => router.push("/efax/outgoing")}
+                variant="outline"
+              >
+                Request Schedule
               </Button>
               {isApproved ? (
                 <div className="flex items-center gap-2 text-green-500">
