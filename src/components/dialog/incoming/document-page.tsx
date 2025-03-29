@@ -224,8 +224,8 @@ export default function IncomingDocumentPage() {
     <>
       <SuccessDialog onClose={handleCloseSuccessModal} open={showSuccessDialog} />
       <PageHeader breadcrumbs={breadcrumbs} />
-      <MainContainer className="flex h-screen !bg-white">
-        <div className="mr-4 flex w-20 flex-col items-center overflow-y-auto py-2">
+      <MainContainer className="flex h-screen !bg-white !pl-0 !pr-7">
+        <div className="flex w-24 flex-col items-center overflow-y-auto py-2">
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
               className="mb-8 flex h-20 w-14 items-center justify-center text-xs font-medium"
@@ -249,7 +249,7 @@ export default function IncomingDocumentPage() {
           ))}
         </div>
 
-        <div className="mr-6 flex flex-1 flex-col rounded-2xl bg-secondary p-3">
+        <div className="mr-3 flex flex-1 flex-col rounded-2xl bg-secondary p-3">
           <ScrollArea className="h-full flex-1 overflow-y-auto rounded-2xl pr-4">
             <Image
               alt="File Picture"
@@ -260,7 +260,7 @@ export default function IncomingDocumentPage() {
             />
 
             {/* Button Section */}
-            <div className="sticky bottom-4 mx-4 mt-2 flex w-full max-w-[645px] items-center justify-between rounded-lg border border-border bg-white p-3 shadow-md">
+            <div className="sticky bottom-4 mx-auto mt-2 flex w-full max-w-[586px] items-center justify-between rounded-lg border border-border bg-white p-3 shadow-md">
               <div className="flex items-center space-x-3">
                 <Button
                   disabled={currentPage === 1}
@@ -270,7 +270,7 @@ export default function IncomingDocumentPage() {
                 >
                   <ChevronLeft className="size-2" />
                 </Button>
-                <p className="text-xs font-semibold">
+                <p className="text-center text-xs font-semibold">
                   Page {currentPage}/{totalPages}
                 </p>
                 <Button
@@ -294,7 +294,7 @@ export default function IncomingDocumentPage() {
           </ScrollArea>
         </div>
 
-        <div className="flex flex-1 flex-col rounded-2xl border border-border bg-white p-4">
+        <div className="flex-1 flex-col rounded-2xl border border-border bg-white p-4">
           <ScrollArea className="h-full flex-1 pr-4">
             {/* Title */}
             <div className="mb-6 flex items-end justify-between">

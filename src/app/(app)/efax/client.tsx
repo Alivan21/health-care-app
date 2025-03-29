@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import MainContainer from "@/components/layouts/main-container";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";

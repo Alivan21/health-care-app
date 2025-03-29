@@ -87,6 +87,8 @@ interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
    * @example disabled
    */
   disabled?: boolean;
+
+  uploadedFilePosition?: "top" | "bottom";
 }
 
 export function FileUploader(props: FileUploaderProps) {
@@ -102,6 +104,7 @@ export function FileUploader(props: FileUploaderProps) {
     maxFileCount = 1,
     multiple = false,
     disabled = false,
+    uploadedFilePosition = "bottom",
     className,
     ...dropzoneProps
   } = props;
@@ -180,6 +183,20 @@ export function FileUploader(props: FileUploaderProps) {
 
   return (
     <div className="relative flex flex-col gap-6 overflow-hidden">
+      {files?.length && uploadedFilePosition === "top" ? (
+        <ScrollArea className="h-fit w-full px-3">
+          <div className="flex max-h-48 flex-col gap-4">
+            {files?.map((file, index) => (
+              <FileCard
+                file={file}
+                key={index}
+                onRemove={() => onRemove(index)}
+                progress={progresses?.[file.name]}
+              />
+            ))}
+          </div>
+        </ScrollArea>
+      ) : null}
       <Dropzone
         accept={accept}
         disabled={isDisabled}
@@ -230,7 +247,7 @@ export function FileUploader(props: FileUploaderProps) {
           </div>
         )}
       </Dropzone>
-      {files?.length ? (
+      {files?.length && uploadedFilePosition === "bottom" ? (
         <ScrollArea className="h-fit w-full px-3">
           <div className="flex max-h-48 flex-col gap-4">
             {files?.map((file, index) => (

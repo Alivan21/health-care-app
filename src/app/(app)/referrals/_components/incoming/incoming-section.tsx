@@ -9,11 +9,7 @@ import { MedicalCardTypes } from "@/constant/types/referral";
 import { MedicalCardMockData } from "@/constant/mock/medical-card";
 import IncomingReferralDrawer from "@/components/drawer/incoming-referral";
 
-export default function IncomingSection({
-  className,
-}: {
-  className?: string;
-}) {
+export default function IncomingSection({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const [submitReferralOpen, setSubmitReferralOpen] = useState(false);
   const [isParsed, setIsParsed] = useState(false);
